@@ -1,0 +1,36 @@
+[
+ {
+  "mode": "redesign",
+  "depth": "full",
+  "scope": "site",
+  "shape": "Narrative Workflow",
+  "theme": "solstice",
+  "axes": "light/high-contrast-serif/warm",
+  "hero": "Index",
+  "nav": "masthead",
+  "footer": "letter close",
+  "imagery": "photographs, library 1, warm",
+  "photos": [
+   "Woman_harvesting_wheat,_Raisen_district,_Madhya_Pradesh,_India_ggia_version.jpg"
+  ],
+  "entry": "none",
+  "sections": [
+   "hero ledger",
+   "split photo",
+   "rows tiers",
+   "statement band",
+   "well list",
+   "committee type"
+  ],
+  "signature": "live donation ledger as a bahi-khata page",
+  "waived": [
+   "39b",
+   "77",
+   "44c",
+   "49b",
+   "71"
+  ],
+  "prompt": "community bhawan for Hindu Jat families: donate, book the hall",
+  "date": "2026-11-13"
+ }
+]

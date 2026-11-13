@@ -1,0 +1,224 @@
+/* Hallmark · shape: Narrative Workflow (home; stage numerals dropped after the finish review, the ink rules and band carry the sequence), kept elsewhere · genre: editorial · theme: Solstice (deal 1/3, seed community-bhawan-hall-hindu-3a1f·9153cfe6·2026-11-13·r0) · redesign: full · draw: cab649 · job: donate, then book the hall
+ * hero: Index (/; swapped from the draw's Ledge: the live donation ledger is the strongest real thing), Banner (inner pages) · nav: masthead · footer: letter close · imagery: photographs, library 1, warm · signature: the live donation ledger set as a bahi-khata page · solstice: long-light
+ * axes: light/high-contrast-serif/warm · posture: restrained · contrast: pass · fold: pass · v2.0.0 */
+/* Hallmark · pre-emit critique: P4 H4 E4 S5 R4 V4 · weakest: H, Devanagari heads need more leading than Solstice's 1.0, so heads open to 1.25 in Hindi and the scale steps stay */
+/* Hallmark · hero-review: sloplint hero stage · 1 finding (fold) · resolved · finish-review: subagent · 7 findings · 7 resolved (wall as ledger, no tier pills or pink radio, ledger shows 6 rows plus a wall link, touch hint hidden, numerals dropped, visit merged into footer, placeholders muted) · gap: none */
+/* Hallmark · faces: Rozha One replaces Yeseva One (no Devanagari), Mukta replaces Archivo and Archivo Narrow (no Devanagari); two families */
+/* Hallmark · waive 39b · the hall calendar's day cells are square month-grid cells, 44px or larger · a booking calendar sized by its seven columns, not a marketing button */
+/* Hallmark · waive 77 · inner pages are working screens under a Banner head: the donate form, the donor wall, the hall calendar, the member list · each page's body is its tool at full width */
+/* Hallmark · waive 44c · Banner posture on inner pages, stamped in hero: · the donate form, donor wall and hall calendar are tools that start at once, not below a tall banner */
+/* Hallmark · waive 49b · a real phrase, two lines at most, only at 320px · the masthead wordmark is the Bhawan's own name and cannot be shortened */
+/* Hallmark · waive 71 · stage heads sit beside the stage photograph or open under the 2px ink rule · the gap measured above each Bhawan (भवन) stage head is to the photograph beside it, not to content above it */
+/* Hallmark · dismissed 70 · "Date received" is the label of the admin date field; nothing prints success and the demo repo really stores the record */
+/* Hallmark · answered F20 · donor-wall tier groups hold however many donations each tier has; the grid cannot choose its count */
+@import "tailwindcss";
+@import "./hallmark/base.css" layer(base);
+
+/* Tokens: Solstice long-light, declared once as the Tailwind theme so utilities and components share them. */
+@theme static {
+  --color-paper: oklch(94% 0.03 80);
+  --color-paper-2: oklch(97% 0.02 85);
+  --color-paper-3: oklch(89% 0.05 80);
+  --color-ink: oklch(27% 0.05 50);
+  --color-ink-2: oklch(36% 0.05 50);
+  --color-muted: oklch(48% 0.06 55);
+  --color-rule: oklch(84% 0.06 78);
+  --color-accent: oklch(54% 0.2 24);
+  --color-accent-deep: oklch(46% 0.18 24);
+  --color-accent-tint: oklch(93% 0.035 35);
+  --color-accent-ink: oklch(97% 0.02 85);
+  --color-focus: oklch(54% 0.2 24);
+  --color-gold: oklch(74% 0.14 75);
+  --color-gold-2: oklch(84% 0.11 80);
+  --color-gold-tint: oklch(92% 0.06 85);
+  --color-slot: var(--color-gold);
+  --color-ok: oklch(44% 0.11 150);
+  --color-ok-tint: oklch(94% 0.04 145);
+  --color-warn: oklch(46% 0.1 70);
+  --color-warn-tint: oklch(93% 0.06 85);
+  --color-bad: oklch(50% 0.19 27);
+  --color-bad-tint: oklch(94% 0.035 25);
+  --color-error: oklch(50% 0.19 27);
+  --color-success: oklch(44% 0.11 150);
+  --color-scrim: oklch(27% 0.05 50 / 0.55);
+
+  --font-display: var(--font-rozha), "Rozha One", ui-serif, Georgia, serif;
+  --font-body: var(--font-mukta), "Mukta", ui-sans-serif, system-ui, sans-serif;
+  --font-sans: var(--font-body);
+  --font-serif: var(--font-display);
+
+  --space-3xs: 2px; --space-2xs: 4px; --space-xs: 8px; --space-sm: 12px; --space-md: 16px;
+  --space-lg: 24px; --space-xl: 40px; --space-2xl: 64px; --space-3xl: 96px; --space-4xl: 144px;
+
+  --text-xs: 0.8125rem; --text-sm: 0.875rem; --text-md: 1rem; --text-lg: 1.25rem; --text-xl: 1.5625rem;
+  --text-2xl: 1.953rem; --text-3xl: 2.441rem;
+  --text-display-s: clamp(2.25rem, 4vw + 0.5rem, 3.75rem);
+  --text-display: clamp(2.6rem, 5vw + 0.9rem, 5.25rem);
+  --text-section: clamp(1.9rem, 2.5vw + 1rem, 3.4rem);
+  --text-title: clamp(1.25rem, 0.75vw + 0.875rem, 1.625rem);
+  --text-lead: clamp(1.125rem, 0.35vw + 1rem, 1.375rem);
+
+  --radius-xs: 0; --radius-sm: 0; --radius: 0; --radius-md: 0; --radius-lg: 0; --radius-xl: 0;
+  --radius-card: 0; --radius-pill: 999px;
+  --rule-hair: 1px; --rule-bar: 2px;
+  --shadow-card: 10px 10px 0 var(--color-paper-3);
+  --tracking-display: -0.005em; --display-weight: 400;
+
+  --ease-out: cubic-bezier(0.16, 1, 0.3, 1); --ease-in: cubic-bezier(0.7, 0, 0.84, 0); --ease-in-out: cubic-bezier(0.65, 0, 0.35, 1);
+  --dur-micro: 120ms; --dur-short: 220ms; --dur-long: 420ms;
+
+  --container: 1440px; --gutter: 64px; --gap-columns: 32px;
+  --section-gap-s: 120px; --section-gap: 144px; --section-gap-l: 176px;
+  --z-base: 1; --z-raised: 10; --z-dropdown: 100; --z-sticky: 200; --z-sticky-nav: 300; --z-modal: 400; --z-toast: 500; --z-tooltip: 600;
+}
+
+@media (max-width: 60rem) {
+  :root { --gutter: 24px; --section-gap-s: 80px; --section-gap: 96px; --section-gap-l: 120px; }
+}
+@media (max-width: 40rem) {
+  :root { --gutter: 16px; --section-gap-s: 56px; --section-gap: 72px; --section-gap-l: 96px; --gap-columns: 16px; }
+}
+
+@layer base {
+  html {
+    font-size: 106.25%; /* 17px body for an older, phone-first audience */
+    -webkit-text-size-adjust: 100%;
+    scroll-padding-top: var(--space-3xl);
+  }
+  body {
+    line-height: 1.65;
+    font-variant-numeric: lining-nums;
+  }
+  /* Devanagari carries marks above the headline and below the baseline: heads need more room than Latin. */
+  :lang(hi) :is(h1, h2, h3) { line-height: 1.28; }
+  :lang(hi) body { line-height: 1.75; }
+  h1, h2, h3 { color: var(--color-ink); }
+  a:hover { text-decoration-color: var(--color-accent); }
+  dialog::backdrop { background: var(--color-scrim); }
+}
+
+@layer components {
+  .container-site {
+    width: 100%;
+    max-width: var(--container);
+    margin-inline: auto;
+    padding-inline: var(--gutter);
+  }
+
+  /* The control pair: a vermilion pill and a plain ink-underlined companion. */
+  .btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: var(--space-xs);
+    min-height: 48px;
+    padding: var(--space-xs) var(--space-lg);
+    border: var(--rule-hair) solid transparent;
+    border-radius: 0;
+    font-family: var(--font-body);
+    font-weight: 600;
+    line-height: 1.2;
+    text-align: center;
+    text-decoration: none;
+    white-space: nowrap;
+    cursor: pointer;
+    transition: background-color var(--dur-short) var(--ease-out), color var(--dur-short) var(--ease-out),
+      border-color var(--dur-short) var(--ease-out), transform var(--dur-micro) var(--ease-out);
+  }
+  .btn:active { transform: translateY(1px); }
+  .btn:disabled, .btn[aria-disabled="true"] { opacity: 0.55; cursor: not-allowed; transform: none; }
+  .btn-primary {
+    border-radius: var(--radius-pill);
+    background: var(--color-accent);
+    color: var(--color-accent-ink);
+    padding-inline: var(--space-xl);
+  }
+  .btn-primary:hover { background: var(--color-accent-deep); }
+  .btn-outline {
+    min-height: 48px;
+    padding-inline: 0;
+    background: none;
+    color: var(--color-ink);
+    border: 0;
+    box-shadow: inset 0 calc(-1 * var(--rule-bar)) 0 var(--color-ink);
+  }
+  .btn-outline:hover { color: var(--color-accent); box-shadow: inset 0 calc(-1 * var(--rule-bar)) 0 var(--color-accent); }
+  .btn-quiet {
+    background: var(--color-paper-2);
+    color: var(--color-ink);
+    border-color: var(--color-rule);
+  }
+  .btn-quiet:hover { border-color: var(--color-ink); }
+
+  /* Surfaces: a hairline card for interactive items, a raised well for the one object a screen is about. */
+  .card {
+    background: var(--color-paper-2);
+    border: var(--rule-hair) solid var(--color-rule);
+    border-radius: 0;
+  }
+  .well {
+    background: var(--color-paper-2);
+    border: var(--rule-bar) solid var(--color-ink);
+    outline: var(--rule-hair) solid var(--color-gold);
+    outline-offset: -7px;
+    box-shadow: var(--shadow-card);
+  }
+
+  .field-label { display: block; font-weight: 600; margin-bottom: var(--space-2xs); }
+  .field {
+    width: 100%;
+    min-height: 48px;
+    padding: var(--space-xs) var(--space-sm);
+    background: var(--color-paper-2);
+    color: var(--color-ink);
+    border: var(--rule-hair) solid var(--color-muted);
+    border-radius: 0;
+    font: inherit;
+    font-size: max(1rem, 16px);
+  }
+  .field:focus-visible, .field:focus { outline: var(--rule-bar) solid var(--color-focus); outline-offset: -2px; }
+  .field[aria-invalid="true"] { border-color: var(--color-error); }
+  .field:disabled { opacity: 0.55; cursor: not-allowed; }
+  .field-error { color: var(--color-error); font-size: var(--text-sm); margin-top: var(--space-2xs); }
+  .field-hint { color: var(--color-muted); font-size: var(--text-sm); margin-top: var(--space-2xs); }
+
+  /* A short gold double rule under a head: the page's one divider language. */
+  .rule-gold {
+    width: 4.5rem;
+    height: 5px;
+    border: 0;
+    border-top: var(--rule-hair) solid var(--color-gold);
+    border-bottom: var(--rule-hair) solid var(--color-gold);
+  }
+  .section-title { font-family: var(--font-display); font-size: var(--text-section); font-weight: 400; }
+  .small-print { font-size: var(--text-sm); font-weight: 600; color: var(--color-muted); }
+  .band-ink { background: var(--color-ink); color: var(--color-paper); }
+  .band-ink :is(h1, h2, h3) { color: var(--color-paper); }
+
+  /* Stage numbers come from the list itself (Latin digits in both languages, as everywhere on the site). */
+  .stages { counter-reset: stage; list-style: none; padding: 0; margin: 0; }
+  .stage { counter-increment: stage; }
+  .stage-num::before { content: counter(stage) "."; }
+
+  /* Ledger rows part on dotted gold rules. */
+  .ledger-rows > * + * { border-top: var(--rule-hair) dotted var(--color-gold); }
+}
+
+@keyframes ticker-in {
+  from { opacity: 0; transform: translateY(-0.5rem); }
+  to { opacity: 1; transform: none; }
+}
+@keyframes ticker-glow {
+  from { background-color: var(--color-gold-tint); }
+  to { background-color: transparent; }
+}
+.ticker-new { animation: ticker-in var(--dur-long) var(--ease-out), ticker-glow 4s var(--ease-out); }
+@media (prefers-reduced-motion: reduce) {
+  .ticker-new { animation: none; }
+  .btn { transition: none; }
+}
+
+@media print {
+  .no-print { display: none !important; }
+  body { background: var(--color-paper-2); }
+}

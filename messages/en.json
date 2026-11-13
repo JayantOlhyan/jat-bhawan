@@ -1,0 +1,406 @@
+{
+  "Meta": {
+    "siteName": "Jat Bhawan, Najafgarh",
+    "description": "Jat Bhawan, Najafgarh: community bhawan, donations, donor wall, committee and hall booking.",
+    "home": "Home",
+    "donate": "Donate",
+    "success": "Thank you",
+    "receipt": "Receipt",
+    "donors": "Donor wall",
+    "members": "Members",
+    "committee": "Committee",
+    "hall": "Hall booking",
+    "about": "About",
+    "contact": "Contact",
+    "privacy": "Privacy policy",
+    "terms": "Terms of use",
+    "refund": "Refund & cancellation",
+    "notFound": "Page not found"
+  },
+  "Banner": {
+    "text": "Demo site: all names, amounts and details are sample data"
+  },
+  "Nav": {
+    "home": "Home",
+    "donors": "Donor wall",
+    "members": "Members",
+    "committee": "Committee",
+    "hall": "Hall",
+    "about": "About",
+    "contact": "Contact",
+    "donate": "Donate",
+    "menu": "Menu",
+    "close": "Close",
+    "mainNav": "Main navigation",
+    "language": "हिंदी",
+    "languageLabel": "भाषा बदलें / Change language",
+    "skip": "Skip to content"
+  },
+  "Footer": {
+    "address": "Address",
+    "phone": "Phone",
+    "email": "Email",
+    "policies": "Policies",
+    "quickLinks": "Quick links",
+    "credit": "Website by Jayant Solution",
+    "rights": "© {year} Jat Bhawan Trust, Najafgarh",
+    "signoff": "With regards,",
+    "place": "Najafgarh, New Delhi",
+    "photos": "Photographs:",
+    "photoNote": "stand-in photograph, to be replaced"
+  },
+  "Common": {
+    "anonymous": "Anonymous",
+    "amountHidden": "Amount private",
+    "placeholder": "[placeholder]",
+    "photoHere": "Photo here",
+    "search": "Search",
+    "clear": "Clear",
+    "all": "All",
+    "apply": "Apply",
+    "previous": "Previous",
+    "next": "Next",
+    "pageOf": "Page {page} of {count}",
+    "results": "{count, plural, =0 {No results} one {# result} other {# results}}",
+    "fund": "Fund",
+    "village": "Village",
+    "fatherName": "Father's name",
+    "gotra": "Gotra",
+    "phone": "Phone",
+    "loading": "Loading…",
+    "backHome": "Back to home",
+    "openMaps": "Open in Google Maps",
+    "mapHere": "Map here",
+    "whatsapp": "Chat on WhatsApp",
+    "sonOf": "S/o or D/o {name}",
+    "pagination": "Pages"
+  },
+  "Home": {
+    "heroPhoto": "Bhawan photo here",
+    "title": "Jat Bhawan, Najafgarh",
+    "purpose": "The community’s shared home for weddings, meetings, learning and service.",
+    "inauguration": "Inauguration: 8 December 2026",
+    "donate": "Donate",
+    "bookHall": "Book the hall",
+    "tickerTitle": "Recent donations",
+    "tickerHelp": "Each new donation is entered here as it arrives. Point at it or focus it to pause.",
+    "highlightsTitle": "Our donors",
+    "highlightsLead": "With thanks to everyone who has helped build the Bhawan.",
+    "viewAllDonors": "View all donors",
+    "historyTitle": "Our story",
+    "historyBody": "[placeholder] The idea of a Jat Bhawan in Najafgarh began with village elders who wanted a dignified place for family functions, community meetings and students. With contributions from the villages of the area, the Bhawan now stands ready for its inauguration.",
+    "readMore": "Read more",
+    "committeeTitle": "This term’s committee",
+    "viewCommittee": "View full committee",
+    "visitTitle": "Finding the Bhawan",
+    "noTop": "No donors in this tier yet.",
+    "ledgerTitle": "The donation ledger",
+    "stageIdea": "An idea from the village elders",
+    "stageVillages": "Built with every village’s help",
+    "stageOpening": "Opening on 8 December 2026",
+    "stageOpeningLine": "The Bhawan opens to the community on this day.",
+    "stageHall": "A hall for weddings and gatherings",
+    "stageHallLead": "Send an enquiry for your date and the office will call you back.",
+    "hallSlots": "Slots",
+    "hallSlotsValue": "Full day, morning or evening",
+    "hallCapacity": "Capacity",
+    "hallCapacityValue": "To be confirmed by the office",
+    "hallHow": "How to book",
+    "hallHowValue": "Pick a free date, send an enquiry, the office confirms",
+    "call": "Call the office"
+  },
+  "Ticker": {
+    "empty": "Donations will appear here.",
+    "paused": "Paused",
+    "new": "New",
+    "live": "Live"
+  },
+  "Donate": {
+    "title": "Donate to Jat Bhawan",
+    "lead": "Your donation supports the upkeep of the Bhawan and the community's work.",
+    "fund": "Fund",
+    "amount": "Amount",
+    "custom": "Other amount (₹)",
+    "customPlaceholder": "Enter amount",
+    "overMax": "For donations above ₹10,00,000 please contact the office.",
+    "donorDetails": "Donor details",
+    "name": "Full name",
+    "fatherName": "Father's / husband's name",
+    "village": "Village / area",
+    "gotra": "Gotra (optional)",
+    "mobile": "Mobile number",
+    "mobileHint": "10-digit Indian mobile. Never shown publicly.",
+    "email": "Email (optional)",
+    "pan": "PAN (for 80G receipt)",
+    "display": "How should your donation appear on the donor wall?",
+    "displayFull": "Show my name and amount",
+    "displayHide": "Show my name, hide the amount",
+    "displayAnon": "Anonymous (\"Anonymous\" is shown)",
+    "consent": "I agree that the Trust may store these details to issue my receipt and show my donation as chosen above, as described in the privacy policy.",
+    "disclaimer": "Donations are accepted only in Indian Rupees (INR) from Indian sources.",
+    "submit": "Donate {amount}",
+    "submitNoAmount": "Continue",
+    "upiTitle": "Pay by UPI",
+    "upiHelp": "Scan the QR with any UPI app, pay the amount, then enter the 12-digit UTR / reference number below. Your donation will appear after the office verifies it.",
+    "qrHere": "UPI QR code here",
+    "utr": "UTR / reference number",
+    "submitUpi": "Submit donation details",
+    "retryFailed": "The payment did not go through. No money was taken. Please try again.",
+    "summary": "{amount} to {fund}",
+    "error": "Something went wrong. Please try again."
+  },
+  "Payment": {
+    "title": "Test payment: no money will be charged",
+    "lead": "This is a demo. Choose any method and pick an outcome.",
+    "upi": "UPI",
+    "card": "Card",
+    "netbanking": "Netbanking",
+    "upiBody": "Sample UPI ID: test@upi",
+    "cardBody": "Sample card: 4111 1111 1111 1111",
+    "netbankingBody": "Sample bank: Test Bank",
+    "success": "Payment successful",
+    "failure": "Payment failed",
+    "cancel": "Cancel",
+    "amount": "Amount",
+    "method": "Payment method"
+  },
+  "Success": {
+    "title": "Thank you for your donation",
+    "lead": "May your support keep the Bhawan serving the community.",
+    "receiptNo": "Receipt number",
+    "viewReceipt": "View / print receipt",
+    "share": "Share on WhatsApp",
+    "shareTextFull": "I donated {amount} to Jat Bhawan, Najafgarh. You can contribute too: {url}",
+    "shareText": "I contributed to Jat Bhawan, Najafgarh. You can contribute too: {url}",
+    "pendingTitle": "Thank you, your details are received",
+    "pendingLead": "Your UPI payment will be checked by the office. The receipt will be issued once it is verified.",
+    "notFound": "We could not find this donation.",
+    "donateAgain": "Donate again"
+  },
+  "Receipt": {
+    "title": "Donation receipt",
+    "receiptNo": "Receipt no.",
+    "date": "Date",
+    "receivedFrom": "Received with thanks from",
+    "fatherName": "Father's / husband's name",
+    "village": "Village / area",
+    "amount": "Amount",
+    "inWordsEn": "In words (English)",
+    "inWordsHi": "In words (Hindi)",
+    "fund": "Towards",
+    "mode": "Payment mode",
+    "reference": "Reference",
+    "regNo": "Registration no.",
+    "signature": "Authorised signatory",
+    "signatureHere": "Signature here",
+    "eightyG": "Donations to the Trust are eligible for deduction under Section 80G of the Income Tax Act, 1961. [placeholder]",
+    "watermark": "नमूना: मान्य नहीं / SAMPLE: NOT VALID",
+    "print": "Print",
+    "paperA4": "A4",
+    "paperA5": "A5",
+    "paper": "Paper size",
+    "notFound": "Receipt not found.",
+    "notIssued": "A receipt is issued only after the donation is verified.",
+    "void": "VOID",
+    "modes": {
+      "online": "Online",
+      "cash": "Cash",
+      "cheque": "Cheque",
+      "upi_manual": "UPI",
+      "legacy": "Earlier record"
+    }
+  },
+  "Donors": {
+    "title": "Donor wall",
+    "lead": "Every verified donation, grouped by tier. Donors who chose to stay anonymous are shown as \"Anonymous\".",
+    "searchLabel": "Search by name or village",
+    "searchPlaceholder": "e.g. Dahiya or दहिया",
+    "fund": "Fund",
+    "fy": "Financial year",
+    "tier": "Tier",
+    "allFunds": "All funds",
+    "allYears": "All years",
+    "allTiers": "All tiers",
+    "privateGroup": "Amount private",
+    "count": "{count, plural, one {# donor} other {# donors}}",
+    "empty": "No donations match your search.",
+    "total": "Showing {count} donations"
+  },
+  "Members": {
+    "title": "Members",
+    "lead": "Members of the Jat Bhawan society. Phone numbers are shown only with the member's consent.",
+    "searchLabel": "Search by name, village or gotra",
+    "type": "Member type",
+    "allTypes": "All types",
+    "types": {
+      "life": "Life member",
+      "general": "General member",
+      "founder": "Founder member",
+      "honorary": "Honorary member"
+    },
+    "empty": "No members match your search."
+  },
+  "Committee": {
+    "title": "Committee",
+    "lead": "The current managing committee of the Jat Bhawan Trust.",
+    "term": "Term {term}",
+    "pastTitle": "Past committees",
+    "pastBody": "[placeholder] Lists of earlier committees will be added here once the office shares them."
+  },
+  "Hall": {
+    "title": "Hall booking",
+    "lead": "The Bhawan hall is available for weddings, family functions and community events.",
+    "photo": "Hall photo here",
+    "detailsTitle": "Hall details",
+    "capacity": "Capacity",
+    "capacityValue": "[placeholder] About 500 seated, 800 standing",
+    "facilities": "Facilities",
+    "facilitiesValue": "[placeholder] Main hall, kitchen, dining area, rooms for the families, parking, power backup, drinking water",
+    "rules": "Rules",
+    "rulesValue": "[placeholder] No alcohol or non-vegetarian food on the premises. Music must stop by 10 pm. The hall must be vacated by the agreed time.",
+    "rate": "Rates",
+    "rateValue": "[placeholder] Rates depend on the date and slot. Please send an enquiry or call the office.",
+    "calendarTitle": "Availability",
+    "enquiryTitle": "Send an enquiry",
+    "enquiryLead": "The office will call you back to confirm availability and the rate."
+  },
+  "Calendar": {
+    "prev": "Previous month",
+    "next": "Next month",
+    "legend": "Legend",
+    "available": "Available",
+    "booked": "Booked",
+    "partial": "Partly booked",
+    "tentative": "Tentative",
+    "past": "Past date",
+    "selected": "Selected",
+    "help": "Use the arrow keys to move between dates. Press Enter to choose a date for your enquiry.",
+    "weekdays": [
+      "Mon",
+      "Tue",
+      "Wed",
+      "Thu",
+      "Fri",
+      "Sat",
+      "Sun"
+    ],
+    "slots": {
+      "full": "Full day",
+      "morning": "Morning",
+      "evening": "Evening"
+    }
+  },
+  "Enquiry": {
+    "name": "Your name",
+    "mobile": "Mobile number",
+    "eventType": "Type of event",
+    "date": "Date",
+    "slot": "Slot",
+    "guests": "Expected guests",
+    "message": "Message (optional)",
+    "submit": "Send enquiry",
+    "events": {
+      "wedding": "Wedding",
+      "engagement": "Engagement",
+      "bhaat": "Bhaat ceremony",
+      "birthday": "Birthday",
+      "meeting": "Community meeting",
+      "other": "Other"
+    },
+    "thanksTitle": "Enquiry sent",
+    "thanksBody": "Thank you. The office will contact you about {date} ({slot}).",
+    "waText": "Namaste, I sent a hall booking enquiry for {date} ({slot}).",
+    "another": "Send another enquiry",
+    "unavailable": "This date and slot is already booked. Please choose another."
+  },
+  "Validation": {
+    "required": "This field is required.",
+    "name": "Please enter a name (2 to 80 characters).",
+    "mobile": "Enter a valid 10-digit Indian mobile number.",
+    "email": "Enter a valid email address.",
+    "pan": "Enter a valid PAN (e.g. ABCDE1234F).",
+    "amountMin": "The minimum donation is ₹1.",
+    "amountMax": "For donations above ₹10,00,000 please contact the office.",
+    "amountWhole": "Please enter the amount in whole rupees.",
+    "fund": "Please choose a fund.",
+    "consent": "Please give your consent to continue.",
+    "utr": "Enter the 12-digit UTR number.",
+    "date": "Please choose a date.",
+    "datePast": "Please choose a future date.",
+    "guests": "Enter the number of guests (1 to 2000).",
+    "message": "Message is too long."
+  },
+  "About": {
+    "title": "About Jat Bhawan",
+    "lead": "[placeholder] Jat Bhawan, Najafgarh is a community building run by a registered trust for the benefit of the community of the area.",
+    "missionTitle": "Our aims",
+    "mission": [
+      "[placeholder] Provide an affordable, dignified venue for family and community functions",
+      "[placeholder] Support students of the community through the Education Support Fund",
+      "[placeholder] Keep a transparent public record of donations"
+    ],
+    "trustTitle": "The Trust",
+    "trustBody": "[placeholder] The Bhawan is managed by the Jat Bhawan Trust, Najafgarh. The managing committee is elected by the members every three years."
+  },
+  "Contact": {
+    "title": "Contact",
+    "lead": "Visit the office or call during office hours.",
+    "hours": "Office hours",
+    "hoursValue": "[placeholder] 10 am to 6 pm, Monday to Saturday",
+    "call": "Call the office"
+  },
+  "Privacy": {
+    "title": "Privacy policy",
+    "updated": "Last updated: [placeholder]",
+    "intro": "[placeholder] This policy explains how the Jat Bhawan Trust, Najafgarh handles personal data under the Digital Personal Data Protection Act, 2023 (DPDP Act).",
+    "sections": {
+      "collect": {
+        "title": "What we collect",
+        "body": "[placeholder] For donations: name, father's or husband's name, village, gotra (optional), mobile number, email (optional), PAN (only if an 80G receipt is issued), amount, fund and payment reference. For hall enquiries: name, mobile number, event details. For members: name, father's name, gotra, village, member type, and phone number (only with consent)."
+      },
+      "use": {
+        "title": "Why we use it",
+        "body": "[placeholder] To issue receipts, keep the Trust's accounts, show the donor wall as each donor chooses, respond to hall enquiries and maintain the member list. We do not sell personal data or use it for advertising."
+      },
+      "display": {
+        "title": "Your donor wall choice",
+        "body": "[placeholder] When you donate you choose one of: show name and amount; show name but hide the amount; or anonymous, where \"Anonymous\" is shown instead of your name. Your mobile number, email and PAN are never shown publicly."
+      },
+      "members": {
+        "title": "Member phone numbers",
+        "body": "[placeholder] A member's phone number is shown on the website only if the member has given clear consent. Members can withdraw consent at any time and the number will be removed."
+      },
+      "rights": {
+        "title": "Your rights and removal requests",
+        "body": "[placeholder] You may ask to see, correct or remove your personal data, or withdraw consent, by contacting the office. Some records (such as receipts) must be kept for the period required by law, but they can be hidden from public pages. Grievance officer: [placeholder name, phone, email]."
+      },
+      "retention": {
+        "title": "Storage and security",
+        "body": "[placeholder] Data is stored with reputable service providers in secure systems with restricted access. It is kept only as long as needed for the purposes above or as required by law."
+      }
+    }
+  },
+  "Terms": {
+    "title": "Terms of use",
+    "updated": "Last updated: [placeholder]",
+    "body": [
+      "[placeholder] This website is run by the Jat Bhawan Trust, Najafgarh.",
+      "[placeholder] Information on the website is provided in good faith. The Trust may update it at any time.",
+      "[placeholder] Hall bookings are confirmed only after the office confirms in writing and the advance is received.",
+      "[placeholder] Any dispute is subject to the jurisdiction of the courts of New Delhi."
+    ]
+  },
+  "Refund": {
+    "title": "Refund & cancellation policy",
+    "updated": "Last updated: [placeholder]",
+    "body": [
+      "[placeholder] Donations are voluntary and are generally not refundable.",
+      "[placeholder] If an amount was deducted by mistake or twice, contact the office within 7 days with the payment reference. Verified errors are refunded to the original payment method within 7 to 10 working days.",
+      "[placeholder] Hall booking cancellations and advance refunds follow the rules given at the time of booking."
+    ]
+  },
+  "NotFound": {
+    "title": "Page not found",
+    "body": "The page you are looking for does not exist."
+  }
+}
