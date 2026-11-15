@@ -9,7 +9,8 @@ export async function generateMetadata({ params }: PageProps<"/[locale]/donate">
   return pageMetadata(locale, "donate", "/donate");
 }
 
-export default async function DonatePage() {
+export default async function DonatePage({ searchParams }: PageProps<"/[locale]/donate">) {
+  const amount = Number((await searchParams).amount);
   const t = await getTranslations("Donate");
   const repos = getRepos();
   const [funds, trust, demo] = await Promise.all([repos.funds.list(), repos.trust.get(), repos.demo.get()]);
@@ -18,7 +19,7 @@ export default async function DonatePage() {
       <PageHeader title={t("title")} lead={t("lead")} />
       <div className="container-site py-(--section-gap-s)">
         <div className="max-w-4xl">
-        <DonateForm funds={funds} trust={trust} initialUpiManual={demo.upiManual} />
+        <DonateForm funds={funds} trust={trust} initialUpiManual={demo.upiManual} initialAmount={Number.isInteger(amount) && amount >= 1 ? amount : undefined} />
         </div>
       </div>
     </>

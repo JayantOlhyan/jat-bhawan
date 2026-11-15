@@ -20,7 +20,7 @@ export default async function AboutPage() {
         <div className="space-y-(--space-2xl)">
           <section>
             <h2 className="section-title">{th("historyTitle")}</h2>
-            <hr className="rule-gold mt-(--space-md)" />
+            <hr className="rule-mark mt-(--space-md)" />
             <p className="mt-(--space-lg) text-lg"><PlaceholderText text={th("historyBody")} /></p>
           </section>
           <section className="border-t border-rule pt-(--space-xl)">
@@ -36,7 +36,9 @@ export default async function AboutPage() {
             <p className="mt-(--space-lg) text-lg">{t("trustBody")}</p>
           </section>
         </div>
-        <Slot slot="story" alt={th("heroPhoto")} standIn={STAND_INS.harvest} objectPosition="25% 55%" className="aspect-[3/4] w-full lg:sticky lg:top-(--space-4xl)" />
+        <div className="frame-photo grained h-fit lg:sticky lg:top-(--space-4xl)">
+          <Slot slot="story" alt={th("heroPhoto")} standIn={{ src: STAND_INS.harvest, alt: th("harvestAlt") }} objectPosition="25% 55%" className="aspect-[3/4] w-full" />
+        </div>
       </div>
     </>
   );

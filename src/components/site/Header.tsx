@@ -5,40 +5,39 @@ import { LanguageSwitcher } from "./LanguageSwitcher";
 import { MobileMenu } from "./MobileMenu";
 
 /**
- * Masthead: the wordmark centred over a gold double rule, the language switch
- * on the left, Donate on the right; the section links run beneath on desktop.
+ * Slab: one buff bar over a five-point ink rule. The wordmark in the slab face
+ * on the left, the sections in the middle on desktop, the language switch and
+ * Donate (the framed control; the filled one belongs to each page) on the right.
  */
 export async function Header() {
   const t = await getTranslations("Nav");
   const tm = await getTranslations("Meta");
+  const th = await getTranslations("Home");
   return (
-    <header className="no-print sticky top-0 z-(--z-sticky-nav) border-b border-rule bg-paper">
-      <div className="container-site grid min-h-16 grid-cols-[auto_minmax(0,1fr)_auto] sm:grid-cols-[1fr_auto_1fr] items-center gap-(--space-sm) py-(--space-xs) lg:min-h-20">
-        <div className="flex items-center gap-(--space-xs)">
-          {/* The visible switcher comes first in the DOM; the menu button is moved before it visually. */}
-          <div className="hidden sm:block">
-            <LanguageSwitcher />
-          </div>
-          <div className="order-first">
-            <MobileMenu />
-          </div>
-        </div>
+    <header className="no-print sticky top-0 z-(--z-sticky-nav) border-b-[5px] border-ink bg-paper">
+      <div className="container-site flex min-h-16 items-center gap-(--space-md) py-(--space-xs) lg:min-h-20 xl:gap-(--space-xl)">
         <Link
           href="/"
           aria-label={tm("siteName")}
-          className="min-w-0 justify-self-center text-center font-serif text-[1.3rem] leading-[1.15] text-balance text-ink no-underline sm:whitespace-nowrap sm:text-[1.7rem] sm:leading-none lg:text-[2.1rem]"
+          className="slab min-w-0 shrink text-[1.1rem] leading-tight text-ink no-underline sm:text-[1.3rem] xl:text-[1.45rem] xl:whitespace-nowrap"
         >
-          {tm("siteName")}
+          <span className="sm:hidden">{th("titleLine1")}</span>
+          <span className="max-sm:hidden">{tm("siteName")}</span>
         </Link>
-        <div className="flex justify-end">
-          <Link href="/donate" className="btn btn-primary min-h-11 px-(--space-lg) max-sm:px-(--space-md)" data-testid="header-donate">
+        <div className="hidden min-w-0 flex-1 lg:block">
+          <DesktopNav />
+        </div>
+        <div className="ml-auto flex shrink-0 items-center gap-(--space-xs) lg:ml-0">
+          {/* The visible switcher comes first in the DOM; on phones the menu button sits after Donate. */}
+          <div className="hidden sm:block">
+            <LanguageSwitcher />
+          </div>
+          <Link href="/donate" className="btn btn-outline min-h-11 px-(--space-lg) max-sm:px-(--space-md)" data-testid="header-donate">
             {t("donate")}
           </Link>
-        </div>
-      </div>
-      <div className="hidden border-t-[5px] border-double border-gold lg:block">
-        <div className="container-site">
-          <DesktopNav />
+          <div className="order-last">
+            <MobileMenu />
+          </div>
         </div>
       </div>
     </header>

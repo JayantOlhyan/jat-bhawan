@@ -18,7 +18,18 @@ import {
 } from "@/lib/schemas";
 import { TestPaymentDialog } from "./TestPaymentDialog";
 
-export function DonateForm({ funds, trust, initialUpiManual }: { funds: Fund[]; trust: TrustSettings; initialUpiManual: boolean }) {
+export function DonateForm({
+  funds,
+  trust,
+  initialUpiManual,
+  initialAmount,
+}: {
+  funds: Fund[];
+  trust: TrustSettings;
+  initialUpiManual: boolean;
+  /** Rupees chosen on the home page's slip (?amount=). */
+  initialAmount?: number;
+}) {
   const t = useTranslations("Donate");
   const tv = useTranslations("Validation");
   const locale = useLocale() as AppLocale;
@@ -44,7 +55,7 @@ export function DonateForm({ funds, trust, initialUpiManual }: { funds: Fund[]; 
     resolver: zodResolver(schema),
     defaultValues: {
       fundId: funds[0]?.id ?? "",
-      amountRupees: 1100,
+      amountRupees: initialAmount && initialAmount <= MAX_DONATION_RUPEES ? initialAmount : 1100,
       display: "full",
       donorName: "",
       donorFatherName: "",
@@ -60,7 +71,11 @@ export function DonateForm({ funds, trust, initialUpiManual }: { funds: Fund[]; 
 
   const amount = useWatch({ control, name: "amountRupees" });
   const fundId = useWatch({ control, name: "fundId" });
-  const [custom, setCustom] = useState("");
+  const [custom, setCustom] = useState(() =>
+    initialAmount && initialAmount <= MAX_DONATION_RUPEES && !(DONATION_PRESETS_RUPEES as readonly number[]).includes(initialAmount)
+      ? String(initialAmount)
+      : "",
+  );
   const [pendingId, setPendingId] = useState<string | null>(null);
   const [busy, setBusy] = useState(false);
   const [failed, setFailed] = useState(false);
@@ -269,7 +284,7 @@ export function DonateForm({ funds, trust, initialUpiManual }: { funds: Fund[]; 
           <fieldset className="card space-y-4 p-4 md:p-6" data-testid="upi-manual">
             <legend className="float-left mb-2 w-full font-serif text-xl">{t("upiTitle")}</legend>
             <p className="clear-both text-ink-2">{t("upiHelp")}</p>
-            <div role="img" aria-label={t("qrHere")} className="flex size-48 items-center justify-center rounded-md border-2 border-dashed border-gold-2 bg-paper-3 text-center text-ink-2">
+            <div role="img" aria-label={t("qrHere")} className="flex size-48 items-center justify-center rounded-md border-2 border-dashed border-ink bg-paper-3 text-center text-ink-2">
               {t("qrHere")}
             </div>
             <Field label={t("utr")} error={err(errors.utr?.message)} required>

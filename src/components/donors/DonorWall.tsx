@@ -8,6 +8,7 @@ import { tierCountQuery } from "@/lib/data/query";
 import type { Fund, Paged, PublicDonation, Tier } from "@/lib/data/types";
 import { formatDate, pick, type AppLocale } from "@/lib/format";
 import { formatINR } from "@/lib/money";
+import { inScript } from "@/lib/translit";
 
 interface WallData {
   page: Paged<PublicDonation>;
@@ -93,11 +94,11 @@ export function DonorWall({
               {g.items.map((d) => (
                 <li key={d.id} data-id={d.id} className="grid grid-cols-[minmax(0,1fr)_auto] items-baseline gap-x-(--space-md) gap-y-(--space-2xs) py-(--space-md) sm:grid-cols-[minmax(0,5fr)_minmax(0,4fr)_auto]">
                   <div className="min-w-0">
-                    <p className="text-lg font-semibold break-words">{d.anonymous ? tc("anonymous") : d.donorName}</p>
+                    <p className="text-lg font-semibold break-words">{d.anonymous ? tc("anonymous") : inScript(d.donorName, locale)}</p>
                     {(d.donorFatherName || d.donorVillage) && (
                       <p className="flex flex-wrap gap-x-(--space-md) text-sm text-ink-2">
-                        {d.donorFatherName && <span className="break-words">{d.donorFatherName}</span>}
-                        {d.donorVillage && <span className="break-words">{d.donorVillage}</span>}
+                        {d.donorFatherName && <span className="break-words">{inScript(d.donorFatherName, locale)}</span>}
+                        {d.donorVillage && <span className="break-words">{inScript(d.donorVillage, locale)}</span>}
                       </p>
                     )}
                   </div>

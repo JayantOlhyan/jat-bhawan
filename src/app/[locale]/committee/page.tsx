@@ -19,7 +19,7 @@ export default async function CommitteePage() {
         <CommitteeList initial={committee} />
         <section className="mt-12" aria-labelledby="past">
           <h2 id="past" className="section-title">{t("pastTitle")}</h2>
-          <hr className="rule-gold mt-2" />
+          <hr className="rule-mark mt-2" />
           <p className="mt-3 text-lg text-ink-2">{t("pastBody")}</p>
         </section>
       </div>

@@ -6,6 +6,7 @@ import { useLiveQuery } from "@/lib/data/hooks";
 import type { Member, MemberType } from "@/lib/data/types";
 import { pick, type AppLocale } from "@/lib/format";
 import { Avatar } from "./Avatar";
+import { inScript } from "@/lib/translit";
 
 const TYPES: MemberType[] = ["founder", "life", "general", "honorary"];
 
@@ -43,15 +44,15 @@ export function MembersGrid({ initial }: { initial: Member[] }) {
       ) : (
         <ul className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3" data-testid="members">
           {shown.map((m) => {
-            const name = pick(locale, m.nameHi || m.name, m.name);
+            const name = inScript(pick(locale, m.nameHi || m.name, m.name), locale);
             return (
               <li key={m.id} className="card flex gap-4 p-4">
                 <Avatar name={name} photo={m.photo} />
                 <div className="min-w-0">
                   <p className="text-lg font-semibold break-words">{name}</p>
-                  <p className="text-[0.95rem] text-ink-2 break-words">{tc("sonOf", { name: m.fatherName })}</p>
-                  <p className="text-[0.95rem]">{tc("gotra")}: {m.gotra}</p>
-                  <p className="text-[0.95rem]">{tc("village")}: {m.village}</p>
+                  <p className="text-[0.95rem] text-ink-2 break-words">{tc("sonOf", { name: inScript(m.fatherName, locale) })}</p>
+                  <p className="text-[0.95rem]">{tc("gotra")}: {inScript(m.gotra, locale)}</p>
+                  <p className="text-[0.95rem]">{tc("village")}: {inScript(m.village, locale)}</p>
                   <p className="mt-1 inline-block rounded bg-paper-3 px-2 text-[0.85rem] font-semibold">{t(`types.${m.memberType}`)}</p>
                   {m.phone && (
                     <p className="mt-1">

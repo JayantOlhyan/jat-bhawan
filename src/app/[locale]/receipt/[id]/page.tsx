@@ -10,9 +10,9 @@ export async function generateMetadata({ params }: PageProps<"/[locale]/receipt/
 }
 
 const KEYS = [
-  "title", "receiptNo", "date", "receivedFrom", "fatherName", "village", "amount", "inWordsEn",
-  "inWordsHi", "fund", "mode", "reference", "regNo", "signature", "signatureHere", "eightyG",
-  "print", "paper", "notFound", "notIssued", "void",
+  "title", "receiptNo", "date", "receivedFrom", "fatherName", "village", "amount", "inWords",
+  "fund", "mode", "reference", "regNo", "signature", "signatureHere", "eightyG",
+  "print", "paper", "paperA4", "paperA5", "notFound", "notIssued", "void", "watermark",
 ] as const;
 const SOURCES: DonationSource[] = ["online", "cash", "cheque", "upi_manual", "legacy"];
 
@@ -27,17 +27,16 @@ export default async function ReceiptPage({ params }: PageProps<"/[locale]/recei
   const { locale, id } = await params;
   const repos = getRepos();
   // Seed records render on the server; demo-created ones load in the browser.
-  const [donation, funds, trust, hi, en] = await Promise.all([
+  const [donation, funds, trust, labels] = await Promise.all([
     repos.donations.get(id),
     repos.funds.list(),
     repos.trust.get(),
-    labelsFor("hi"),
-    labelsFor("en"),
+    labelsFor(locale as "hi" | "en"),
   ]);
   return (
-    <div className="bg-paper-3/40 py-8 print:bg-white print:py-0">
+    <div className="bg-paper-3 py-(--space-2xl) print:bg-paper-2 print:py-0">
       <div className="container-site">
-        <ReceiptView id={id} initial={donation} funds={funds} trust={trust} labels={{ hi, en }} uiLocale={locale as "hi" | "en"} />
+        <ReceiptView id={id} initial={donation} funds={funds} trust={trust} labels={labels} uiLocale={locale as "hi" | "en"} />
       </div>
     </div>
   );

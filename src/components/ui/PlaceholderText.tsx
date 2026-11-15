@@ -8,7 +8,7 @@ export function PlaceholderText({ text }: { text: string }) {
   if (!m) return <>{text}</>;
   return (
     <>
-      <span className="font-sans text-[0.8em] font-semibold text-muted">{m[1]}</span> {m[2]}
+      <span className="font-sans text-[0.8em] font-semibold opacity-70">{m[1]}</span> {m[2]}
     </>
   );
 }

@@ -25,7 +25,8 @@ for (const locale of ["hi", "en"]) {
       const res = await page.goto(`/${locale}${route}?sim=0`);
       expect(res?.status()).toBe(200);
       await expect(page.locator("html")).toHaveAttribute("lang", locale);
-      await expect(page.getByRole("note").first()).toContainText("डेमो साइट");
+      // The demo notice is in the page's own language only.
+      await expect(page.getByRole("note").first()).toContainText(locale === "hi" ? "डेमो साइट" : "Demo site");
       await page.waitForLoadState("networkidle");
       expect(errors).toEqual([]);
     });
@@ -81,9 +82,16 @@ test("donate → test success → receipt, visible live in another tab", async (
   await page.getByTestId("view-receipt").click();
   await expect(page.getByTestId("receipt-number")).toHaveText(receiptNo);
   await expect(page.getByTestId("receipt-amount")).toHaveText("₹2,100");
+  // An English receipt is wholly English; the Hindi one wholly Hindi.
   await expect(page.getByTestId("words-en")).toHaveText("Rupees Two Thousand One Hundred Only");
-  await expect(page.getByTestId("words-hi")).toHaveText("दो हज़ार एक सौ रुपये मात्र");
+  await expect(page.getByTestId("words-hi")).toHaveCount(0);
   await expect(page.getByTestId("receipt")).toContainText("SAMPLE: NOT VALID");
+  await page.goto(page.url().replace("/en/receipt/", "/hi/receipt/"));
+  await expect(page.getByTestId("words-hi")).toHaveText("दो हज़ार एक सौ रुपये मात्र");
+  await expect(page.getByTestId("words-en")).toHaveCount(0);
+  await expect(page.getByTestId("receipt")).toContainText("नमूना: मान्य नहीं");
+  await expect(page.getByTestId("receipt")).toContainText(/स्मो/);
+  await page.goBack();
 
   await page.goto(`/en/donors?q=${encodeURIComponent(name)}`);
   await expect(page.getByTestId("donor-wall")).toContainText(name);

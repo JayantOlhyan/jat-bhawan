@@ -3,9 +3,9 @@ import { pick, type AppLocale } from "@/lib/format";
 
 const STYLES: Record<string, string> = {
   "tier-patron": "bg-accent text-accent-ink border-accent",
-  "tier-grand": "bg-gold-tint text-accent-deep border-gold",
-  "tier-benefactor": "bg-gold-tint text-ink border-gold",
-  "tier-supporter": "bg-paper-3 text-ink border-gold-2",
+  "tier-grand": "bg-paper-3 text-accent-deep border-ink",
+  "tier-benefactor": "bg-paper-3 text-ink border-ink",
+  "tier-supporter": "bg-paper-3 text-ink border-ink",
   "tier-donor": "bg-paper-2 text-ink-2 border-rule",
 };
 

@@ -28,7 +28,7 @@ export function Slot({
   const src = own ?? standIn?.src;
   if (!src) return null;
   return (
-    <div data-slot={slot} data-alt={alt} className={`outline outline-1 -outline-offset-1 outline-ink/10 ${className}`}>
+    <div data-slot={slot} data-alt={alt} className={className}>
       <Image
         src={src}
         alt={own ? alt : (standIn?.alt ?? alt)}
@@ -42,9 +42,7 @@ export function Slot({
   );
 }
 
+/** Library stand-ins; pages pass the alt text in their own language. */
 export const STAND_INS = {
-  harvest: {
-    src: "/library/harvest.jpg",
-    alt: "A woman carrying cut wheat sheaves across a harvested field",
-  },
+  harvest: "/library/harvest.jpg",
 } as const;

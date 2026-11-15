@@ -38,8 +38,8 @@ export function MobileMenu() {
         }}
       >
         <div className="flex h-full flex-col">
-          <div className="flex items-center justify-between border-b-[5px] border-double border-gold p-(--space-md)">
-            <span className="font-serif text-2xl">{t("menu")}</span>
+          <div className="flex items-center justify-between border-b-[5px] border-ink p-(--space-md)">
+            <span className="slab text-2xl">{t("menu")}</span>
             <button type="button" className="btn btn-quiet min-h-11" onClick={() => ref.current?.close()}>
               {t("close")}
             </button>
@@ -53,7 +53,7 @@ export function MobileMenu() {
                     <Link
                       href={item.href}
                       aria-current={active ? "page" : undefined}
-                      className={`flex min-h-14 items-center font-serif text-xl no-underline ${active ? "text-accent" : "text-ink"}`}
+                      className={`flex min-h-14 items-center slab text-xl no-underline ${active ? "text-accent" : "text-ink"}`}
                     >
                       {t(item.key)}
                     </Link>

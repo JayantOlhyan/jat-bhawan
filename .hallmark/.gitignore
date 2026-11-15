@@ -3,3 +3,6 @@ before/
 before.json
 before.txt
 compare.html
+before-*.json
+before-*.txt
+salt

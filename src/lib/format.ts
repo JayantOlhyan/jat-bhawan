@@ -58,3 +58,22 @@ export function whatsappLink(text: string, phone?: string): string {
 }
 
 export const MAPS_URL = "https://www.google.com/maps/search/?api=1&query=" + encodeURIComponent("Jat Bhawan Najafgarh New Delhi");
+
+/**
+ * A stored payment reference in the page's language: the cash-book page, the
+ * old register entry and the UTR label are words; the numbers and gateway ids
+ * are identifiers and stay as they are.
+ */
+export function formatPaymentRef(locale: AppLocale, ref: string | undefined): string {
+  if (!ref) return "";
+  if (locale === "en") return ref;
+  return ref
+    .replace(/^Cash book p\.\s*(\d+)$/, "रोकड़ बही, पृष्ठ $1")
+    .replace(/^Register (\d{4}\/\d+)$/, "पुराना रजिस्टर $1")
+    .replace(/^UTR(\d+)$/, "यूटीआर $1");
+}
+
+/** A trust detail still marked "(placeholder)", with the marker in the page's language. */
+export function formatPlaceholderMark(locale: AppLocale, value: string): string {
+  return value.replace(/\s*\(placeholder\)$/, locale === "hi" ? " [प्लेसहोल्डर]" : " [placeholder]");
+}

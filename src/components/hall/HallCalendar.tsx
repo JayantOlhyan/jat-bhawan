@@ -9,7 +9,7 @@ import { intlLocale, type AppLocale } from "@/lib/format";
 const STATUS_STYLE: Record<DayStatus | "past", string> = {
   available: "bg-paper-2 text-ink border-rule hover:border-ink",
   booked: "bg-ink text-paper border-ink",
-  partial: "bg-paper-3 text-ink border-ink [background-image:linear-gradient(135deg,transparent_50%,var(--color-gold-2)_50%)]",
+  partial: "bg-paper-3 text-ink border-ink [background-image:linear-gradient(135deg,transparent_50%,var(--color-rule)_50%)]",
   tentative: "bg-warn-tint text-warn border-warn border-dashed",
   past: "bg-paper-3/60 text-ink-2/70 border-transparent",
 };

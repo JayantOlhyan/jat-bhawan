@@ -7,7 +7,7 @@ export function Avatar({ name, photo, size = "md" }: { name: string; photo?: str
     return <img src={photo} alt="" className={`${dim} shrink-0 rounded-full object-cover`} />;
   }
   return (
-    <span aria-hidden="true" className={`${dim} flex shrink-0 items-center justify-center rounded-full border border-gold bg-accent-tint font-serif text-accent`}>
+    <span aria-hidden="true" className={`${dim} flex shrink-0 items-center justify-center rounded-full border border-ink bg-accent-tint font-serif text-accent`}>
       {initials(name)}
     </span>
   );

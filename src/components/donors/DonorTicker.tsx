@@ -8,6 +8,7 @@ import type { Fund, PublicDonation } from "@/lib/data/types";
 import { startDonationSimulator } from "@/lib/demo/simulator";
 import { formatDate, pick, relativeTime, type AppLocale } from "@/lib/format";
 import { formatINR } from "@/lib/money";
+import { inScript } from "@/lib/translit";
 
 const LIMIT = 20;
 /** Rows set on the ledger page; the full list lives on the donor wall. */
@@ -63,7 +64,6 @@ export function DonorTicker({ initial, funds }: { initial: PublicDonation[]; fun
   return (
     <section
       aria-labelledby="ticker-title"
-      className="well flex min-h-0 flex-col"
       onMouseEnter={() => { hover.current = true; update(); }}
       onMouseLeave={() => { hover.current = false; update(); }}
       onFocus={() => { focus.current = true; update(); }}
@@ -71,26 +71,25 @@ export function DonorTicker({ initial, funds }: { initial: PublicDonation[]; fun
         if (!e.currentTarget.contains(e.relatedTarget as Node | null)) { focus.current = false; update(); }
       }}
     >
-      <div className="flex items-start justify-between gap-(--space-md) px-(--space-lg) pt-(--space-lg) pb-(--space-sm) sm:px-(--space-xl) sm:pt-(--space-xl)">
-        <div className="min-w-0">
-          <h2 id="ticker-title" className="font-serif text-[clamp(1.6rem,1.5vw+1.1rem,2.3rem)]">{th("ledgerTitle")}</h2>
-          <hr className="rule-gold mt-(--space-xs)" />
-          <p className="mt-(--space-sm) max-w-[40ch] text-sm text-ink-2 pointer-coarse:hidden">{th("tickerHelp")}</p>
+      <div className="grid gap-(--space-md) lg:grid-cols-[minmax(0,7fr)_minmax(0,5fr)] lg:items-end lg:gap-(--gap-columns)">
+        <div className="flex flex-wrap items-center gap-x-(--space-lg) gap-y-(--space-xs)">
+          <h2 id="ticker-title">{th("ledgerTitle")}</h2>
+          <span
+            role="status"
+            className={`border px-(--space-xs) text-sm font-semibold leading-7 ${
+              paused ? "border-muted text-muted" : "border-ink bg-ink text-paper"
+            }`}
+          >
+            {paused ? t("paused") : t("live")}
+          </span>
         </div>
-        <span
-          role="status"
-          className={`shrink-0 border px-(--space-xs) text-sm font-semibold leading-7 ${
-            paused ? "border-warn bg-warn-tint text-warn" : "border-ok bg-ok-tint text-ok"
-          }`}
-        >
-          {paused ? t("paused") : t("live")}
-        </span>
+        <p className="max-w-[48ch] text-ink-2 pointer-coarse:hidden lg:justify-self-end lg:text-right">{th("tickerHelp")}</p>
       </div>
       {shown.length === 0 ? (
-        <p className="px-(--space-xl) pb-(--space-xl) text-ink-2">{t("empty")}</p>
+        <p className="rule-bar mt-(--space-lg) pt-(--space-lg) text-ink-2">{t("empty")}</p>
       ) : (
         <ol
-          className="ledger-rows mx-(--space-lg) mb-(--space-lg) border-t-2 border-ink sm:mx-(--space-xl) sm:mb-(--space-xl)"
+          className="ledger-rows rule-bar mt-(--space-lg)"
           tabIndex={0}
           aria-label={th("ledgerTitle")}
           data-testid="ticker"
@@ -99,22 +98,23 @@ export function DonorTicker({ initial, funds }: { initial: PublicDonation[]; fun
             <li
               key={d.id}
               data-id={d.id}
-              className={`grid grid-cols-[minmax(0,1fr)_auto] items-baseline gap-x-(--space-md) py-(--space-sm) ${freshIds.has(d.id) ? "ticker-new" : ""}`}
+              className={`grid grid-cols-[minmax(0,1fr)_auto] items-baseline gap-x-(--space-md) gap-y-(--space-2xs) py-(--space-md) lg:grid-cols-[minmax(0,5fr)_minmax(0,3fr)_minmax(0,3fr)_minmax(0,2fr)_minmax(9rem,auto)] lg:gap-x-(--gap-columns) ${freshIds.has(d.id) ? "ticker-new" : ""}`}
             >
-              <p className="min-w-0 text-lg font-semibold break-words">
-                {d.anonymous ? tc("anonymous") : d.donorName}
+              <p className="min-w-0 text-xl font-semibold break-words">
+                {d.anonymous ? tc("anonymous") : inScript(d.donorName, locale)}
                 {freshIds.has(d.id) && (
-                  <span className="ml-(--space-xs) bg-gold-tint px-(--space-2xs) text-sm font-semibold text-ink-2">{t("new")}</span>
+                  <span className="ml-(--space-xs) bg-ink px-(--space-xs) text-sm font-semibold text-paper">{t("new")}</span>
                 )}
               </p>
-              <p className="text-right font-serif text-xl leading-none tabular-nums text-ink">
+              <p className="figure col-start-2 row-span-2 self-center text-right text-(length:--text-figure) text-ink lg:col-start-5 lg:row-span-1">
                 {d.amountPaise === null ? <span className="font-sans text-sm font-semibold text-muted">{tc("amountHidden")}</span> : formatINR(d.amountPaise)}
               </p>
-              <p className="flex min-w-0 flex-wrap gap-x-(--space-md) text-sm text-ink-2">
-                {d.donorVillage && <span>{d.donorVillage}</span>}
-                <span>{fundName(d.fundId)}</span>
+              <p className="col-start-1 flex min-w-0 flex-wrap gap-x-(--space-md) text-ink-2 lg:col-start-2 lg:row-start-1">
+                {d.donorVillage && <span>{inScript(d.donorVillage, locale)}</span>}
+                <span className="lg:hidden">{fundName(d.fundId)}</span>
               </p>
-              <p className="text-right text-sm text-muted">
+              <p className="hidden text-ink-2 lg:col-start-3 lg:row-start-1 lg:block">{fundName(d.fundId)}</p>
+              <p className="col-start-1 text-sm text-muted lg:col-start-4 lg:row-start-1">
                 <time dateTime={d.donatedAt}>
                   {now ? relativeTime(locale, d.donatedAt, now) : formatDate(locale, d.donatedAt, { month: "short" })}
                 </time>
@@ -123,9 +123,11 @@ export function DonorTicker({ initial, funds }: { initial: PublicDonation[]; fun
           ))}
         </ol>
       )}
-      <Link href="/donors" className="btn btn-outline mx-(--space-lg) mb-(--space-lg) self-start sm:mx-(--space-xl)">
-        {th("viewAllDonors")}
-      </Link>
+      <div className="border-t border-ink pt-(--space-md)">
+        <Link href="/donors" className="link-ink">
+          {th("viewAllDonors")}
+        </Link>
+      </div>
     </section>
   );
 }

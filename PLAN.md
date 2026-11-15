@@ -72,10 +72,19 @@ Header (sticky, Donate always visible, mobile menu as native `<dialog>`), Langua
 - Transliteration-aware search (Latin ↔ Devanagari) beyond the small name/village dictionary used in the demo.
 - WhatsApp office number: needs a real number (current placeholder uses the share link).
 - Hall rates by slot/season once the committee confirms them.
+- Store each donor's and member's name, father's name and village in both scripts (two columns, or ask for both on the form) instead of transliterating at display time; rule-based transliteration of unknown names is approximate.
+- The hall enquiry's native date field shows the phone's own date format; a Hindi-labelled picker would make it fully Hindi on English-language phones.
 
-## Design (Hallmark redesign, Solstice theme)
-- Cream paper, warm brown ink, gold double rules, one vermilion signal (primary button and focus only); square surfaces with hard paper shadows.
-- Faces: Rozha One (display, Devanagari + Latin) and Mukta (body). Devanagari heads use ~1.28 leading so matras never clip.
-- Home: the live donation ledger (बही-खाता) is the hero; then the idea (stand-in harvest photo, credited in the footer), donors by tier as ruled rows, the 8 Dec 2026 opening on an ink band, the hall facts, the committee; the footer is a letter close with address and map link.
-- Tokens live in `src/app/globals.css` (`@theme`); the Hallmark stamp and every waiver are in its first lines. `src/app/hallmark/base.css` is the scaffold's base layer.
+## Design (Hallmark redesign 2, Broadside theme)
+- A printer's bill: buff paper, near-black ink, one vermilion (the opening date line and the opening band); square corners, double-rule frames, rules at 1pt or 5pt, a light paper grain on frames and bands.
+- Faces, each with Devanagari and Latin: Teko (the big fitted lines and rupee figures), Sarpanch (heads, wordmark), Hind (reading text). Latin heads are set in capitals; Devanagari heads get extra leading for matras.
+- Home: the opening bill (जाट भवन / नजफगढ़ fitted to the column, the inauguration date in vermilion) beside a donation slip whose amounts open the donate form pre-filled (`/donate?amount=`); then the live register full width, the elders' story with the framed photo, donors by tier, the vermilion opening band, the hall's particulars, the committee; the footer is an ink colophon.
+- `FitLine` sizes a line as a share of its column (`cqi`), so it holds at every width; it carries `keep-motion` because the reduced-motion rule would otherwise delay the size it measures.
+- Tokens live in `src/app/globals.css` (`@theme`); the Hallmark stamp, waivers and records are its first lines. `src/app/hallmark/base.css` is the scaffold's base layer.
 - Client photos: drop `story.jpg` (replaces the harvest stand-in), `hall.jpg` into `public/demo/`.
+
+## Language rule
+- Every public page is in one language: `/hi/...` wholly Devanagari, `/en/...` wholly Latin. The one exception is the language switch, which names the other language in its own script so a reader of that language can find it.
+- Names, fathers' names, gotras and villages are shown in the page's script by `inScript()` (`src/lib/translit.ts`): the seed name dictionary first, then rule-based transliteration. Search matches either script.
+- Identifiers stay as they are on Hindi pages: receipt numbers, phone numbers, emails, the UPI id, gateway references. Digits are Latin in both languages.
+- `tests/e2e/language.spec.ts` checks every public page in both languages (visible text, title, aria labels, alt text, placeholders).

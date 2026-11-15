@@ -3,6 +3,41 @@
   "mode": "redesign",
   "depth": "full",
   "scope": "site",
+  "shape": "split-studio",
+  "theme": "broadside",
+  "axes": "light/display-condensed/warm",
+  "hero": "counter",
+  "nav": "slab",
+  "footer": "colophon block",
+  "imagery": "photographs, library 1, duotone ink",
+  "photos": [
+   "harvest-yann-forget"
+  ],
+  "entry": "opening bill beside donation slip",
+  "fingerprint": "split-studio/counter/slab/colophon/broadside",
+  "sections": [
+   "hero-counter",
+   "index-register",
+   "split-photo",
+   "rows-tiers",
+   "band-accent-statement",
+   "rows-particulars",
+   "columns-committee"
+  ],
+  "signature": "the opening bill: the Bhawan name fitted in Teko over the one vermilion date line, beside a printed donation slip",
+  "waived": [
+   "39b",
+   "77",
+   "44c",
+   "49b"
+  ],
+  "prompt": "premium community bhawan site, Hindi and English each 100% one language",
+  "date": "2026-11-15"
+ },
+ {
+  "mode": "redesign",
+  "depth": "full",
+  "scope": "site",
   "shape": "Narrative Workflow",
   "theme": "solstice",
   "axes": "light/high-contrast-serif/warm",

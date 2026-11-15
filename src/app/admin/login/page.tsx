@@ -9,7 +9,7 @@ export default async function AdminLogin({ searchParams }: PageProps<"/admin/log
   return (
     <main className="container-site flex max-w-md flex-col py-16">
       <h1 className="text-[2rem]">Admin sign in</h1>
-      <hr className="rule-gold mt-2" />
+      <hr className="rule-mark mt-2" />
       {missing && (
         <p role="alert" className="mt-6 rounded-md border border-bad bg-bad-tint p-3 text-bad">
           DEMO_ADMIN_PASSWORD is not set (min. 6 characters). Add it to .env.local or the Netlify environment.

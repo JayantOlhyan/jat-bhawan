@@ -45,7 +45,7 @@ export function SuccessView() {
     return (
       <div className="card p-6 md:p-8" data-testid="success-pending">
         <h1 className="text-[1.9rem]">{t("pendingTitle")}</h1>
-        <hr className="rule-gold mt-3" />
+        <hr className="rule-mark mt-3" />
         <p className="mt-4 text-lg">{t("pendingLead")}</p>
         <Link href="/" className="btn btn-outline mt-6">{t("donateAgain")}</Link>
       </div>
@@ -55,7 +55,7 @@ export function SuccessView() {
   return (
     <div className="card p-6 md:p-8" data-testid="success">
       <h1 className="text-[1.9rem]">{t("title")}</h1>
-      <hr className="rule-gold mt-3" />
+      <hr className="rule-mark mt-3" />
       <p className="mt-4 text-lg text-ink-2">{t("lead")}</p>
       <dl className="mt-6 rounded-md bg-paper-3 p-4">
         <dt className="text-ink-2">{t("receiptNo")}</dt>

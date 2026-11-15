@@ -1,4 +1,5 @@
 import { ALL_PAIRS } from "./data/seed/names";
+import { inScript } from "./translit";
 
 /**
  * Bilingual search: lowercases, normalises whitespace, and expands known
@@ -11,7 +12,9 @@ export function normalise(s: string): string {
 
 /** Text to match a record against: the fields plus any known cross-script forms. */
 export function searchHaystack(fields: Array<string | null | undefined>): string {
-  const base = normalise(fields.filter(Boolean).join(" | "));
+  // Each field in both scripts, as the pages display it, so a search finds what is shown.
+  const present = fields.filter((f): f is string => !!f);
+  const base = normalise([...present, ...present.map((f) => inScript(f, "hi")), ...present.map((f) => inScript(f, "en"))].join(" | "));
   const extra: string[] = [];
   for (const p of ALL_PAIRS) {
     const en = normalise(p.en);

@@ -6,7 +6,7 @@ import { routing } from "@/i18n/routing";
 import { DemoBanner } from "@/components/site/DemoBanner";
 import { Footer } from "@/components/site/Footer";
 import { Header } from "@/components/site/Header";
-import { body, display } from "../fonts";
+import { body, display, slab } from "../fonts";
 import "../globals.css";
 
 export function generateStaticParams() {
@@ -24,7 +24,7 @@ export async function generateMetadata({ params }: LayoutProps<"/[locale]">): Pr
 }
 
 export const viewport: Viewport = {
-  themeColor: "#7a2420",
+  themeColor: "#2b2724",
   width: "device-width",
   initialScale: 1,
 };
@@ -35,7 +35,7 @@ export default async function LocaleLayout({ children, params }: LayoutProps<"/[
   const t = await getTranslations({ locale, namespace: "Nav" });
 
   return (
-    <html lang={locale} className={`${display.variable} ${body.variable} overflow-x-clip`}>
+    <html lang={locale} className={`${display.variable} ${slab.variable} ${body.variable} overflow-x-clip`}>
       <body className="flex min-h-dvh flex-col overflow-x-clip">
         <a
           href="#main"

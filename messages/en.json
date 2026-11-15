@@ -33,7 +33,7 @@
     "close": "Close",
     "mainNav": "Main navigation",
     "language": "हिंदी",
-    "languageLabel": "भाषा बदलें / Change language",
+    "languageLabel": "Change language",
     "skip": "Skip to content"
   },
   "Footer": {
@@ -47,7 +47,8 @@
     "signoff": "With regards,",
     "place": "Najafgarh, New Delhi",
     "photos": "Photographs:",
-    "photoNote": "stand-in photograph, to be replaced"
+    "photoNote": "stand-in photograph, to be replaced",
+    "photoCredit": "Yann Forget, Wikimedia Commons (CC BY-SA 3.0)"
   },
   "Common": {
     "anonymous": "Anonymous",
@@ -107,7 +108,15 @@
     "hallCapacityValue": "To be confirmed by the office",
     "hallHow": "How to book",
     "hallHowValue": "Pick a free date, send an enquiry, the office confirms",
-    "call": "Call the office"
+    "call": "Call the office",
+    "slipTitle": "Give to the building fund",
+    "slipChoose": "Choose an amount",
+    "slipOther": "Enter another amount",
+    "slipNote": "Your name and village go on the next page.",
+    "seeDates": "Free hall dates",
+    "titleLine1": "Jat Bhawan",
+    "titleLine2": "Najafgarh",
+    "harvestAlt": "A woman carrying cut wheat sheaves across a harvested field"
   },
   "Ticker": {
     "empty": "Donations will appear here.",
@@ -185,8 +194,6 @@
     "fatherName": "Father's / husband's name",
     "village": "Village / area",
     "amount": "Amount",
-    "inWordsEn": "In words (English)",
-    "inWordsHi": "In words (Hindi)",
     "fund": "Towards",
     "mode": "Payment mode",
     "reference": "Reference",
@@ -194,7 +201,7 @@
     "signature": "Authorised signatory",
     "signatureHere": "Signature here",
     "eightyG": "Donations to the Trust are eligible for deduction under Section 80G of the Income Tax Act, 1961. [placeholder]",
-    "watermark": "नमूना: मान्य नहीं / SAMPLE: NOT VALID",
+    "watermark": "SAMPLE: NOT VALID",
     "print": "Print",
     "paperA4": "A4",
     "paperA5": "A5",
@@ -208,13 +215,14 @@
       "cheque": "Cheque",
       "upi_manual": "UPI",
       "legacy": "Earlier record"
-    }
+    },
+    "inWords": "Amount in words"
   },
   "Donors": {
     "title": "Donor wall",
     "lead": "Every verified donation, grouped by tier. Donors who chose to stay anonymous are shown as \"Anonymous\".",
     "searchLabel": "Search by name or village",
-    "searchPlaceholder": "e.g. Dahiya or दहिया",
+    "searchPlaceholder": "e.g. Dahiya",
     "fund": "Fund",
     "fy": "Financial year",
     "tier": "Tier",
