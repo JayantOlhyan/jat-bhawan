@@ -100,7 +100,7 @@ export function HallCalendar({
         <thead>
           <tr>
             {weekdays.map((w) => (
-              <th key={w} scope="col" className="pb-1 text-center text-[0.85rem] font-semibold text-ink-2">{w}</th>
+              <th key={w} scope="col" className="pb-1 text-center text-[0.85rem] font-medium text-ink-2">{w}</th>
             ))}
           </tr>
         </thead>
@@ -135,7 +135,7 @@ export function HallCalendar({
                         onSelect(key);
                       }}
                       onKeyDown={(e) => onKey(e, key)}
-                      className={`relative flex aspect-square min-h-11 w-full flex-col items-center justify-center rounded-md border-2 text-base font-semibold tabular-nums ${STATUS_STYLE[style]} ${
+                      className={`relative flex aspect-square min-h-11 w-full flex-col items-center justify-center rounded-md border-2 text-base font-medium tabular-nums ${STATUS_STYLE[style]} ${
                         isSel ? "ring-3 ring-ink ring-offset-1" : ""
                       } ${key === today ? "underline decoration-2 underline-offset-4" : ""}`}
                     >
@@ -152,7 +152,7 @@ export function HallCalendar({
         </tbody>
       </table>
       <div className="mt-3">
-        <p className="font-semibold">{t("legend")}</p>
+        <p className="font-medium">{t("legend")}</p>
         <ul className="mt-1 flex flex-wrap gap-x-4 gap-y-2 text-[0.95rem]">
           {(["available", "booked", "partial", "tentative"] as const).map((s) => (
             <li key={s} className="flex items-center gap-2">

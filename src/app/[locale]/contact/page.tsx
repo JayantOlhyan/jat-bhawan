@@ -28,7 +28,7 @@ export default async function ContactPage() {
         <dl className="ledger-rows border-t-2 border-ink">
           {rows.map(([k, v]) => (
             <div key={k} className="grid gap-(--space-2xs) py-(--space-lg) md:grid-cols-[minmax(0,4fr)_minmax(0,8fr)] md:gap-(--gap-columns)">
-              <dt className="font-semibold text-ink-2">{k}</dt>
+              <dt className="font-medium text-ink-2">{k}</dt>
               <dd className="font-serif text-[clamp(1.3rem,1vw+1rem,1.8rem)] leading-snug break-words">{v}</dd>
             </div>
           ))}

@@ -20,8 +20,8 @@ export function CommitteeList({ initial }: { initial: CommitteePost[] }) {
       <li key={c.id} className={`card flex gap-4 p-4 ${big ? "border-t-4 border-t-accent md:p-6" : ""}`}>
         <Avatar name={name} photo={c.photo} size={big ? "lg" : "md"} />
         <div className="min-w-0">
-          <p className="font-semibold text-muted">{pick(locale, c.postHi, c.postEn)}</p>
-          <p className={`${big ? "text-xl" : "text-lg"} font-semibold break-words`}>{name}</p>
+          <p className="font-medium text-muted">{pick(locale, c.postHi, c.postEn)}</p>
+          <p className={`${big ? "text-xl" : "text-lg"} font-medium break-words`}>{name}</p>
           <p className="text-[0.95rem] text-ink-2 break-words">{tc("sonOf", { name: inScript(c.fatherName, locale) })}</p>
           <p className="text-[0.95rem]">{t("term", { term: c.termLabel })}</p>
           {c.phone && <a href={`tel:${c.phone}`} className="inline-flex min-h-11 items-center text-accent">{c.phone}</a>}

@@ -147,7 +147,7 @@ export function HallBooking({ officePhone }: { officePhone: string }) {
               </Field>
             </div>
             {unavailable && (
-              <p role="alert" className="rounded-md border border-bad bg-bad-tint p-3 font-semibold text-bad">{t("unavailable")}</p>
+              <p role="alert" className="rounded-md border border-bad bg-bad-tint p-3 font-medium text-bad">{t("unavailable")}</p>
             )}
             <Field label={t("name")} error={err(errors.name?.message)} required>
               {(p) => <input {...p} {...register("name")} autoComplete="name" className="field" />}

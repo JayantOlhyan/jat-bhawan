@@ -79,14 +79,14 @@
   "Home": {
     "heroPhoto": "Bhawan photo here",
     "title": "Jat Bhawan, Najafgarh",
-    "purpose": "The community’s shared home for weddings, meetings, learning and service.",
+    "purpose": "The community’s shared home for weddings, meetings, learning and service",
     "inauguration": "Inauguration: 8 December 2026",
     "donate": "Donate",
     "bookHall": "Book the hall",
     "tickerTitle": "Recent donations",
     "tickerHelp": "Each new donation is entered here as it arrives. Point at it or focus it to pause.",
     "highlightsTitle": "Our donors",
-    "highlightsLead": "With thanks to everyone who has helped build the Bhawan.",
+    "highlightsLead": "With thanks to everyone who has helped build the Bhawan",
     "viewAllDonors": "View all donors",
     "historyTitle": "Our story",
     "historyBody": "[placeholder] The idea of a Jat Bhawan in Najafgarh began with village elders who wanted a dignified place for family functions, community meetings and students. With contributions from the villages of the area, the Bhawan now stands ready for its inauguration.",
@@ -94,14 +94,14 @@
     "committeeTitle": "This term’s committee",
     "viewCommittee": "View full committee",
     "visitTitle": "Finding the Bhawan",
-    "noTop": "No donors in this tier yet.",
+    "noTop": "No donors in this tier yet",
     "ledgerTitle": "The donation ledger",
     "stageIdea": "An idea from the village elders",
     "stageVillages": "Built with every village’s help",
     "stageOpening": "Opening on 8 December 2026",
-    "stageOpeningLine": "The Bhawan opens to the community on this day.",
+    "stageOpeningLine": "The Bhawan opens to the community on this day",
     "stageHall": "A hall for weddings and gatherings",
-    "stageHallLead": "Send an enquiry for your date and the office will call you back.",
+    "stageHallLead": "Send an enquiry for your date and the office will call you back",
     "hallSlots": "Slots",
     "hallSlotsValue": "Full day, morning or evening",
     "hallCapacity": "Capacity",
@@ -112,21 +112,21 @@
     "slipTitle": "Give to the building fund",
     "slipChoose": "Choose an amount",
     "slipOther": "Enter another amount",
-    "slipNote": "Your name and village go on the next page.",
+    "slipNote": "Your name and village go on the next page",
     "seeDates": "Free hall dates",
     "titleLine1": "Jat Bhawan",
     "titleLine2": "Najafgarh",
     "harvestAlt": "A woman carrying cut wheat sheaves across a harvested field"
   },
   "Ticker": {
-    "empty": "Donations will appear here.",
+    "empty": "Donations will appear here",
     "paused": "Paused",
     "new": "New",
     "live": "Live"
   },
   "Donate": {
     "title": "Donate to Jat Bhawan",
-    "lead": "Your donation supports the upkeep of the Bhawan and the community's work.",
+    "lead": "Your donation supports the upkeep of the Bhawan and the community's work",
     "fund": "Fund",
     "amount": "Amount",
     "custom": "Other amount (₹)",
@@ -146,7 +146,7 @@
     "displayHide": "Show my name, hide the amount",
     "displayAnon": "Anonymous (\"Anonymous\" is shown)",
     "consent": "I agree that the Trust may store these details to issue my receipt and show my donation as chosen above, as described in the privacy policy.",
-    "disclaimer": "Donations are accepted only in Indian Rupees (INR) from Indian sources.",
+    "disclaimer": "Donations are accepted only in Indian Rupees (INR) from Indian sources",
     "submit": "Donate {amount}",
     "submitNoAmount": "Continue",
     "upiTitle": "Pay by UPI",
@@ -175,7 +175,7 @@
   },
   "Success": {
     "title": "Thank you for your donation",
-    "lead": "May your support keep the Bhawan serving the community.",
+    "lead": "May your support keep the Bhawan serving the community",
     "receiptNo": "Receipt number",
     "viewReceipt": "View / print receipt",
     "share": "Share on WhatsApp",
@@ -183,7 +183,7 @@
     "shareText": "I contributed to Jat Bhawan, Najafgarh. You can contribute too: {url}",
     "pendingTitle": "Thank you, your details are received",
     "pendingLead": "Your UPI payment will be checked by the office. The receipt will be issued once it is verified.",
-    "notFound": "We could not find this donation.",
+    "notFound": "We could not find this donation",
     "donateAgain": "Donate again"
   },
   "Receipt": {
@@ -206,8 +206,8 @@
     "paperA4": "A4",
     "paperA5": "A5",
     "paper": "Paper size",
-    "notFound": "Receipt not found.",
-    "notIssued": "A receipt is issued only after the donation is verified.",
+    "notFound": "Receipt not found",
+    "notIssued": "A receipt is issued only after the donation is verified",
     "void": "VOID",
     "modes": {
       "online": "Online",
@@ -231,7 +231,7 @@
     "allTiers": "All tiers",
     "privateGroup": "Amount private",
     "count": "{count, plural, one {# donor} other {# donors}}",
-    "empty": "No donations match your search.",
+    "empty": "No donations match your search",
     "total": "Showing {count} donations"
   },
   "Members": {
@@ -246,18 +246,18 @@
       "founder": "Founder member",
       "honorary": "Honorary member"
     },
-    "empty": "No members match your search."
+    "empty": "No members match your search"
   },
   "Committee": {
     "title": "Committee",
-    "lead": "The current managing committee of the Jat Bhawan Trust.",
+    "lead": "The current managing committee of the Jat Bhawan Trust",
     "term": "Term {term}",
     "pastTitle": "Past committees",
     "pastBody": "[placeholder] Lists of earlier committees will be added here once the office shares them."
   },
   "Hall": {
     "title": "Hall booking",
-    "lead": "The Bhawan hall is available for weddings, family functions and community events.",
+    "lead": "The Bhawan hall is available for weddings, family functions and community events",
     "photo": "Hall photo here",
     "detailsTitle": "Hall details",
     "capacity": "Capacity",
@@ -270,7 +270,7 @@
     "rateValue": "[placeholder] Rates depend on the date and slot. Please send an enquiry or call the office.",
     "calendarTitle": "Availability",
     "enquiryTitle": "Send an enquiry",
-    "enquiryLead": "The office will call you back to confirm availability and the rate."
+    "enquiryLead": "The office will call you back to confirm availability and the rate"
   },
   "Calendar": {
     "prev": "Previous month",
@@ -352,7 +352,7 @@
   },
   "Contact": {
     "title": "Contact",
-    "lead": "Visit the office or call during office hours.",
+    "lead": "Visit the office or call during office hours",
     "hours": "Office hours",
     "hoursValue": "[placeholder] 10 am to 6 pm, Monday to Saturday",
     "call": "Call the office"

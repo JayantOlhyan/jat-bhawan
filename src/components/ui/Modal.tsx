@@ -32,7 +32,7 @@ export function Modal({
       style={{ width: `min(${wide ? "44rem" : "30rem"}, calc(100vw - 2rem))` }}
     >
       <div className="flex items-center justify-between border-b border-rule bg-paper-3 px-5 py-3">
-        <h2 className="font-sans text-lg font-semibold">{title}</h2>
+        <h2 className="font-sans text-lg font-medium">{title}</h2>
         <button type="button" className="btn btn-quiet min-h-10 px-3" onClick={onClose} aria-label="Close">
           ✕
         </button>

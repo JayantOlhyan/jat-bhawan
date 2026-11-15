@@ -17,7 +17,7 @@ export function DesktopNav() {
               <Link
                 href={item.href}
                 aria-current={active ? "page" : undefined}
-                className={`inline-flex min-h-11 items-center whitespace-nowrap font-semibold no-underline transition-colors duration-(--dur-short) hover:text-accent ${
+                className={`inline-flex min-h-11 items-center whitespace-nowrap font-medium no-underline transition-colors duration-(--dur-short) hover:text-accent ${
                   active ? "text-ink underline decoration-[3px] underline-offset-[10px]" : "text-ink-2"
                 }`}
               >

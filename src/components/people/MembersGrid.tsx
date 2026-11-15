@@ -49,11 +49,11 @@ export function MembersGrid({ initial }: { initial: Member[] }) {
               <li key={m.id} className="card flex gap-4 p-4">
                 <Avatar name={name} photo={m.photo} />
                 <div className="min-w-0">
-                  <p className="text-lg font-semibold break-words">{name}</p>
+                  <p className="text-lg font-medium break-words">{name}</p>
                   <p className="text-[0.95rem] text-ink-2 break-words">{tc("sonOf", { name: inScript(m.fatherName, locale) })}</p>
                   <p className="text-[0.95rem]">{tc("gotra")}: {inScript(m.gotra, locale)}</p>
                   <p className="text-[0.95rem]">{tc("village")}: {inScript(m.village, locale)}</p>
-                  <p className="mt-1 inline-block rounded bg-paper-3 px-2 text-[0.85rem] font-semibold">{t(`types.${m.memberType}`)}</p>
+                  <p className="mt-1 inline-block rounded bg-paper-3 px-2 text-[0.85rem] font-medium">{t(`types.${m.memberType}`)}</p>
                   {m.phone && (
                     <p className="mt-1">
                       <a href={`tel:${m.phone}`} className="inline-flex min-h-11 items-center text-accent">{m.phone}</a>

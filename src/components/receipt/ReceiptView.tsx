@@ -62,7 +62,7 @@ export function ReceiptView({
     <>
       <style>{`@page { size: ${paper}; margin: ${paper === "A4" ? "14mm" : "8mm"}; }`}</style>
       <div className="no-print mb-(--space-lg) flex flex-wrap items-center justify-center gap-(--space-sm)">
-        <span className="font-semibold">{ui.paper}:</span>
+        <span className="font-medium">{ui.paper}:</span>
         {(["A4", "A5"] as const).map((p) => (
           <button key={p} type="button" aria-pressed={paper === p} onClick={() => setPaper(p)} className="btn btn-quiet">
             {sizes[p]}
@@ -98,29 +98,29 @@ export function ReceiptView({
         </header>
 
         <dl className="relative mt-(--space-md) grid grid-cols-1 gap-x-(--space-md) gap-y-(--space-2xs) sm:grid-cols-[minmax(0,13rem)_1fr] sm:gap-y-(--space-xs) print:grid-cols-[minmax(0,13rem)_1fr] [&>dd]:mb-(--space-xs) sm:[&>dd]:mb-0">
-          <dt className="font-semibold">{ui.receiptNo}</dt>
-          <dd className="whitespace-nowrap font-semibold tabular-nums" data-testid="receipt-number">{donation.receiptNo}</dd>
-          <dt className="font-semibold">{ui.date}</dt>
+          <dt className="font-medium">{ui.receiptNo}</dt>
+          <dd className="whitespace-nowrap font-medium tabular-nums" data-testid="receipt-number">{donation.receiptNo}</dd>
+          <dt className="font-medium">{ui.date}</dt>
           <dd>{formatDate(locale, donation.verifiedAt ?? donation.donatedAt)}</dd>
-          <dt className="font-semibold">{ui.receivedFrom}</dt>
-          <dd className="text-lg font-semibold break-words">{inScript(donation.donorName, locale)}</dd>
-          <dt className="font-semibold">{ui.fatherName}</dt>
+          <dt className="font-medium">{ui.receivedFrom}</dt>
+          <dd className="text-lg font-medium break-words">{inScript(donation.donorName, locale)}</dd>
+          <dt className="font-medium">{ui.fatherName}</dt>
           <dd className="break-words">{inScript(donation.donorFatherName, locale)}</dd>
-          <dt className="font-semibold">{ui.village}</dt>
+          <dt className="font-medium">{ui.village}</dt>
           <dd className="break-words">{inScript(donation.donorVillage, locale)}</dd>
-          <dt className="font-semibold">{ui.amount}</dt>
+          <dt className="font-medium">{ui.amount}</dt>
           <dd className="figure text-[2rem] text-ink" data-testid="receipt-amount">{formatINR(donation.amountPaise)}</dd>
-          <dt className="font-semibold">{ui.inWords}</dt>
+          <dt className="font-medium">{ui.inWords}</dt>
           {locale === "hi" ? (
             <dd data-testid="words-hi">{amountInWordsHi(donation.amountPaise)}</dd>
           ) : (
             <dd data-testid="words-en">{amountInWordsEn(donation.amountPaise)}</dd>
           )}
-          <dt className="font-semibold">{ui.fund}</dt>
+          <dt className="font-medium">{ui.fund}</dt>
           <dd>{fund ? pick(locale, fund.nameHi, fund.nameEn) : ""}</dd>
-          <dt className="font-semibold">{ui.mode}</dt>
+          <dt className="font-medium">{ui.mode}</dt>
           <dd>{ui.modes[donation.source]}</dd>
-          <dt className="font-semibold">{ui.reference}</dt>
+          <dt className="font-medium">{ui.reference}</dt>
           <dd className="break-all tabular-nums">{formatPaymentRef(locale, donation.paymentRef)}</dd>
         </dl>
 
@@ -129,7 +129,7 @@ export function ReceiptView({
         <footer className="relative mt-(--space-xl) flex justify-end">
           <div className="text-center">
             <div className="flex h-14 w-48 items-end justify-center border-b border-ink text-[0.85rem] text-ink-2">[{ui.signatureHere}]</div>
-            <p className="mt-(--space-2xs) text-[0.9rem] font-semibold">{ui.signature}</p>
+            <p className="mt-(--space-2xs) text-[0.9rem] font-medium">{ui.signature}</p>
           </div>
         </footer>
       </article>

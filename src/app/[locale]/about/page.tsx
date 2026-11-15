@@ -36,7 +36,7 @@ export default async function AboutPage() {
             <p className="mt-(--space-lg) text-lg">{t("trustBody")}</p>
           </section>
         </div>
-        <div className="frame-photo grained h-fit lg:sticky lg:top-(--space-4xl)">
+        <div className="frame-photo h-fit lg:sticky lg:top-(--space-4xl)">
           <Slot slot="story" alt={th("heroPhoto")} standIn={{ src: STAND_INS.harvest, alt: th("harvestAlt") }} objectPosition="25% 55%" className="aspect-[3/4] w-full" />
         </div>
       </div>

@@ -13,7 +13,7 @@ const STYLES: Record<string, string> = {
 export function TierBadge({ tier, locale }: { tier: Tier; locale: AppLocale }) {
   return (
     <span
-      className={`inline-flex items-center gap-1 rounded-full border px-2.5 py-0.5 text-[0.85rem] font-semibold leading-6 ${
+      className={`inline-flex items-center gap-1 rounded-full border px-2.5 py-0.5 text-[0.85rem] font-medium leading-6 ${
         STYLES[tier.id] ?? STYLES["tier-donor"]
       }`}
     >

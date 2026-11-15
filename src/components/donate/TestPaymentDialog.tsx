@@ -52,7 +52,7 @@ export function TestPaymentDialog({
       data-testid="payment-dialog"
     >
       <div className="border-b border-rule bg-paper-3 px-5 py-4">
-        <h2 id="pay-title" className="font-sans text-lg font-semibold">{t("title")}</h2>
+        <h2 id="pay-title" className="font-sans text-lg font-medium">{t("title")}</h2>
         <p className="text-[0.95rem] text-ink-2">{t("lead")}</p>
       </div>
       <div className="px-5 py-4">
@@ -79,7 +79,7 @@ export function TestPaymentDialog({
                 setMethod(next);
                 document.getElementById(`tab-${next}`)?.focus();
               }}
-              className={`min-h-11 rounded px-2 font-semibold ${method === m ? "bg-paper-2 text-accent shadow-sm" : "text-ink-2"}`}
+              className={`min-h-11 rounded px-2 font-medium ${method === m ? "bg-paper-2 text-accent shadow-sm" : "text-ink-2"}`}
             >
               {t(m)}
             </button>

@@ -153,7 +153,7 @@ export function DonateForm({
     <>
       <form onSubmit={handleSubmit(onSubmit)} noValidate className="space-y-8" data-testid="donate-form">
         {failed && (
-          <div role="alert" className="rounded-md border border-bad bg-bad-tint p-4 font-semibold text-bad" data-testid="pay-failed-msg">
+          <div role="alert" className="rounded-md border border-bad bg-bad-tint p-4 font-medium text-bad" data-testid="pay-failed-msg">
             {t("retryFailed")}
           </div>
         )}
@@ -195,7 +195,7 @@ export function DonateForm({
                       setCustom("");
                       setValue("amountRupees", r, { shouldValidate: true });
                     }}
-                    className={`min-h-12 rounded-md border-2 px-2 text-lg font-semibold tabular-nums ${
+                    className={`min-h-12 rounded-md border-2 px-2 text-lg font-medium tabular-nums ${
                       active ? "border-ink bg-ink text-paper" : "border-rule bg-paper-2 text-ink hover:border-accent"
                     }`}
                   >
@@ -226,7 +226,7 @@ export function DonateForm({
             )}
           </Field>
           {overMax && (
-            <p role="alert" className="rounded-md border border-warn bg-warn-tint p-3 font-semibold text-warn">
+            <p role="alert" className="rounded-md border border-warn bg-warn-tint p-3 font-medium text-warn">
               {t("overMax")}
             </p>
           )}

@@ -76,7 +76,7 @@ export function DonorTicker({ initial, funds }: { initial: PublicDonation[]; fun
           <h2 id="ticker-title">{th("ledgerTitle")}</h2>
           <span
             role="status"
-            className={`border px-(--space-xs) text-sm font-semibold leading-7 ${
+            className={`border px-(--space-xs) text-sm font-medium leading-7 ${
               paused ? "border-muted text-muted" : "border-ink bg-ink text-paper"
             }`}
           >
@@ -100,14 +100,14 @@ export function DonorTicker({ initial, funds }: { initial: PublicDonation[]; fun
               data-id={d.id}
               className={`grid grid-cols-[minmax(0,1fr)_auto] items-baseline gap-x-(--space-md) gap-y-(--space-2xs) py-(--space-md) lg:grid-cols-[minmax(0,5fr)_minmax(0,3fr)_minmax(0,3fr)_minmax(0,2fr)_minmax(9rem,auto)] lg:gap-x-(--gap-columns) ${freshIds.has(d.id) ? "ticker-new" : ""}`}
             >
-              <p className="min-w-0 text-xl font-semibold break-words">
+              <p className="min-w-0 text-xl font-medium break-words">
                 {d.anonymous ? tc("anonymous") : inScript(d.donorName, locale)}
                 {freshIds.has(d.id) && (
-                  <span className="ml-(--space-xs) bg-ink px-(--space-xs) text-sm font-semibold text-paper">{t("new")}</span>
+                  <span className="ml-(--space-xs) bg-ink px-(--space-xs) text-sm font-medium text-paper">{t("new")}</span>
                 )}
               </p>
               <p className="figure col-start-2 row-span-2 self-center text-right text-(length:--text-figure) text-ink lg:col-start-5 lg:row-span-1">
-                {d.amountPaise === null ? <span className="font-sans text-sm font-semibold text-muted">{tc("amountHidden")}</span> : formatINR(d.amountPaise)}
+                {d.amountPaise === null ? <span className="font-sans text-sm font-medium text-muted">{tc("amountHidden")}</span> : formatINR(d.amountPaise)}
               </p>
               <p className="col-start-1 flex min-w-0 flex-wrap gap-x-(--space-md) text-ink-2 lg:col-start-2 lg:row-start-1">
                 {d.donorVillage && <span>{inScript(d.donorVillage, locale)}</span>}

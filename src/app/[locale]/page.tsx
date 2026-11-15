@@ -59,9 +59,9 @@ export default async function HomePage({ params }: PageProps<"/[locale]">) {
             </Link>
           </div>
 
-          <div className="frame grained p-(--space-lg) 2xl:p-(--space-xl)">
+          <div className="frame p-(--space-lg) 2xl:p-(--space-xl)">
             <h2 className="text-(length:--text-title)">{t("slipTitle")}</h2>
-            <p className="mt-(--space-xs) text-sm font-semibold text-muted" id="slip-choose">{t("slipChoose")}</p>
+            <p className="mt-(--space-xs) text-sm font-medium text-muted" id="slip-choose">{t("slipChoose")}</p>
             <ul className="mt-(--space-sm) grid grid-cols-2 border-t border-l border-ink sm:grid-cols-3" aria-labelledby="slip-choose">
               {SLIP_AMOUNTS.map((r) => (
                 <li key={r} className="border-r border-b border-ink">
@@ -93,7 +93,7 @@ export default async function HomePage({ params }: PageProps<"/[locale]">) {
       {/* The idea: the photograph beside the elders' story. */}
       <section className="border-t border-ink">
         <div className="container-site grid items-center gap-(--space-xl) py-(--section-gap) lg:grid-cols-[minmax(0,5fr)_minmax(0,7fr)] lg:gap-(--space-3xl)">
-          <figure className="frame-photo grained">
+          <figure className="frame-photo">
             <Slot
               slot="story"
               alt={t("heroPhoto")}
@@ -129,7 +129,7 @@ export default async function HomePage({ params }: PageProps<"/[locale]">) {
                 <ul className="grid gap-(--space-md) sm:grid-cols-3 sm:gap-(--gap-columns)">
                   {(top[tier.id] ?? []).map((d) => (
                     <li key={d.id} className="min-w-0 border-t border-rule pt-(--space-sm) sm:border-t-0 sm:border-l sm:pt-0 sm:pl-(--space-md)">
-                      <p className="text-lg font-semibold break-words">{d.anonymous ? tc("anonymous") : inScript(d.donorName, locale)}</p>
+                      <p className="text-lg font-medium break-words">{d.anonymous ? tc("anonymous") : inScript(d.donorName, locale)}</p>
                       {d.donorVillage && <p className="text-ink-2">{inScript(d.donorVillage, locale)}</p>}
                       <p className="figure mt-(--space-2xs) text-(length:--text-figure)">{formatINR(d.amountPaise ?? 0)}</p>
                     </li>
@@ -146,7 +146,7 @@ export default async function HomePage({ params }: PageProps<"/[locale]">) {
       </section>
 
       {/* The opening day, fitted on the one vermilion band. */}
-      <section className="band-accent grained">
+      <section className="band-accent">
         <div className="container-site grid gap-(--space-lg) py-(--section-gap-s) lg:grid-cols-[minmax(0,8fr)_minmax(0,4fr)] lg:items-end lg:gap-(--gap-columns)">
           <h2 className="display min-w-0 text-accent-ink [container-type:inline-size]">
             <FitLine max={170} fallback="min(var(--text-display-s), 8cqi)">{t("stageOpening")}</FitLine>
@@ -174,7 +174,7 @@ export default async function HomePage({ params }: PageProps<"/[locale]">) {
             {hallFacts.map(([k, v]) => (
               <div key={k} className="grid gap-(--space-2xs) border-b border-rule py-(--space-lg) sm:grid-cols-[minmax(0,2fr)_minmax(0,3fr)] sm:gap-(--gap-columns)">
                 <dt className="slab text-lg">{t(k)}</dt>
-                <dd className="text-lg font-semibold">{t(v)}</dd>
+                <dd className="text-lg font-medium">{t(v)}</dd>
               </div>
             ))}
           </dl>

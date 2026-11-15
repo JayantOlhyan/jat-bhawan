@@ -15,7 +15,7 @@ export async function Footer() {
   const links = ["donors", "hall", "committee", "members", "about", "contact"] as const;
   const policies = ["privacy", "terms", "refund"] as const;
   return (
-    <footer className="no-print band-ink grained mt-(--section-gap-s) border-t-[5px] border-ink">
+    <footer className="no-print band-ink mt-(--section-gap-s) border-t-[5px] border-ink">
       <div className="container-site grid gap-(--space-2xl) pt-(--space-3xl) pb-(--space-2xl) lg:grid-cols-[minmax(0,7fr)_minmax(0,5fr)] lg:gap-(--gap-columns)">
         <address className="not-italic">
           <p className="slab text-[clamp(1.75rem,2.4vw+1rem,2.75rem)] leading-tight text-paper">{pick(locale, trust.nameHi, trust.nameEn)}</p>
@@ -28,7 +28,7 @@ export async function Footer() {
         </address>
         <div className="grid gap-(--space-lg) min-[25rem]:grid-cols-2 border-t border-paper/40 pt-(--space-lg) lg:border-t-0 lg:border-l lg:pt-0 lg:pl-(--gap-columns)">
           <nav aria-label={t("quickLinks")}>
-            <p className="text-sm font-semibold text-paper/80">{t("quickLinks")}</p>
+            <p className="text-sm font-medium text-paper/80">{t("quickLinks")}</p>
             <ul className="mt-(--space-xs)">
               {links.map((k) => (
                 <li key={k}>
@@ -40,7 +40,7 @@ export async function Footer() {
             </ul>
           </nav>
           <nav aria-label={t("policies")}>
-            <p className="text-sm font-semibold text-paper/80">{t("policies")}</p>
+            <p className="text-sm font-medium text-paper/80">{t("policies")}</p>
             <ul className="mt-(--space-xs)">
               {policies.map((k) => (
                 <li key={k}>
