@@ -145,7 +145,7 @@ export function SiteMotion() {
           const sheen = el.querySelector<HTMLElement>("[data-sheen] .sheen-bar");
           const enter = () => {
             gsap.to(el, { rotateX: 6, scale: 1.02, y: -4, transformPerspective: 800, duration: DUR.short, ease: EASE.enter });
-            if (sheen) gsap.fromTo(sheen, { xPercent: 0 }, { xPercent: 420, duration: DUR.medium, ease: EASE.transition });
+            if (sheen) gsap.fromTo(sheen, { xPercent: 0 }, { xPercent: 520, duration: DUR.medium, ease: EASE.transition });
           };
           const leave = () => gsap.to(el, { rotateX: 0, scale: 1, y: 0, duration: DUR.short, ease: EASE.enter });
           el.addEventListener("pointerenter", enter);

@@ -215,7 +215,7 @@
 }
 .sheen { position: absolute; inset: 0; pointer-events: none; overflow: hidden; border-radius: inherit; }
 .sheen-bar {
-  content: ""; position: absolute; inset: -20% auto -20% 0; width: 40%; translate: -150% 0; transform: skewX(-18deg);
+  content: ""; position: absolute; inset: -20% auto -20% 0; width: 40%; translate: -250% 0; transform: skewX(-18deg);
   background: linear-gradient(90deg, transparent, rgb(255 236 190 / 0.65), transparent);
 }
 
@@ -234,6 +234,10 @@
 .hero-plane {
   position: absolute; right: 0; width: max(100cqw, 177.67cqh); aspect-ratio: 2880 / 1621;
   top: calc((100cqh - max(56.28cqw, 100cqh)) * 0.8);
+}
+/* Below 1024px the art sits under the text: centre the building (x ≈ 0.71 of the plane). */
+@media (max-width: 1023px) {
+  .hero-plane { right: auto; left: calc(50cqw - 0.71 * max(100cqw, 177.67cqh)); }
 }
 
 /* The donate page's pay bar is fixed on phones: keep the footer clear of it. */

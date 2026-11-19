@@ -31,22 +31,7 @@ export function HeroMotion() {
         tl.from(q("[data-hero-sub]"), { y: 16, opacity: 0, duration: DUR.medium, stagger: STAGGER.cards, clearProps: "opacity,transform" }, desktop ? "-=0.35" : 0);
       }
 
-      // 2. Diya flames: a glow over each flame breathes on its own 2–3 s loop.
-      if (heavy) {
-        q("[data-diya-glow]").forEach((glow) => {
-          gsap.to(glow, {
-            opacity: gsap.utils.random(0.45, 0.6),
-            scale: gsap.utils.random(0.82, 0.9),
-            duration: gsap.utils.random(1, 1.5),
-            ease: "sine.inOut",
-            repeat: -1,
-            yoyo: true,
-            delay: gsap.utils.random(0, 1.2),
-          });
-        });
-      }
-
-      // 3. Scroll depth: bg drifts at 0.2×, the building / frame at 0.5×, the diyas at 1.2×
+      // 2. Scroll depth: bg drifts at 0.2×, the building / frame at 0.5×
       //    (phones at ~40% of that), and the building shrinks a touch as the hero leaves.
       if (heavy) {
         const depth = desktop ? 1 : 0.4;
@@ -55,11 +40,10 @@ export function HeroMotion() {
         const tl = gsap.timeline({ scrollTrigger: scrub, defaults: { ease: "none" } });
         const h = () => hero.offsetHeight;
         tl.to(q("[data-hero-bg]"), { y: () => speed(0.2) * h() }, 0)
-          .to(q("[data-hero-mid]"), { y: () => speed(0.5) * h(), scale: 0.94, transformOrigin: "50% 100%" }, 0)
-          .to(q("[data-hero-fg]"), { y: () => speed(1.2) * h() }, 0);
+          .to(q("[data-hero-mid]"), { y: () => speed(0.5) * h(), scale: 0.94, transformOrigin: "50% 100%" }, 0);
       }
 
-      // 4. Desktop: the art tilts a little toward the pointer (±4°).
+      // 3. Desktop: the art tilts a little toward the pointer (±4°).
       if (desktop && heavy) {
         const stack = q("[data-hero-tilt]")[0];
         gsap.set(stack, { transformPerspective: 1200 });

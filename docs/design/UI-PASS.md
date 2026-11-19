@@ -146,3 +146,17 @@ Generated sample photos and brand illustrations added into existing and new slot
 With the photo on top on phones, `/hi/hall` first scored 83 (LCP 4.8 s simulated, 0.15 s observed): the photo became the phone LCP, and Lighthouse's simulation charges an image LCP with every font and script fetched before it (about 640 KB on throttled 4G). Lazy-loading below the fold, exact `sizes`, preload and `fetchpriority=high` did not move it. Placing the photo after the details on phones (approved) brought it back to 100; it now gets its jaali reveal on phones too, as it scrolls in. A11y 97 on the hall page was already there before this pass (calendar labels at 70% opacity; the logo's aria-label vs its visible text).
 
 Screenshots: `screenshots/images-pass/with/` and `screenshots/images-pass/without/` (8 pages × hi/en × 375/1280, plus the hall gallery in view). With the samples and scenes moved away, header heights and H1 positions match to the pixel; the only differences are the intended ones (no gallery, no 404 scene, the calendar icon back in the home hall card).
+
+## Photo-based assets (Nov 2026)
+
+From `reference/jat-bhawan-photo-based-assets/`, matched to its `layout-previews/`:
+- Photoreal samples replace the illustrated ones in `public/demo/` (same slot names; still labelled "Sample image").
+- `hero-building.webp` (AI-assisted façade cut-out from a Street View screenshot) now fills the hero: box at 47% / 21%, 51% × 70% of the hero plane, base behind the diya row as in the preview. Below 1024 px the plane is centred on the building (x ≈ 0.735) instead of right-anchored, matching `hero-mobile`. Alt text: `Home.buildingAlt`.
+- `hall-icon.webp` (a miniature of the Bhawan) takes the illustrated-icon place in the home hall card, as the preview's calendar did.
+- Committee cards (home and the committee page) show a neutral head-and-shoulders figure instead of initials (`Avatar fallback="portrait"`), as in the preview; members keep initials.
+- Medals: five in one row from 1024 px (narrower medal column at lg).
+- `og.png` regenerated: no arch once the façade exists; title, rule, façade, diya row and marigold strand as in the supplied share image, but in the site's own fonts.
+- Fix: the medal sheen bar rested slightly inside the disc (a faint stripe on the left edge); it now rests fully outside.
+- Note: Next caches optimized images by URL. Replacing a file under the same name needs `.next/cache/images` cleared (a fresh deploy does this).
+- Lighthouse mobile after this change: `/hi` Performance 79–84 (LCP 4.6–5.7 s simulated; observed ~0.1 s), A11y 100, CLS 0; `/hi/hall` 100. The façade is now the phone LCP and the simulation charges it with every font and script fetched first. **Decision (Nov 2026): accepted for the demo**, to keep the hero as in `hero-mobile`. Revisit before launch: a smaller building on phones would bring text back as the LCP.
+- Hero simplified (Nov 2026): the diya row, the marigold strand and their flicker glows are removed from the home hero; the building is the main art (box 43% / 15%, 56% × 79% of the plane, base at the hero's bottom edge; centred at x ≈ 0.71 below 1024 px). Parallax keeps the sky (0.2×) and the building (0.5×) plus the desktop tilt. The share image matches: title and rule on the left, the façade alone on the right, resting on the bottom edge (diya row and strand removed; they return only in the no-façade fallback with the arch).

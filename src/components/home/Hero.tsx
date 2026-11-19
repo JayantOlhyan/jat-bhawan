@@ -1,15 +1,15 @@
 import Image from "next/image";
 import { getTranslations } from "next-intl/server";
 import { Link } from "@/i18n/navigation";
-import { brand, DIYA_FLAMES, HERO_FG_SIZE, heroBuilding, JHAROKHA_ARCH } from "@/lib/brand";
+import { brand, heroBuilding, JHAROKHA_ARCH } from "@/lib/brand";
 import { HeroMotion } from "./HeroMotion";
 
 const ARCH = JHAROKHA_ARCH;
 
 /**
- * The layered hero. Three planes share one coordinate box (`.hero-plane`, the
- * fg image's own aspect, cropped like object-cover), so the diya glows and the
- * building or frame always sit where the art expects them, at every width,
+ * The hero: the sky behind, the building (or the arched frame until its
+ * cut-out exists) as the main art, drawn in a fixed-aspect box (`.hero-plane`,
+ * cropped like object-cover) so it sits in the same place at every width,
  * with no layout shift. Everything is in the server HTML; HeroMotion only adds
  * movement after hydration.
  */
@@ -49,8 +49,8 @@ export async function Hero() {
         <div data-hero-tilt className="absolute inset-0">
           <div data-hero-mid className="hero-plane">
             {heroBuilding ? (
-              <div className="absolute left-[56%] top-[14%] h-[78%] w-[34%]">
-                <Image src={heroBuilding} alt={t("heroPhoto")} fill preload sizes="(min-width: 1024px) 34vw, 55vw" className="object-contain object-bottom" />
+              <div className="absolute left-[43%] top-[15%] h-[79%] w-[56%]">
+                <Image src={heroBuilding} alt={t("buildingAlt")} fill preload sizes="(min-width: 1024px) 56vw, 95vw" className="object-contain object-bottom" />
               </div>
             ) : (
               <div data-hero-frame className="absolute left-[60%] top-[20%] h-[70%] w-[26%]">
@@ -61,25 +61,6 @@ export async function Hero() {
                 <p className="absolute inset-x-[14%] top-[40%] text-center text-[clamp(0.85rem,1.2cqw,1.1rem)] font-medium text-muted">{t("heroPhoto")}</p>
               </div>
             )}
-          </div>
-          <div data-hero-fg className="hero-plane">
-            {brand.heroFgParts.map(({ src, box: [x0, y0, x1, y1] }) => (
-              <div
-                key={src}
-                className="absolute"
-                style={{
-                  left: `${(x0 / HERO_FG_SIZE.width) * 100}%`,
-                  top: `${(y0 / HERO_FG_SIZE.height) * 100}%`,
-                  width: `${((x1 - x0) / HERO_FG_SIZE.width) * 100}%`,
-                  height: `${((y1 - y0) / HERO_FG_SIZE.height) * 100}%`,
-                }}
-              >
-                <Image src={src} alt="" fill sizes={`(min-width: 1024px) ${Math.round(((x1 - x0) / HERO_FG_SIZE.width) * 100)}vw, ${Math.round(((x1 - x0) / HERO_FG_SIZE.width) * 140)}vw`} loading="eager" />
-              </div>
-            ))}
-            {DIYA_FLAMES.map((f, i) => (
-              <span key={i} data-diya-glow className="diya-glow" style={{ left: `${f.x * 100}%`, top: `${f.y * 100}%` }} />
-            ))}
           </div>
         </div>
       </div>

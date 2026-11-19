@@ -18,7 +18,7 @@ export function CommitteeList({ initial }: { initial: CommitteePost[] }) {
     const name = inScript(pick(locale, c.nameHi || c.name, c.name), locale);
     return (
       <li key={c.id} data-lift className={`card-raised flex items-start gap-(--space-md) p-(--space-md) ${big ? "border-t-4 border-t-maroon md:p-(--space-lg)" : ""}`}>
-        <Avatar name={name} photo={c.photo} size={big ? "lg" : "md"} />
+        <Avatar name={name} photo={c.photo} size={big ? "lg" : "md"} fallback="portrait" />
         <div className="min-w-0">
           <p className="text-sm font-semibold text-maroon">{pick(locale, c.postHi, c.postEn)}</p>
           <p className={`${big ? "text-xl" : "text-lg"} font-semibold break-words`}>{name}</p>

@@ -4,7 +4,7 @@ Everything below is placeholder or sample data in the demo. Each row says what t
 
 ## Images
 
-Every image slot on the public site. Photos go into `public/demo/` and are picked up automatically: a real `<slot>.jpg` (or `.jpeg .png .webp .avif`) always wins over a `<slot>.sample.webp`. The pages need no code change, only a rebuild/redeploy.
+Every image slot on the public site. Photos go into `public/demo/` and are picked up automatically: a real `<slot>.jpg` (or `.jpeg .png .webp .avif`) always wins over a `<slot>.sample.webp`. The pages need no code change, only a rebuild/redeploy. The five `.sample.webp` files are now photoreal AI samples (no people); the entrance sample is derived from the real exterior but its signage and dressing are generated.
 
 | File | Where it shows | Current state |
 |---|---|---|
@@ -13,12 +13,13 @@ Every image slot on the public site. Photos go into `public/demo/` and are picke
 | `public/demo/hall-stage.sample.webp` → `hall-stage.jpg` (4:3) | Hall page gallery, "A look inside" | **AI sample: must be replaced with a real photo before launch.** Caption `Hall.gallery.stage` describes the sample; adjust it to the real photo. |
 | `public/demo/hall-dining.sample.webp` → `hall-dining.jpg` (4:3) | Hall page gallery | **AI sample: must be replaced with a real photo before launch.** Caption `Hall.gallery.dining`. |
 | `public/demo/hall-entrance.sample.webp` → `hall-entrance.jpg` (4:3) | Hall page gallery | **AI sample: must be replaced with a real photo before launch.** Caption `Hall.gallery.entrance`. |
-| `public/brand/hero-building.webp` (not there yet: a cut-out photo or render of the Bhawan façade, transparent background) | Home hero, inside the arch; also the share image | Missing: the hero shows the empty brass arch. Picked up at build time (`next.config.ts`). Never generate or fake this one. |
+| `public/brand/hero-building.webp` (cut-out of the Bhawan façade, transparent background) | Home hero (right side, diyas in front); also the share image | **AI-assisted cut-out based on a Google Street View screenshot.** Replace with a venue-owned photo cut-out before publication, then rebuild and run `npm run og`. Picked up at build time (`next.config.ts`); without it the hero shows the empty brass arch. |
+| `public/brand/hall-icon.webp` | Home "hall" card, beside the heading | Decorative miniature of the Bhawan, based on the same exterior. Keep (update if the façade photo shows different details). |
 | `public/brand/scenes/{donors,hall,committee,members,about,contact}.webp` | Right of the page title on those pages (≥ 768 px only) | Decorative brand illustration. Keep. |
 | `public/brand/scenes/not-found.webp` | 404 page, above the title | Decorative brand illustration. Keep. |
-| `public/brand/og.png` | Share preview (WhatsApp, Facebook, X) for every public page | Built from the site's own fonts and art. **Regenerate with `npm run og` after the façade photo arrives** (it then shows `hero-building.webp` in the arch). |
+| `public/brand/og.png` | Share preview (WhatsApp, Facebook, X) for every public page | Built from the site's own fonts and art, with the façade cut-out as the main art. **Regenerate with `npm run og` whenever `hero-building.webp` changes.** |
 | `public/brand/hero-*.webp`, `icons/`, `tiers/` | Hero, icons, tier medals | Decorative brand art. Keep. |
-| Committee member photos (square, optional) | later → Supabase Storage; field `photo` | Initials avatars until then. |
+| Committee member photos (square, head and shoulders) | later → Supabase Storage; field `photo` | A neutral portrait figure shows where each photo goes. |
 | Member photos (optional, with consent) | later → Supabase Storage; field `photo` | Initials avatars until then. |
 
 When a sample is replaced, delete the `.sample.webp` file too (the real photo wins anyway, but it keeps the folder honest).

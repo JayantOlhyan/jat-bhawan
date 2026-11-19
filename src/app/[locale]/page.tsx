@@ -5,14 +5,12 @@ import { Hero } from "@/components/home/Hero";
 import { Avatar } from "@/components/people/Avatar";
 import { BrassRule } from "@/components/site/BrassRule";
 import { PhotoSlot } from "@/components/site/PhotoSlot";
-import { SampleChip } from "@/components/site/SampleChip";
 import { LineIcon } from "@/components/ui/LineIcon";
 import { PlaceholderText } from "@/components/ui/PlaceholderText";
 import { TierBadge } from "@/components/ui/TierBadge";
 import { Link } from "@/i18n/navigation";
-import { ICONS, STORY_FOCUS } from "@/lib/brand";
+import { brand, STORY_FOCUS } from "@/lib/brand";
 import { getRepos } from "@/lib/data";
-import { demoImage } from "@/lib/demo-images";
 import { MAPS_URL, pick, type AppLocale } from "@/lib/format";
 import { pageMetadata } from "@/lib/meta";
 import { formatINR } from "@/lib/money";
@@ -48,7 +46,6 @@ export default async function HomePage({ params }: PageProps<"/[locale]">) {
     repos.committee.listPublic(),
     repos.trust.get(),
   ]);
-  const hallPhoto = demoImage("hall");
   const leaders = committee.filter((c) => [1, 3, 5].includes(c.postRank));
   const contactRows = [
     { icon: "pin", label: tf("address"), value: <PlaceholderText text={pick(locale, trust.addressHi, trust.addressEn)} /> },
@@ -72,9 +69,9 @@ export default async function HomePage({ params }: PageProps<"/[locale]">) {
           <h2 id="tiers-title" className="mx-auto">{t("highlightsTitle")}</h2>
           <p className="lead mx-auto mt-(--space-xs)">{t("highlightsLead")}</p>
         </div>
-        <ul data-rise className="mt-(--space-xl) flex flex-wrap items-end justify-center gap-x-(--space-lg) gap-y-(--space-xl) lg:gap-x-(--space-xl)">
+        <ul data-rise className="mt-(--space-xl) flex flex-wrap items-end justify-center gap-x-(--space-lg) gap-y-(--space-xl) xl:gap-x-(--space-xl)">
           {sortTiers(tiers).map((tier) => (
-            <li key={tier.id} data-lift className="flex w-[9.5rem] flex-col items-center text-center sm:w-[10.5rem]">
+            <li key={tier.id} data-lift className="flex w-[9.5rem] flex-col items-center text-center sm:w-[10.5rem] lg:w-[9.5rem] xl:w-[10.5rem]">
               <TierBadge tierId={tier.id} size={132} />
               <h3 className="mt-(--space-sm) text-[1.15rem] text-maroon">{pick(locale, tier.nameHi, tier.nameEn)}</h3>
               <p className="figure text-ink-soft">{formatINR(tier.minAmountPaise)}+</p>
@@ -107,7 +104,7 @@ export default async function HomePage({ params }: PageProps<"/[locale]">) {
             const name = inScript(pick(locale, c.nameHi ?? c.name, c.name), locale);
             return (
               <li key={c.id} data-lift className="card-raised flex items-center gap-(--space-md) p-(--space-md)">
-                <Avatar name={name} photo={c.photo} />
+                <Avatar name={name} photo={c.photo} fallback="portrait" />
                 <span aria-hidden="true" className="h-14 w-px shrink-0 bg-line" />
                 <div className="min-w-0">
                   <p className="text-sm font-semibold text-maroon">{pick(locale, c.postHi, c.postEn)}</p>
@@ -124,14 +121,7 @@ export default async function HomePage({ params }: PageProps<"/[locale]">) {
       {/* Hall teaser. */}
       <Section id="hall-title">
         <div className="group card-raised flex flex-col items-start gap-(--space-md) p-(--space-lg) sm:flex-row sm:items-center sm:gap-(--space-lg)">
-          {hallPhoto ? (
-            <div className="photo-slot aspect-[4/3] w-28 shrink-0 sm:w-44">
-              <Image src={hallPhoto.src} alt="" fill sizes="(min-width: 640px) 176px, 112px" className="object-cover motion-safe:transition-transform motion-safe:duration-300 group-hover:scale-[1.03]" />
-              {hallPhoto.isSample && <SampleChip label={tc("sampleImage")} small hidden />}
-            </div>
-          ) : (
-            <Image src={ICONS.calendar} alt="" width={96} height={96} sizes="96px" className="size-20 shrink-0 sm:size-24" />
-          )}
+          <Image src={brand.hallIcon} alt="" width={1024} height={1024} sizes="(min-width: 640px) 112px, 96px" className="size-24 shrink-0 motion-safe:transition-transform motion-safe:duration-300 group-hover:scale-[1.03] sm:size-28" />
           <span aria-hidden="true" className="hidden h-16 w-px shrink-0 bg-line sm:block" />
           <div className="min-w-0 flex-1">
             <h2 id="hall-title" className="text-[length:var(--text-title)] leading-snug">{t("stageHall")}</h2>

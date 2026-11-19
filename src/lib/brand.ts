@@ -24,6 +24,8 @@ export const brand = {
    * arched placeholder frame instead.
    */
   heroBuilding: process.env.NEXT_PUBLIC_HERO_BUILDING || null,
+  /** Miniature illustration of the Bhawan (home hall card). */
+  hallIcon: `${BASE}/hall-icon.webp`,
 } as const;
 
 export const heroBuilding: string | null = brand.heroBuilding;
