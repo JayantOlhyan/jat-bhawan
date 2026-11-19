@@ -5,6 +5,7 @@ import { useLocale, useTranslations } from "next-intl";
 import { useEffect, useState } from "react";
 import { useForm, useWatch } from "react-hook-form";
 import { Field } from "@/components/ui/Field";
+import { track } from "@/lib/analytics";
 import { slotTaken, todayKeyIST } from "@/lib/calendar";
 import { getRepos } from "@/lib/data";
 import { useLiveQuery } from "@/lib/data/hooks";
@@ -81,6 +82,7 @@ export function HallBooking({ officePhone }: { officePhone: string }) {
       message: v.message,
     });
     setDone({ date: v.date, slot: v.slot });
+    track("hall_enquiry", { event_type: v.eventType, slot: v.slot });
   };
 
   return (

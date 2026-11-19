@@ -4,6 +4,7 @@ import Image from "next/image";
 import { useLocale, useTranslations } from "next-intl";
 import { useSearchParams } from "next/navigation";
 import { useEffect, useRef, useState } from "react";
+import { track } from "@/lib/analytics";
 import { BrassRule } from "@/components/site/BrassRule";
 import { LineIcon } from "@/components/ui/LineIcon";
 import { Link } from "@/i18n/navigation";
@@ -34,6 +35,11 @@ export function SuccessView() {
   }, [id]);
 
   const verified = state.donation?.status === "verified";
+
+  // GA4 conversion (only when GA is configured): one event per verified donation shown.
+  useEffect(() => {
+    if (verified && state.donation) track("donation_complete", { value: state.donation.amountPaise / 100, currency: "INR" });
+  }, [verified, state.donation]);
 
   // The site's one signature moment: the toran swings in, marigold petals fall
   // once (then leave the DOM), the diya lights and the receipt number types in.

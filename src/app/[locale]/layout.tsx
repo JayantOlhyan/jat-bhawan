@@ -5,6 +5,7 @@ import { notFound } from "next/navigation";
 import Script from "next/script";
 import { routing } from "@/i18n/routing";
 import { pageRobots } from "@/lib/site";
+import { Analytics } from "@/components/site/Analytics";
 import { DemoBanner } from "@/components/site/DemoBanner";
 import { Footer } from "@/components/site/Footer";
 import { Header } from "@/components/site/Header";
@@ -59,6 +60,7 @@ export default async function LocaleLayout({ children, params }: LayoutProps<"/[
           </main>
           <Footer />
           <SiteMotion />
+          <Analytics />
         </NextIntlClientProvider>
       </body>
     </html>
