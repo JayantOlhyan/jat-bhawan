@@ -15,7 +15,53 @@
     "privacy": "Privacy policy",
     "terms": "Terms of use",
     "refund": "Refund & cancellation",
-    "notFound": "Page not found"
+    "notFound": "Page not found",
+    "seo": {
+      "home": {
+        "title": "Jat Bhawan, Najafgarh | Community Hall, Donations & Booking",
+        "description": "Jat Bhawan in Najafgarh, Delhi is the community's shared home. Donate online, see the donor wall, meet the committee and book the hall for weddings and functions."
+      },
+      "donate": {
+        "title": "Donate to Jat Bhawan | Jat Bhawan, Najafgarh",
+        "description": "Donate online to Jat Bhawan, Najafgarh for the upkeep of the Bhawan and the community's work. Every donation is recorded with a receipt; you can stay anonymous."
+      },
+      "donors": {
+        "title": "Donor Wall | Jat Bhawan, Najafgarh",
+        "description": "Every verified donor to Jat Bhawan, Najafgarh, grouped by tier: Patron, Grand Donor, Benefactor, Supporter and Donor. Search by name, village or fund."
+      },
+      "hall": {
+        "title": "Wedding & Function Hall Booking | Jat Bhawan, Najafgarh",
+        "description": "Book the Jat Bhawan hall in Najafgarh for weddings, engagements, bhaat and community events. See free dates on the calendar and send an enquiry; the office calls back."
+      },
+      "committee": {
+        "title": "Managing Committee | Jat Bhawan Trust, Najafgarh",
+        "description": "The current managing committee of the Jat Bhawan Trust, Najafgarh: president, vice-president, general secretary, treasurer and members, with their terms."
+      },
+      "members": {
+        "title": "Members | Jat Bhawan, Najafgarh",
+        "description": "Members of the Jat Bhawan society, Najafgarh: name, village, gotra and membership type. Phone numbers are shown only with the member's consent."
+      },
+      "about": {
+        "title": "About Us | Jat Bhawan, Najafgarh",
+        "description": "The story and aims of Jat Bhawan, Najafgarh: a community building run by a registered trust, the shared home for functions, meetings and education in the area."
+      },
+      "contact": {
+        "title": "Contact Us | Jat Bhawan, Najafgarh",
+        "description": "Address, phone, email and office hours of Jat Bhawan, Najafgarh, New Delhi 110043. Talk to the office directly about hall bookings or donations."
+      },
+      "privacy": {
+        "title": "Privacy Policy | Jat Bhawan, Najafgarh",
+        "description": "How the Jat Bhawan Trust, Najafgarh handles the personal data of donors, members and hall enquiries under India's Digital Personal Data Protection Act, 2023."
+      },
+      "terms": {
+        "title": "Terms of Use | Jat Bhawan, Najafgarh",
+        "description": "The terms for using the Jat Bhawan, Najafgarh website, making online donations and sending hall booking enquiries."
+      },
+      "refund": {
+        "title": "Refund & Cancellation Policy | Jat Bhawan, Najafgarh",
+        "description": "Rules for donation refunds and hall booking cancellations at Jat Bhawan, Najafgarh: when and how to make a request."
+      }
+    }
   },
   "Banner": {
     "text": "Demo site: all names, amounts and details are sample data"
