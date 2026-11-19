@@ -8,11 +8,13 @@ import { PhotoSlot } from "@/components/site/PhotoSlot";
 import { LineIcon } from "@/components/ui/LineIcon";
 import { PlaceholderText } from "@/components/ui/PlaceholderText";
 import { TierBadge } from "@/components/ui/TierBadge";
+import { JsonLd } from "@/components/site/JsonLd";
 import { Link } from "@/i18n/navigation";
 import { brand, STORY_FOCUS } from "@/lib/brand";
 import { getRepos } from "@/lib/data";
 import { MAPS_URL, pick, type AppLocale } from "@/lib/format";
 import { pageMetadata } from "@/lib/meta";
+import { organizationSchema, websiteSchema } from "@/lib/schema";
 import { formatINR } from "@/lib/money";
 import { sortTiers } from "@/lib/tiers";
 import { inScript } from "@/lib/translit";
@@ -56,6 +58,8 @@ export default async function HomePage({ params }: PageProps<"/[locale]">) {
 
   return (
     <>
+      <JsonLd data={organizationSchema(trust, locale)} />
+      <JsonLd data={websiteSchema(locale, pick(locale, trust.nameHi, trust.nameEn))} />
       <Hero />
 
       {/* Live donations under the brass rail. */}

@@ -8,6 +8,8 @@ import { HallGallery, type GalleryItem } from "@/components/hall/HallGallery";
 import { getRepos } from "@/lib/data";
 import { demoImage } from "@/lib/demo-images";
 import { pageMetadata } from "@/lib/meta";
+import { venueSchema } from "@/lib/schema";
+import { JsonLd } from "@/components/site/JsonLd";
 
 export async function generateMetadata({ params }: PageProps<"/[locale]/hall">) {
   const { locale } = await params;
@@ -15,7 +17,8 @@ export async function generateMetadata({ params }: PageProps<"/[locale]/hall">) 
 }
 
 /** Desktop: the hall's photo and particulars on the left, the calendar and enquiry on the right. Phones: stacked. */
-export default async function HallPage() {
+export default async function HallPage({ params }: PageProps<"/[locale]/hall">) {
+  const { locale } = await params;
   const t = await getTranslations("Hall");
   const tc = await getTranslations("Common");
   const gallery = (["stage", "dining", "entrance"] as const).flatMap((k): GalleryItem[] => {
@@ -33,6 +36,7 @@ export default async function HallPage() {
   ] as const;
   return (
     <>
+      <JsonLd data={venueSchema(trust, locale, locale === "hi" ? "जाट भवन हॉल, नजफगढ़" : "Jat Bhawan Hall, Najafgarh", t("lead"))} />
       <PageHeader title={t("title")} lead={t("lead")} scene="hall" />
       <div className="container-site grid gap-(--space-2xl) pt-(--space-md) lg:grid-cols-[minmax(0,6fr)_minmax(0,5fr)] lg:gap-(--space-xl)">
         {/* Phones: the details come first and the photo follows them (order), so the page's
