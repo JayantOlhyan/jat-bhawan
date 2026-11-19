@@ -17,7 +17,7 @@ export async function Header() {
   return (
     <header className="no-print sticky top-0 z-(--z-sticky-nav) border-b border-line bg-ivory">
       <div className="container-site flex min-h-16 items-center gap-(--space-sm) py-(--space-xs) lg:min-h-20 xl:gap-(--space-lg)">
-        <Link href="/" aria-label={tm("siteName")} className="flex min-w-0 shrink items-center gap-(--space-sm) no-underline">
+        <Link href="/" className="flex min-w-0 shrink items-center gap-(--space-sm) no-underline">
           <SiteLogo letter={th("titleLine1").slice(0, 1)} size={40} />
           <span className="min-w-0 font-heading text-[1.12rem] leading-tight text-maroon sm:text-[1.3rem] xl:whitespace-nowrap">
             <span className="sm:hidden">{th("titleLine1")}</span>
