@@ -1,34 +1,64 @@
 import Image from "next/image";
+import { getTranslations } from "next-intl/server";
 import { demoImage } from "@/lib/demo-images";
+import { SampleChip } from "./SampleChip";
 
 /**
  * A rounded photo slot. The client's own photo in public/demo/<slot>.(jpg|png|webp…)
- * fills it when present; until then it shows a quiet placeholder with the
- * words "photo here", so the page never looks broken. `jaali` marks it for
- * the lattice reveal (at most two on the site).
+ * fills it when present; a generated `<slot>.sample.<ext>` fills it until then,
+ * labelled "Sample image"; with neither it shows a quiet "photo here"
+ * placeholder, so the page never looks broken. `jaali` marks it for the
+ * lattice reveal (at most two on the site); `fade` for a fade-up, once.
  */
-export function PhotoSlot({
+export async function PhotoSlot({
   slot,
   alt,
   label,
   className = "",
   sizes = "(min-width: 1024px) 45vw, 100vw",
   jaali = false,
+  fade = false,
+  objectPosition,
+  preload = false,
 }: {
   slot: string;
-  /** What the photo shows (its alt text once it arrives). */
+  /** What the photo shows (its alt text). */
   alt: string;
-  /** Placeholder words shown until then. */
+  /** Placeholder words shown when there is no image. */
   label: string;
   className?: string;
   sizes?: string;
   jaali?: boolean;
+  fade?: boolean;
+  /** CSS object-position, to keep the subject in frame when one image is used at two crops. */
+  objectPosition?: string;
+  /** Above the fold and likely the page's largest paint on phones: load it first. */
+  preload?: boolean;
 }) {
   const own = demoImage(slot);
+  const tc = await getTranslations("Common");
   return (
-    <div data-slot={slot} data-jaali={jaali ? "" : undefined} className={`photo-slot ${className}`}>
+    <div
+      data-slot={slot}
+      data-sample={own?.isSample ? "" : undefined}
+      data-jaali={jaali ? "" : undefined}
+      data-fade={fade ? "24" : undefined}
+      className={`photo-slot ${className}`}
+    >
       {own ? (
-        <Image src={own} alt={alt} fill sizes={sizes} className="object-cover" />
+        <>
+          <Image
+            src={own.src}
+            alt={own.isSample ? tc("sampleAlt", { alt }) : alt}
+            fill
+            sizes={sizes}
+            preload={preload}
+            fetchPriority={preload ? "high" : undefined}
+            className="object-cover"
+            style={objectPosition ? { objectPosition } : undefined}
+          />
+          {own.isSample && <SampleChip label={tc("sampleImage")} hidden />}
+        </>
       ) : (
         <div className="absolute inset-0 flex flex-col items-center justify-center gap-(--space-xs) p-(--space-md) text-center text-muted">
           <svg aria-hidden="true" viewBox="0 0 48 48" className="size-12 text-brass" fill="none" stroke="currentColor" strokeWidth="1.6">

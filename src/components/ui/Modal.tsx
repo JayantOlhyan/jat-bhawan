@@ -9,12 +9,15 @@ export function Modal({
   onClose,
   children,
   wide = false,
+  closeLabel = "Close",
 }: {
   open: boolean;
   title: string;
   onClose: () => void;
   children: React.ReactNode;
   wide?: boolean;
+  /** Accessible name of the ✕ button, in the page's language. */
+  closeLabel?: string;
 }) {
   const ref = useRef<HTMLDialogElement>(null);
   useEffect(() => {
@@ -33,7 +36,7 @@ export function Modal({
     >
       <div className="flex items-center justify-between border-b border-line bg-sand px-5 py-3">
         <h2 className="font-sans text-lg font-medium">{title}</h2>
-        <button type="button" className="btn btn-quiet min-h-10 px-3" onClick={onClose} aria-label="Close">
+        <button type="button" className="btn btn-quiet min-h-10 px-3" onClick={onClose} aria-label={closeLabel}>
           ✕
         </button>
       </div>

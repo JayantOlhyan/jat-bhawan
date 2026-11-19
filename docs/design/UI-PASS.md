@@ -113,3 +113,36 @@ ink on ivory 15.37 · on sand 12.75 · on surface 16.17 — ink-soft on ivory 9.
 
 ### Dropping in the building later
 Add `public/brand/hero-building.webp` (transparent cut-out) and rebuild. `next.config.ts` detects it, `brand.heroBuilding` becomes its path, and the hero draws it (preloaded) in place of the arched frame. Nothing else changes.
+
+---
+
+## Images pass (Nov 2026)
+
+Generated sample photos and brand illustrations added into existing and new slots. No route, data, form, money/receipt/tier, admin or print change.
+
+**Sample convention.** `demoImage(slot)` (`src/lib/demo-images.ts`, logic in `demo-files.ts`, unit-tested) returns `{ src, isSample } | null`. `public/demo/<slot>.sample.<ext>` is a labelled stand-in; a real `<slot>.<ext>` always wins. Samples show the chip "नमूना चित्र / Sample image" (bottom left, ivory on maroon 85%, 13 px, pill, not focusable, `aria-hidden` because the alt text already ends in " (नमूना चित्र)" / " (sample image)").
+
+**Where images go.**
+- `story`: home (4:3, keeps the jaali reveal) and About (3:4, fade-up 24 px). One square image; `STORY_FOCUS` (`brand.ts`, 50% 58%) keeps the stone, kalash and diya in both crops.
+- `hall`: hall page main photo (keeps the second and last jaali reveal; `preload` + `fetchpriority=high`, since it is the phone LCP), and a 176/112 px thumbnail replacing the calendar icon in the home hall card (scales to 1.03 on card hover, CSS, `motion-safe`).
+- Hall gallery ("हॉल की झलक / A look inside", `HallGallery.tsx`): `hall-stage`, `hall-dining`, `hall-entrance`, 4:3, 3 across ≥ 1024 px, 2 + 1 below. Missing files render nothing; no files, no heading. Each thumbnail is a button opening the shared native-`<dialog>` Modal (focus trap, Esc, focus returns to the thumbnail; the ✕ now takes a localised `closeLabel`). Rise 24 px, stagger 0.06, once (`data-rise="24"`).
+- Page-header scenes (`PageHeader scene=…`, donors / hall / committee / members / about / contact): right column 240 px (280 px ≥ 1280), ≥ 768 px only, `alt=""`. The square is reserved whenever `scene` is passed, so the header height is identical with or without the file (checked). Motion (desktop + hover): rises 24 px with rotateY 8° → 0 (perspective 1000, 0.6 s, power3.out) on first load or a route change, then drifts at 0.85× scroll while the header is in view. Transforms only.
+- 404: `scenes/not-found.webp` at 220 px above the title, fade-up 16 px; a diya glow sits on the flame (`NOT_FOUND_FLAME` in `brand.ts`, measured at 0.411 / 0.675) and flickers (`data-flicker`); reduced motion: static, glow visible.
+
+**Motion rules kept.** No opacity 0 in server HTML; fades run only below the fold on scroll, or in view as a first-load / route-change intro. Still two jaali reveals. Reduced motion: nothing moves. JS off: every image and text visible.
+
+**Share image.** `public/brand/og.png` (1200 × 630) is rendered from the dev-only `/og-template` route (404 in production, noindex, bypasses the locale proxy) by `npm run og` (`scripts/og.mjs`, Playwright; uses a running dev server or starts one). Site fonts, hero sky, maroon Tiro "जाट भवन, नजफगढ़", Mukta "Jat Bhawan, Najafgarh", brass rules, the jharokha arch with the toran and a glowing diya (or `hero-building.webp` once it exists; never a sample photo), and the hero diya row. `pageMetadata` sets it as the openGraph and twitter image on every public page (alt = trust name in the page's language), with `metadataBase` from `NEXT_PUBLIC_SITE_URL`, else Netlify's `URL`.
+
+### Verification
+
+| | Before | After |
+|---|---|---|
+| typecheck, lint, build | pass | pass |
+| Vitest | 67 | 71 (+4 for the sample convention) |
+| Playwright smoke + language | 59 / 59 | 59 / 59 |
+| Lighthouse mobile `/hi` | Perf 100 · A11y 100 · CLS 0 · LCP 0.9 s | Perf 100 · A11y 100 · CLS 0 · LCP 0.9 s |
+| Lighthouse mobile `/hi/hall` | Perf 100 · A11y 97 · CLS 0 · LCP 0.9 s | **Perf 83** · A11y 97 · CLS 0 · LCP 4.8 s (simulated; observed 0.15 s) |
+
+`/hi/hall` misses the 90 budget. The hall photo is now the phone LCP, and Lighthouse's simulation charges an image LCP with every font and script fetched before it (about 640 KB on throttled 4G). Lazy-loading below the fold, exact `sizes`, preload and `fetchpriority=high` were all applied and do not move it (83 → 83). The scene parallax is desktop-only, so dropping it would not help. With the hall image absent the same page scores 100. The fix needs a decision: on phones only, place the hall photo after the details list (a layout change), or accept 83 for the demo. A11y 97 on the hall page was already there before this pass (calendar labels at 70% opacity; the logo's aria-label vs its visible text).
+
+Screenshots: `screenshots/images-pass/with/` and `screenshots/images-pass/without/` (8 pages × hi/en × 375/1280, plus the hall gallery in view). With the samples and scenes moved away, header heights and H1 positions match to the pixel; the only differences are the intended ones (no gallery, no 404 scene, the calendar icon back in the home hall card).

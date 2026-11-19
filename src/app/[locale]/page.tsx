@@ -5,12 +5,14 @@ import { Hero } from "@/components/home/Hero";
 import { Avatar } from "@/components/people/Avatar";
 import { BrassRule } from "@/components/site/BrassRule";
 import { PhotoSlot } from "@/components/site/PhotoSlot";
+import { SampleChip } from "@/components/site/SampleChip";
 import { LineIcon } from "@/components/ui/LineIcon";
 import { PlaceholderText } from "@/components/ui/PlaceholderText";
 import { TierBadge } from "@/components/ui/TierBadge";
 import { Link } from "@/i18n/navigation";
-import { ICONS } from "@/lib/brand";
+import { ICONS, STORY_FOCUS } from "@/lib/brand";
 import { getRepos } from "@/lib/data";
+import { demoImage } from "@/lib/demo-images";
 import { MAPS_URL, pick, type AppLocale } from "@/lib/format";
 import { pageMetadata } from "@/lib/meta";
 import { formatINR } from "@/lib/money";
@@ -46,6 +48,7 @@ export default async function HomePage({ params }: PageProps<"/[locale]">) {
     repos.committee.listPublic(),
     repos.trust.get(),
   ]);
+  const hallPhoto = demoImage("hall");
   const leaders = committee.filter((c) => [1, 3, 5].includes(c.postRank));
   const contactRows = [
     { icon: "pin", label: tf("address"), value: <PlaceholderText text={pick(locale, trust.addressHi, trust.addressEn)} /> },
@@ -92,7 +95,7 @@ export default async function HomePage({ params }: PageProps<"/[locale]">) {
             <p className="mt-(--space-lg) max-w-[60ch] text-lg"><PlaceholderText text={t("historyBody")} /></p>
             <Link href="/about" className="link-ink mt-(--space-md)">{t("readMore")}</Link>
           </div>
-          <PhotoSlot slot="story" alt={t("heroPhoto")} label={tc("photoHere")} jaali className="aspect-[4/3] w-full" />
+          <PhotoSlot slot="story" alt={t("storyPhoto")} label={tc("photoHere")} jaali objectPosition={STORY_FOCUS} sizes="(min-width: 1320px) 500px, (min-width: 1024px) 40vw, 100vw" className="aspect-[4/3] w-full" />
         </div>
       </Section>
 
@@ -120,8 +123,15 @@ export default async function HomePage({ params }: PageProps<"/[locale]">) {
 
       {/* Hall teaser. */}
       <Section id="hall-title">
-        <div className="card-raised flex flex-col items-start gap-(--space-md) p-(--space-lg) sm:flex-row sm:items-center sm:gap-(--space-lg)">
-          <Image src={ICONS.calendar} alt="" width={96} height={96} sizes="96px" className="size-20 shrink-0 sm:size-24" />
+        <div className="group card-raised flex flex-col items-start gap-(--space-md) p-(--space-lg) sm:flex-row sm:items-center sm:gap-(--space-lg)">
+          {hallPhoto ? (
+            <div className="photo-slot aspect-[4/3] w-28 shrink-0 sm:w-44">
+              <Image src={hallPhoto.src} alt="" fill sizes="(min-width: 640px) 176px, 112px" className="object-cover motion-safe:transition-transform motion-safe:duration-300 group-hover:scale-[1.03]" />
+              {hallPhoto.isSample && <SampleChip label={tc("sampleImage")} small hidden />}
+            </div>
+          ) : (
+            <Image src={ICONS.calendar} alt="" width={96} height={96} sizes="96px" className="size-20 shrink-0 sm:size-24" />
+          )}
           <span aria-hidden="true" className="hidden h-16 w-px shrink-0 bg-line sm:block" />
           <div className="min-w-0 flex-1">
             <h2 id="hall-title" className="text-[length:var(--text-title)] leading-snug">{t("stageHall")}</h2>

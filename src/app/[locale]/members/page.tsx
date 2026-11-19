@@ -14,7 +14,7 @@ export default async function MembersPage() {
   const members = await getRepos().members.listPublic();
   return (
     <>
-      <PageHeader title={t("title")} lead={t("lead")} />
+      <PageHeader title={t("title")} lead={t("lead")} scene="members" />
       <div className="container-site pt-(--space-md)">
         <MembersGrid initial={members} />
       </div>

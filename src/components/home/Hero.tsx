@@ -1,12 +1,10 @@
 import Image from "next/image";
 import { getTranslations } from "next-intl/server";
 import { Link } from "@/i18n/navigation";
-import { brand, DIYA_FLAMES, HERO_FG_SIZE, heroBuilding } from "@/lib/brand";
+import { brand, DIYA_FLAMES, HERO_FG_SIZE, heroBuilding, JHAROKHA_ARCH } from "@/lib/brand";
 import { HeroMotion } from "./HeroMotion";
 
-/** A cusped jharokha arch, drawn to the frame's own aspect (26% × 70% of the fg plane). */
-const ARCH =
-  "M4 149 V62 C4 46 12 36 22 30 C26 18 36 10 50 3 C64 10 74 18 78 30 C88 36 96 46 96 62 V149 Z";
+const ARCH = JHAROKHA_ARCH;
 
 /**
  * The layered hero. Three planes share one coordinate box (`.hero-plane`, the

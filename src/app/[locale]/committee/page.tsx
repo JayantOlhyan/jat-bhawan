@@ -15,7 +15,7 @@ export default async function CommitteePage() {
   const committee = await getRepos().committee.listPublic();
   return (
     <>
-      <PageHeader title={t("title")} lead={t("lead")} />
+      <PageHeader title={t("title")} lead={t("lead")} scene="committee" />
       <div className="container-site pt-(--space-md)">
         <CommitteeList initial={committee} />
         <section className="mt-(--section-gap-s)" aria-labelledby="past">

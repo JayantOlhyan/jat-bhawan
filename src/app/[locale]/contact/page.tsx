@@ -23,7 +23,7 @@ export default async function ContactPage() {
   ];
   return (
     <>
-      <PageHeader title={t("title")} lead={t("lead")} />
+      <PageHeader title={t("title")} lead={t("lead")} scene="contact" />
       <div className="container-site pt-(--space-md)">
         <dl className="ledger-rows card-raised px-(--space-lg)">
           {rows.map(([k, v]) => (

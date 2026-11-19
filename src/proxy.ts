@@ -20,6 +20,9 @@ export default async function proxy(request: NextRequest) {
     return NextResponse.next();
   }
 
+  // Dev-only social-image template (404 in production); no locale prefix.
+  if (pathname === "/og-template") return NextResponse.next();
+
   return intl(request);
 }
 

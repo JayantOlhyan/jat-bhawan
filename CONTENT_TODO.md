@@ -2,13 +2,26 @@
 
 Everything below is placeholder or sample data in the demo. Each row says what the client sends and which file it replaces.
 
-## Photos (drop into `public/demo/`, picked up automatically)
-| Item | File name | Where it shows |
+## Images
+
+Every image slot on the public site. Photos go into `public/demo/` and are picked up automatically: a real `<slot>.jpg` (or `.jpeg .png .webp .avif`) always wins over a `<slot>.sample.webp`. The pages need no code change, only a rebuild/redeploy.
+
+| File | Where it shows | Current state |
 |---|---|---|
-| Bhawan photo, or an old photo of the village elders / foundation stone (portrait or 4:3, ≥1600px) | `public/demo/story.jpg` | Home "idea" section and About (replaces the credited harvest stand-in photo; then remove its credit from the footer) |
-| Hall interior photo (4:3) | `public/demo/hall.jpg` | Hall page, beside the hall details (hidden until supplied) |
-| Committee member photos (square, optional) | later → Supabase Storage; field `photo` | Committee page (initials avatars until then) |
-| Member photos (optional, with consent) | later → Supabase Storage; field `photo` | Members page |
+| `public/demo/story.sample.webp` → send `story.jpg` (an old photo of the foundation stone / village elders, or the Bhawan; square or 4:3, ≥ 1600 px) | Home "idea" section (4:3 crop) and About column (3:4 crop) | **AI sample: must be replaced with a real photo before launch.** Labelled "नमूना चित्र / Sample image" on the page. |
+| `public/demo/hall.sample.webp` → send `hall.jpg` (hall interior, 4:3, ≥ 1600 px) | Hall page main photo; thumbnail in the home "hall" card | **AI sample: must be replaced with a real photo before launch.** |
+| `public/demo/hall-stage.sample.webp` → `hall-stage.jpg` (4:3) | Hall page gallery, "A look inside" | **AI sample: must be replaced with a real photo before launch.** Caption `Hall.gallery.stage` describes the sample; adjust it to the real photo. |
+| `public/demo/hall-dining.sample.webp` → `hall-dining.jpg` (4:3) | Hall page gallery | **AI sample: must be replaced with a real photo before launch.** Caption `Hall.gallery.dining`. |
+| `public/demo/hall-entrance.sample.webp` → `hall-entrance.jpg` (4:3) | Hall page gallery | **AI sample: must be replaced with a real photo before launch.** Caption `Hall.gallery.entrance`. |
+| `public/brand/hero-building.webp` (not there yet: a cut-out photo or render of the Bhawan façade, transparent background) | Home hero, inside the arch; also the share image | Missing: the hero shows the empty brass arch. Picked up at build time (`next.config.ts`). Never generate or fake this one. |
+| `public/brand/scenes/{donors,hall,committee,members,about,contact}.webp` | Right of the page title on those pages (≥ 768 px only) | Decorative brand illustration. Keep. |
+| `public/brand/scenes/not-found.webp` | 404 page, above the title | Decorative brand illustration. Keep. |
+| `public/brand/og.png` | Share preview (WhatsApp, Facebook, X) for every public page | Built from the site's own fonts and art. **Regenerate with `npm run og` after the façade photo arrives** (it then shows `hero-building.webp` in the arch). |
+| `public/brand/hero-*.webp`, `icons/`, `tiers/` | Hero, icons, tier medals | Decorative brand art. Keep. |
+| Committee member photos (square, optional) | later → Supabase Storage; field `photo` | Initials avatars until then. |
+| Member photos (optional, with consent) | later → Supabase Storage; field `photo` | Initials avatars until then. |
+
+When a sample is replaced, delete the `.sample.webp` file too (the real photo wins anyway, but it keeps the folder honest).
 
 ## Trust details → `src/lib/data/seed/static.ts` (`SEED_TRUST`), later the `trust_settings` table
 - Registered trust name (Hindi + English). Placeholder: "जाट भवन ट्रस्ट, नजफगढ़ / Jat Bhawan Trust, Najafgarh"

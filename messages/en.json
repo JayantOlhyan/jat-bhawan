@@ -75,7 +75,10 @@
     "mapHere": "Map here",
     "whatsapp": "Chat on WhatsApp",
     "sonOf": "S/o or D/o {name}",
-    "pagination": "Pages"
+    "pagination": "Pages",
+    "sampleImage": "Sample image",
+    "sampleAlt": "{alt} (sample image)",
+    "close": "Close"
   },
   "Home": {
     "heroPhoto": "Bhawan photo here",
@@ -117,7 +120,8 @@
     "seeDates": "Free hall dates",
     "titleLine1": "Jat Bhawan",
     "titleLine2": "Najafgarh",
-    "harvestAlt": "A woman carrying cut wheat sheaves across a harvested field"
+    "harvestAlt": "A woman carrying cut wheat sheaves across a harvested field",
+    "storyPhoto": "The foundation stone with a marigold garland, a kalash and a lit diya"
   },
   "Ticker": {
     "empty": "Donations will appear here",
@@ -278,7 +282,14 @@
     "rateValue": "[placeholder] Rates depend on the date and slot. Please send an enquiry or call the office.",
     "calendarTitle": "Availability",
     "enquiryTitle": "Send an enquiry",
-    "enquiryLead": "The office will call you back to confirm availability and the rate"
+    "enquiryLead": "The office will call you back to confirm availability and the rate",
+    "photoAlt": "The Jat Bhawan hall, with the stage and round tables",
+    "galleryTitle": "A look inside",
+    "gallery": {
+      "stage": "The wedding stage, decked with marigold strings",
+      "dining": "The dining hall, with long tables and a jaali window",
+      "entrance": "The main entrance, with diyas and a flower rangoli"
+    }
   },
   "Calendar": {
     "prev": "Previous month",

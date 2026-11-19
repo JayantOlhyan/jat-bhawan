@@ -38,7 +38,7 @@ export default async function DonorsPage({ params, searchParams }: PageProps<"/[
 
   return (
     <>
-      <PageHeader title={t("title")} lead={t("lead")} />
+      <PageHeader title={t("title")} lead={t("lead")} scene="donors" />
       <div className="container-site pt-(--space-md)">
         <FilterSheet active={[query.search, query.fundId, query.fy, query.tierId].filter(Boolean).length}>
         <form method="get" className="card-raised grid gap-(--space-md) p-(--space-md) sm:grid-cols-2 lg:grid-cols-[2fr_1fr_1fr_1fr_auto] lg:items-end" role="search">

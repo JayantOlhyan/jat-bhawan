@@ -57,3 +57,17 @@ export const TIER_ART: Record<string, { image: string } | { ring: "brass" | "mar
  */
 export const HERO_FG_SIZE = { width: 2880, height: 1621 } as const;
 export const DIYA_FLAMES = [0.5625, 0.633, 0.7035, 0.776, 0.8465, 0.917].map((x) => ({ x, y: 0.885 }));
+
+/**
+ * The story sample is square but shows at 4:3 (home) and 3:4 (about):
+ * centred and a little low keeps the foundation stone, kalash and diya in
+ * frame at both crops.
+ */
+export const STORY_FOCUS = "50% 58%";
+
+/** Where the diya flame sits in brand/scenes/not-found.webp (768 × 768), as fractions; the glow is placed on it. */
+export const NOT_FOUND_FLAME = { x: 0.411, y: 0.675 } as const;
+
+/** A cusped jharokha arch in a 100 × 150 box (hero frame, OG image). */
+export const JHAROKHA_ARCH =
+  "M4 149 V62 C4 46 12 36 22 30 C26 18 36 10 50 3 C64 10 74 18 78 30 C88 36 96 46 96 62 V149 Z";

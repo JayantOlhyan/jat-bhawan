@@ -3,13 +3,16 @@
 import { usePathname } from "next/navigation";
 import { useRef } from "react";
 import { gsap, ScrollTrigger, useGSAP } from "@/lib/gsap";
-import { DUR, EASE, lowPower, MQ, STAGGER } from "@/lib/motion";
+import { DUR, earlyEnoughForIntro, EASE, lowPower, MQ, STAGGER } from "@/lib/motion";
 
 /**
  * Page-level motion, wired by data attributes so server components stay
  * server components:
  *  - [data-draw]    an SVG line that draws itself at 70% in view, once (BrassRule)
- *  - [data-rise]    a list whose children rise in, staggered, once
+ *  - [data-rise]    a list whose children rise in, staggered, once (value = distance in px, default 28)
+ *  - [data-fade]    one block that fades up by its value in px, once (About photo, 404 scene)
+ *  - [data-flicker] a diya glow that breathes (404 scene; the hero has its own)
+ *  - [data-scene]   a page-header illustration: rises in with a slight turn, then drifts at 0.85× scroll (desktop)
  *  - [data-lift]    desktop hover: lift + a brass sheen ([data-sheen] inside)
  *  - [data-jaali]   a lattice of ivory tiles, added here, that falls away (two on the site)
  * plus a 0.2 s fade of <main> on client-side route changes.
@@ -49,7 +52,7 @@ export function SiteMotion() {
           const items = Array.from(list.children).filter(below);
           if (!items.length) return;
           gsap.from(items, {
-            y: 28,
+            y: Number(list.dataset.rise) || 28,
             opacity: 0,
             duration: DUR.medium,
             ease: EASE.enter,
@@ -57,6 +60,28 @@ export function SiteMotion() {
             scrollTrigger: { trigger: list, start: "top 85%", once: true },
           });
         });
+
+        // Fade-up: below the fold on scroll; in view only as an intro (first load or a route
+        // change), never later, so nothing the reader is looking at blinks out.
+        const intro = navigated || earlyEnoughForIntro();
+        main.querySelectorAll<HTMLElement>("[data-fade]").forEach((el) => {
+          const from = { y: Number(el.dataset.fade) || 24, opacity: 0, duration: DUR.medium, ease: EASE.enter, clearProps: "opacity,transform" };
+          if (below(el)) gsap.from(el, { ...from, scrollTrigger: { trigger: el, start: "top 85%", once: true } });
+          else if (intro) gsap.from(el, from);
+        });
+
+        if (!lowPower()) {
+          main.querySelectorAll<HTMLElement>("[data-flicker]").forEach((glow) => {
+            gsap.to(glow, {
+              opacity: gsap.utils.random(0.45, 0.6),
+              scale: gsap.utils.random(0.82, 0.9),
+              duration: gsap.utils.random(1, 1.5),
+              ease: "sine.inOut",
+              repeat: -1,
+              yoyo: true,
+            });
+          });
+        }
 
         const lattices: HTMLElement[] = [];
         if (!lowPower()) {
@@ -90,6 +115,31 @@ export function SiteMotion() {
       });
 
       mm.add(MQ.desktop, () => {
+        // Page-header scene: transforms only (it is fully visible in the HTML).
+        const scene = main.querySelector<HTMLElement>("[data-scene]");
+        const header = scene?.closest<HTMLElement>("[data-page-header]");
+        if (scene && header) {
+          if (navigated || earlyEnoughForIntro()) {
+            gsap.from(scene.querySelector("[data-scene-art]"), {
+              y: 24,
+              rotateY: 8,
+              transformPerspective: 1000,
+              duration: DUR.medium,
+              ease: EASE.enter,
+              delay: 0.15,
+            });
+          }
+          if (!lowPower()) {
+            // 0.85× scroll speed: over the scroll that takes the header off screen, lag by 15% of it.
+            const travel = () => header.getBoundingClientRect().bottom + window.scrollY;
+            gsap.to(scene, {
+              y: () => travel() * 0.15,
+              ease: "none",
+              scrollTrigger: { trigger: header, start: 0, end: "bottom top", scrub: true, invalidateOnRefresh: true },
+            });
+          }
+        }
+
         const cleanups: Array<() => void> = [];
         main.querySelectorAll<HTMLElement>("[data-lift]").forEach((el) => {
           const sheen = el.querySelector<HTMLElement>("[data-sheen] .sheen-bar");

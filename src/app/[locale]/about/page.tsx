@@ -3,6 +3,7 @@ import { BrassRule } from "@/components/site/BrassRule";
 import { PageHeader } from "@/components/site/PageHeader";
 import { PhotoSlot } from "@/components/site/PhotoSlot";
 import { PlaceholderText } from "@/components/ui/PlaceholderText";
+import { STORY_FOCUS } from "@/lib/brand";
 import { pageMetadata } from "@/lib/meta";
 
 export async function generateMetadata({ params }: PageProps<"/[locale]/about">) {
@@ -17,7 +18,7 @@ export default async function AboutPage() {
   const mission = t.raw("mission") as string[];
   return (
     <>
-      <PageHeader title={t("title")} lead={t("lead")} />
+      <PageHeader title={t("title")} lead={t("lead")} scene="about" />
       <div className="container-site grid gap-(--space-2xl) pt-(--space-md) lg:grid-cols-[minmax(0,7fr)_minmax(0,5fr)] lg:gap-(--space-3xl)">
         <div className="space-y-(--space-2xl)">
           <section>
@@ -40,7 +41,7 @@ export default async function AboutPage() {
             <p className="mt-(--space-lg) text-lg">{t("trustBody")}</p>
           </section>
         </div>
-        <PhotoSlot slot="story" alt={th("heroPhoto")} label={tc("photoHere")} className="aspect-[3/4] w-full lg:sticky lg:top-28 lg:h-fit" />
+        <PhotoSlot slot="story" alt={th("storyPhoto")} label={tc("photoHere")} fade objectPosition={STORY_FOCUS} sizes="(min-width: 1320px) 480px, (min-width: 1024px) 38vw, 100vw" className="aspect-[3/4] w-full lg:sticky lg:top-28 lg:h-fit" />
       </div>
     </>
   );
