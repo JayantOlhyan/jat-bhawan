@@ -8,6 +8,15 @@ const heroBuilding = fs.existsSync(path.join(process.cwd(), "public", "brand", "
   ? "/brand/hero-building.webp"
   : "";
 
+/** Security headers on every response (CSP left out: Next's inline bootstrap scripts would need nonces). */
+const SECURITY_HEADERS = [
+  { key: "X-Content-Type-Options", value: "nosniff" },
+  { key: "X-Frame-Options", value: "SAMEORIGIN" },
+  { key: "Referrer-Policy", value: "strict-origin-when-cross-origin" },
+  { key: "Permissions-Policy", value: "camera=(), microphone=(), geolocation=()" },
+  { key: "Strict-Transport-Security", value: "max-age=63072000; includeSubDomains" },
+];
+
 const nextConfig: NextConfig = {
   // Cache Components are off for the demo; see PLAN.md "Decision: Cache Components off".
   cacheComponents: false,
@@ -22,7 +31,12 @@ const nextConfig: NextConfig = {
     },
   },
   async headers() {
-    return [{ source: "/:path*", headers: [{ key: "X-Robots-Tag", value: "noindex, nofollow" }] }];
+    const indexable = process.env.NEXT_PUBLIC_SITE_INDEXABLE === "true";
+    return [
+      { source: "/:path*", headers: [...SECURITY_HEADERS, ...(indexable ? [] : [{ key: "X-Robots-Tag", value: "noindex, nofollow" }])] },
+      // Admin, API and the share-image template are never indexed.
+      { source: "/(admin|api|og-template)/:path*", headers: [{ key: "X-Robots-Tag", value: "noindex, nofollow" }] },
+    ];
   },
 };
 
