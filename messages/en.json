@@ -476,5 +476,10 @@
   "NotFound": {
     "title": "Page not found",
     "body": "The page you are looking for does not exist."
+  },
+  "ErrorPage": {
+    "title": "Something went wrong",
+    "body": "This page could not load just now. Please try again, or contact the office.",
+    "retry": "Try again"
   }
 }
