@@ -232,8 +232,11 @@
  * cropped like object-cover, anchored right and 80% down, so the art and its glows line up. */
 .hero-art { container-type: size; }
 .hero-plane {
-  position: absolute; right: 0; width: max(100cqw, 177.67cqh); aspect-ratio: 2880 / 1621;
-  top: calc((100cqh - max(56.28cqw, 100cqh)) * 0.8);
+  position: absolute; right: 0; aspect-ratio: 2880 / 1621;
+  /* Cover the box, but never wider than 1.28× its height: past ~1590px the hero stops growing
+   * taller, and an uncapped plane would blow the building up and crop it. */
+  width: min(max(100cqw, 177.67cqh), 227.4cqh);
+  top: calc((100cqh - min(max(56.28cqw, 100cqh), 128cqh)) * 0.8);
 }
 /* Below 1024px the art sits under the text: centre the building (x ≈ 0.71 of the plane). */
 @media (max-width: 1023px) {
