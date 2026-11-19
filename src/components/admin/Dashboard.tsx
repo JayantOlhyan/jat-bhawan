@@ -34,7 +34,7 @@ export function Dashboard() {
   );
   const [confirmReset, setConfirmReset] = useState(false);
 
-  if (!data) return <p className="text-ink-2">Loading…</p>;
+  if (!data) return <p className="text-ink-soft">Loading…</p>;
   const sum = (k: keyof Omit<FundTotals, "fundId">) => data.totals.reduce((s, x) => s + x[k], 0);
 
   return (
@@ -50,27 +50,27 @@ export function Dashboard() {
           ] as const
         ).map(([label, key]) => (
           <div key={key} className="card p-4">
-            <p className="text-ink-2">{label}</p>
-            <p className="text-2xl font-semibold tabular-nums text-accent" data-testid={`total-${key}`}>{formatINR(sum(key))}</p>
+            <p className="text-ink-soft">{label}</p>
+            <p className="text-2xl font-semibold tabular-nums text-maroon" data-testid={`total-${key}`}>{formatINR(sum(key))}</p>
           </div>
         ))}
       </section>
 
       <section className="grid gap-4 sm:grid-cols-2">
-        <Link href="/admin/donations?status=pending" className="card flex items-center justify-between p-4 no-underline hover:border-accent">
+        <Link href="/admin/donations?status=pending" className="card flex items-center justify-between p-4 no-underline hover:border-maroon">
           <span className="text-lg text-ink">Pending verifications</span>
-          <span className={`rounded-full px-3 text-xl font-bold ${data.pending ? "bg-warn-tint text-warn" : "bg-paper-3 text-ink-2"}`}>{data.pending}</span>
+          <span className={`rounded-full px-3 text-xl font-bold ${data.pending ? "bg-warn-tint text-warn" : "bg-sand text-ink-soft"}`}>{data.pending}</span>
         </Link>
-        <Link href="/admin/bookings" className="card flex items-center justify-between p-4 no-underline hover:border-accent">
+        <Link href="/admin/bookings" className="card flex items-center justify-between p-4 no-underline hover:border-maroon">
           <span className="text-lg text-ink">New hall enquiries</span>
-          <span className={`rounded-full px-3 text-xl font-bold ${data.enquiries ? "bg-warn-tint text-warn" : "bg-paper-3 text-ink-2"}`}>{data.enquiries}</span>
+          <span className={`rounded-full px-3 text-xl font-bold ${data.enquiries ? "bg-warn-tint text-warn" : "bg-sand text-ink-soft"}`}>{data.enquiries}</span>
         </Link>
       </section>
 
       <section className="card overflow-x-auto p-4">
         <h2 className="mb-3 font-sans text-xl font-semibold">Verified totals by fund</h2>
         <table className="w-full min-w-[32rem] text-left">
-          <thead className="border-b border-rule text-ink-2">
+          <thead className="border-b border-line text-ink-soft">
             <tr>
               <th className="py-2 pr-4 font-semibold">Fund</th>
               <th className="py-2 pr-4 text-right font-semibold">Today</th>
@@ -80,7 +80,7 @@ export function Dashboard() {
           </thead>
           <tbody>
             {data.totals.map((t) => (
-              <tr key={t.fundId} className="border-b border-rule/60">
+              <tr key={t.fundId} className="border-b border-line/60">
                 <td className="py-2 pr-4">{data.funds.find((f) => f.id === t.fundId)?.nameEn}</td>
                 <td className="py-2 pr-4 text-right tabular-nums">{formatINR(t.todayPaise)}</td>
                 <td className="py-2 pr-4 text-right tabular-nums">{formatINR(t.monthPaise)}</td>
@@ -96,7 +96,7 @@ export function Dashboard() {
         <label className="flex cursor-pointer items-center gap-3">
           <input
             type="checkbox"
-            className="size-5 accent-accent"
+            className="size-5 accent-maroon"
             checked={data.upiManual}
             onChange={(e) => getRepos().demo.set({ upiManual: e.target.checked })}
             data-testid="toggle-upi"
@@ -105,13 +105,13 @@ export function Dashboard() {
             Use the <strong>UPI-manual fallback</strong> on the donate page (QR + UTR, creates a pending donation) instead of the test gateway.
           </span>
         </label>
-        <div className="border-t border-rule pt-4">
-          <p className="text-ink-2">Reset removes every donation, booking and edit made during the demo (in this browser) and returns to the sample data.</p>
+        <div className="border-t border-line pt-4">
+          <p className="text-ink-soft">Reset removes every donation, booking and edit made during the demo (in this browser) and returns to the sample data.</p>
           {confirmReset ? (
             <div className="mt-2 flex gap-2">
               <button
                 type="button"
-                className="btn btn-primary bg-bad"
+                className="btn btn-primary bg-error"
                 onClick={() => {
                   getRepos().reset();
                   setConfirmReset(false);

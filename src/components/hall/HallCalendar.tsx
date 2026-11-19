@@ -2,16 +2,19 @@
 
 import { useLocale, useTranslations } from "next-intl";
 import { useRef } from "react";
+import { gsap, useGSAP } from "@/lib/gsap";
+import { DUR, EASE, MQ } from "@/lib/motion";
 import type { PublicBookingDay } from "@/lib/data/repos";
 import { addDays, dayStatus, monthGrid, type DayStatus } from "@/lib/calendar";
 import { intlLocale, type AppLocale } from "@/lib/format";
 
+/** Booked: maroon fill. Tentative: a 2px brass outline. Available: ivory with a grey-ink outline. Each also carries a mark and a label. */
 const STATUS_STYLE: Record<DayStatus | "past", string> = {
-  available: "bg-paper-2 text-ink border-rule hover:border-ink",
-  booked: "bg-ink text-paper border-ink",
-  partial: "bg-paper-3 text-ink border-ink [background-image:linear-gradient(135deg,transparent_50%,var(--color-rule)_50%)]",
-  tentative: "bg-warn-tint text-warn border-warn border-dashed",
-  past: "bg-paper-3/60 text-ink-2/70 border-transparent",
+  available: "bg-ivory text-ink border border-grey-line hover:border-maroon",
+  booked: "bg-maroon text-ivory border border-maroon",
+  partial: "bg-ivory text-ink border border-maroon [background-image:linear-gradient(135deg,transparent_50%,rgb(122_31_31/0.22)_50%)]",
+  tentative: "bg-ivory text-ink border-2 border-brass",
+  past: "bg-transparent text-muted border border-transparent opacity-70",
 };
 
 const STATUS_MARK: Record<DayStatus, string> = { available: "", booked: "●", partial: "◐", tentative: "○" };
@@ -45,6 +48,23 @@ export function HallCalendar({
   const t = useTranslations("Calendar");
   const locale = useLocale() as AppLocale;
   const grid = useRef<HTMLTableElement>(null);
+  const shown = useRef(year * 12 + month);
+
+  // Month change: the grid slides in from the side it came from.
+  useGSAP(
+    () => {
+      const now = year * 12 + month;
+      const dir = Math.sign(now - shown.current);
+      shown.current = now;
+      if (!dir || !grid.current) return;
+      const mm = gsap.matchMedia();
+      mm.add(MQ.motion, () => {
+        gsap.fromTo(grid.current!.tBodies[0], { xPercent: 8 * dir, opacity: 0 }, { xPercent: 0, opacity: 1, duration: DUR.slide, ease: EASE.transition, clearProps: "transform,opacity" });
+      });
+      return () => mm.revert();
+    },
+    { dependencies: [year, month] },
+  );
   const weeks = monthGrid(year, month);
   const weekdays = t.raw("weekdays") as string[];
   const title = new Intl.DateTimeFormat(intlLocale(locale), { month: "long", year: "numeric", timeZone: "UTC" }).format(
@@ -85,12 +105,12 @@ export function HallCalendar({
   };
 
   return (
-    <div className="card p-3 sm:p-4" data-testid="hall-calendar">
+    <div data-testid="hall-calendar">
       <div className="mb-3 flex items-center justify-between gap-2">
         <button type="button" className="btn btn-quiet px-3" onClick={() => shift(-1)} aria-label={t("prev")}>
           <svg aria-hidden="true" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M15 18l-6-6 6-6" /></svg>
         </button>
-        <h3 className="text-center font-serif text-xl font-normal" aria-live="polite" id="cal-title">{title}</h3>
+        <h3 className="text-center font-heading text-xl font-normal text-maroon" aria-live="polite" id="cal-title">{title}</h3>
         <button type="button" className="btn btn-quiet px-3" onClick={() => shift(1)} aria-label={t("next")}>
           <svg aria-hidden="true" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M9 18l6-6-6-6" /></svg>
         </button>
@@ -100,7 +120,7 @@ export function HallCalendar({
         <thead>
           <tr>
             {weekdays.map((w) => (
-              <th key={w} scope="col" className="pb-1 text-center text-[0.85rem] font-medium text-ink-2">{w}</th>
+              <th key={w} scope="col" className="pb-1 text-center text-[0.85rem] font-medium text-ink-soft">{w}</th>
             ))}
           </tr>
         </thead>
@@ -135,8 +155,8 @@ export function HallCalendar({
                         onSelect(key);
                       }}
                       onKeyDown={(e) => onKey(e, key)}
-                      className={`relative flex aspect-square min-h-11 w-full flex-col items-center justify-center rounded-md border-2 text-base font-medium tabular-nums ${STATUS_STYLE[style]} ${
-                        isSel ? "ring-3 ring-ink ring-offset-1" : ""
+                      className={`relative flex aspect-square min-h-11 w-full flex-col items-center justify-center rounded-[10px] text-base font-medium tabular-nums ${STATUS_STYLE[style]} ${
+                        isSel ? "ring-3 ring-ink ring-offset-2 ring-offset-ivory" : ""
                       } ${key === today ? "underline decoration-2 underline-offset-4" : ""}`}
                     >
                       {dayNum}
@@ -151,12 +171,12 @@ export function HallCalendar({
           ))}
         </tbody>
       </table>
-      <div className="mt-3">
-        <p className="font-medium">{t("legend")}</p>
+      <div className="mt-(--space-md) border-t border-line pt-(--space-sm)">
+        <p className="font-semibold">{t("legend")}</p>
         <ul className="mt-1 flex flex-wrap gap-x-4 gap-y-2 text-[0.95rem]">
           {(["available", "booked", "partial", "tentative"] as const).map((s) => (
             <li key={s} className="flex items-center gap-2">
-              <span aria-hidden="true" className={`inline-flex size-6 items-center justify-center rounded border-2 text-[0.7rem] ${STATUS_STYLE[s]}`}>
+              <span aria-hidden="true" className={`inline-flex size-7 items-center justify-center rounded-[8px] text-[0.7rem] ${STATUS_STYLE[s]}`}>
                 {STATUS_MARK[s]}
               </span>
               {label(s)}

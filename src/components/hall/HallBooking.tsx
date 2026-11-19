@@ -84,7 +84,7 @@ export function HallBooking({ officePhone }: { officePhone: string }) {
   };
 
   return (
-    <div className="grid gap-8 lg:grid-cols-2">
+    <div className="grid gap-(--space-lg)">
       <div>
         {view && today ? (
           <HallCalendar
@@ -102,14 +102,14 @@ export function HallBooking({ officePhone }: { officePhone: string }) {
             }}
           />
         ) : (
-          <div className="card flex aspect-square items-center justify-center text-ink-2">{tCommon("loading")}</div>
+          <div className="flex aspect-square items-center justify-center rounded-(--radius-card) bg-sand text-ink-soft" role="status">{tCommon("loading")}</div>
         )}
       </div>
 
-      <div id="enquiry">
+      <div id="enquiry" className="border-t border-line pt-(--space-lg)">
         {done ? (
-          <div className="card p-6" role="status" data-testid="enquiry-done">
-            <h3 className="font-serif text-2xl font-normal">{t("thanksTitle")}</h3>
+          <div className="rounded-(--radius-card) border border-success bg-success-tint p-(--space-lg)" role="status" data-testid="enquiry-done">
+            <h3 className="font-heading text-2xl font-normal text-maroon">{t("thanksTitle")}</h3>
             <p className="mt-3 text-lg">{t("thanksBody", { date: formatDay(locale, done.date), slot: tc(`slots.${done.slot}`) })}</p>
             <div className="mt-5 flex flex-col gap-3 sm:flex-row">
               <a
@@ -133,7 +133,7 @@ export function HallBooking({ officePhone }: { officePhone: string }) {
             </div>
           </div>
         ) : (
-          <form onSubmit={handleSubmit(onSubmit)} noValidate className="card space-y-4 p-4 md:p-6" data-testid="enquiry-form">
+          <form onSubmit={handleSubmit(onSubmit)} noValidate className="space-y-4" data-testid="enquiry-form">
             <div className="grid gap-4 sm:grid-cols-2">
               <Field label={t("date")} error={err(errors.date?.message)} required>
                 {(p) => <input {...p} {...register("date")} type="date" min={today ?? undefined} className="field" />}
@@ -147,7 +147,7 @@ export function HallBooking({ officePhone }: { officePhone: string }) {
               </Field>
             </div>
             {unavailable && (
-              <p role="alert" className="rounded-md border border-bad bg-bad-tint p-3 font-medium text-bad">{t("unavailable")}</p>
+              <p role="alert" className="rounded-(--radius-card) border border-error bg-error-tint p-3 font-medium text-error">{t("unavailable")}</p>
             )}
             <Field label={t("name")} error={err(errors.name?.message)} required>
               {(p) => <input {...p} {...register("name")} autoComplete="name" className="field" />}

@@ -34,7 +34,7 @@ export default async function ReceiptPage({ params }: PageProps<"/[locale]/recei
     labelsFor(locale as "hi" | "en"),
   ]);
   return (
-    <div className="bg-paper-3 py-(--space-2xl) print:bg-paper-2 print:py-0">
+    <div className="bg-sand py-(--space-2xl) print:bg-surface print:py-0">
       <div className="container-site">
         <ReceiptView id={id} initial={donation} funds={funds} trust={trust} labels={labels} uiLocale={locale as "hi" | "en"} />
       </div>

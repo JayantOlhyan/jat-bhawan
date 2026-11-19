@@ -16,11 +16,9 @@ export default async function DonatePage({ searchParams }: PageProps<"/[locale]/
   const [funds, trust, demo] = await Promise.all([repos.funds.list(), repos.trust.get(), repos.demo.get()]);
   return (
     <>
-      <PageHeader title={t("title")} lead={t("lead")} />
-      <div className="container-site py-(--section-gap-s)">
-        <div className="max-w-4xl">
+      <PageHeader title={t("title")} lead={t("lead")} icon="diya" centered />
+      <div className="container-site pt-(--space-md)">
         <DonateForm funds={funds} trust={trust} initialUpiManual={demo.upiManual} initialAmount={Number.isInteger(amount) && amount >= 1 ? amount : undefined} />
-        </div>
       </div>
     </>
   );

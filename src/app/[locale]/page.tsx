@@ -1,13 +1,19 @@
+import Image from "next/image";
 import { getTranslations } from "next-intl/server";
 import { DonorTicker } from "@/components/donors/DonorTicker";
-import { FitLine } from "@/components/site/FitLine";
-import { Slot, STAND_INS } from "@/components/site/Slot";
+import { Hero } from "@/components/home/Hero";
+import { Avatar } from "@/components/people/Avatar";
+import { BrassRule } from "@/components/site/BrassRule";
+import { PhotoSlot } from "@/components/site/PhotoSlot";
+import { LineIcon } from "@/components/ui/LineIcon";
 import { PlaceholderText } from "@/components/ui/PlaceholderText";
+import { TierBadge } from "@/components/ui/TierBadge";
 import { Link } from "@/i18n/navigation";
+import { ICONS } from "@/lib/brand";
 import { getRepos } from "@/lib/data";
-import { pick, type AppLocale } from "@/lib/format";
+import { MAPS_URL, pick, type AppLocale } from "@/lib/format";
 import { pageMetadata } from "@/lib/meta";
-import { formatINR, rupeesToPaise } from "@/lib/money";
+import { formatINR } from "@/lib/money";
 import { sortTiers } from "@/lib/tiers";
 import { inScript } from "@/lib/translit";
 
@@ -16,190 +22,146 @@ export async function generateMetadata({ params }: PageProps<"/[locale]">) {
   return pageMetadata(locale, "home", "");
 }
 
-/** The slip's amounts, in rupees; each opens the donate form with it chosen. */
-const SLIP_AMOUNTS = [1100, 2100, 5100, 11000, 21000, 51000] as const;
+/** A home section: the brass rule above, then the content. */
+function Section({ id, children, className = "" }: { id: string; children: React.ReactNode; className?: string }) {
+  return (
+    <section aria-labelledby={id} className={`container-site pt-(--section-gap) ${className}`}>
+      <BrassRule className="mb-(--space-xl)" />
+      {children}
+    </section>
+  );
+}
 
 export default async function HomePage({ params }: PageProps<"/[locale]">) {
   const locale = (await params).locale as AppLocale;
   const t = await getTranslations("Home");
   const tc = await getTranslations("Common");
+  const tf = await getTranslations("Footer");
+  const tContact = await getTranslations("Contact");
   const repos = getRepos();
-  const [latest, funds, tiers, top, committee] = await Promise.all([
+  const [latest, funds, tiers, committee, trust] = await Promise.all([
     repos.donations.latestPublic(20),
     repos.funds.list(),
     repos.tiers.list(),
-    repos.donations.publicTopByTier(3),
     repos.committee.listPublic(),
+    repos.trust.get(),
   ]);
   const leaders = committee.filter((c) => [1, 3, 5].includes(c.postRank));
-  const tierRows = sortTiers(tiers).slice(0, 4);
-  const hallFacts = [
-    ["hallSlots", "hallSlotsValue"],
-    ["hallCapacity", "hallCapacityValue"],
-    ["hallHow", "hallHowValue"],
+  const contactRows = [
+    { icon: "pin", label: tf("address"), value: <PlaceholderText text={pick(locale, trust.addressHi, trust.addressEn)} /> },
+    { icon: "phone", label: tf("phone"), value: <a href={`tel:${trust.phone}`} className="no-underline hover:underline">{trust.phone}</a> },
+    { icon: "mail", label: tf("email"), value: <a href={`mailto:${trust.email}`} className="break-all no-underline hover:underline">{trust.email}</a> },
+    { icon: "clock", label: tContact("hours"), value: <PlaceholderText text={tContact("hoursValue")} /> },
   ] as const;
 
   return (
     <>
-      {/* Hero, Counter posture: the opening bill beside the donation slip. */}
-      <section className="border-b border-ink">
-        <div className="container-site grid items-center gap-(--space-xl) py-(--space-xl) lg:min-h-[calc(100dvh-8.5rem)] lg:grid-cols-[minmax(0,7fr)_minmax(0,5fr)] lg:gap-(--space-3xl) lg:py-(--space-lg)">
-          <div className="min-w-0">
-            <h1 className="max-w-[min(100%,34rem)] [container-type:inline-size]">
-              <FitLine max={208} fallback="min(var(--text-display), 24cqi)">{t("titleLine1")}</FitLine>
-              <span className="sr-only">, </span>
-              <FitLine max={150} fallback="min(var(--text-display-s), 18cqi)" className="text-ink-2">{t("titleLine2")}</FitLine>
-            </h1>
-            <p className="display mt-(--space-sm) max-w-[min(100%,34rem)] text-accent [container-type:inline-size]">
-              <FitLine max={60} fallback="min(var(--text-section), 8cqi)">{t("inauguration")}</FitLine>
-            </p>
-            <p className="lead mt-(--space-lg) max-w-[34rem] text-ink-2">{t("purpose")}</p>
-            <Link href="/hall" className="btn btn-outline mt-(--space-xl)">
-              {t("seeDates")}
-            </Link>
-          </div>
+      <Hero />
 
-          <div className="frame p-(--space-lg) 2xl:p-(--space-xl)">
-            <h2 className="text-(length:--text-title)">{t("slipTitle")}</h2>
-            <p className="mt-(--space-xs) text-sm font-medium text-muted" id="slip-choose">{t("slipChoose")}</p>
-            <ul className="mt-(--space-sm) grid grid-cols-2 border-t border-l border-ink sm:grid-cols-3" aria-labelledby="slip-choose">
-              {SLIP_AMOUNTS.map((r) => (
-                <li key={r} className="border-r border-b border-ink">
-                  <Link
-                    href={{ pathname: "/donate", query: { amount: String(r) } }}
-                    className="figure flex min-h-14 items-center justify-center px-(--space-xs) text-[1.9rem] text-ink no-underline transition-colors duration-(--dur-short) hover:bg-ink hover:text-paper"
-                  >
-                    {formatINR(rupeesToPaise(r))}
-                  </Link>
-                </li>
-              ))}
-            </ul>
-            <Link href="/donate" className="link-ink mt-(--space-sm)">
-              {t("slipOther")}
-            </Link>
-            <Link href="/donate" className="btn btn-primary mt-(--space-md) w-full text-lg">
-              {t("donate")}
-            </Link>
-            <p className="mt-(--space-sm) text-sm text-muted">{t("slipNote")}</p>
-          </div>
-        </div>
-      </section>
-
-      {/* The live register, full width: the newest donations as they arrive. */}
-      <div className="container-site py-(--section-gap-s)">
+      {/* Live donations under the brass rail. */}
+      <div className="container-site pt-(--space-xl)">
         <DonorTicker initial={latest} funds={funds} />
       </div>
 
-      {/* The idea: the photograph beside the elders' story. */}
-      <section className="border-t border-ink">
-        <div className="container-site grid items-center gap-(--space-xl) py-(--section-gap) lg:grid-cols-[minmax(0,5fr)_minmax(0,7fr)] lg:gap-(--space-3xl)">
-          <figure className="frame-photo">
-            <Slot
-              slot="story"
-              alt={t("heroPhoto")}
-              standIn={{ src: STAND_INS.harvest, alt: t("harvestAlt") }}
-              objectPosition="25% 55%"
-              className="aspect-[4/5] w-full max-lg:aspect-[4/3]"
-            />
-          </figure>
-          <div>
-            <h2 className="max-w-[16ch] text-(length:--text-section)">{t("stageIdea")}</h2>
-            <p className="mt-(--space-lg) max-w-[56ch] text-lg"><PlaceholderText text={t("historyBody")} /></p>
-            <Link href="/about" className="link-ink mt-(--space-md)">
-              {t("readMore")}
-            </Link>
-          </div>
+      {/* Donor tiers: medals, with the name and threshold below each. */}
+      <Section id="tiers-title">
+        <div className="text-center">
+          <h2 id="tiers-title" className="mx-auto">{t("highlightsTitle")}</h2>
+          <p className="lead mx-auto mt-(--space-xs)">{t("highlightsLead")}</p>
         </div>
-      </section>
+        <ul data-rise className="mt-(--space-xl) flex flex-wrap items-end justify-center gap-x-(--space-lg) gap-y-(--space-xl) lg:gap-x-(--space-xl)">
+          {sortTiers(tiers).map((tier) => (
+            <li key={tier.id} data-lift className="flex w-[9.5rem] flex-col items-center text-center sm:w-[10.5rem]">
+              <TierBadge tierId={tier.id} size={132} />
+              <h3 className="mt-(--space-sm) text-[1.15rem] text-maroon">{pick(locale, tier.nameHi, tier.nameEn)}</h3>
+              <p className="figure text-ink-soft">{formatINR(tier.minAmountPaise)}+</p>
+            </li>
+          ))}
+        </ul>
+        <p className="mt-(--space-lg) text-center">
+          <Link href="/donors" className="link-ink">{t("viewAllDonors")}</Link>
+        </p>
+      </Section>
 
-      {/* The villages' donations, by tier: particulars as rows. */}
-      <section className="border-t border-ink">
-        <div className="container-site py-(--section-gap-s)">
-          <div className="grid gap-(--space-md) lg:grid-cols-[minmax(0,7fr)_minmax(0,5fr)] lg:items-end lg:gap-(--gap-columns)">
-            <h2 className="max-w-[18ch]">{t("stageVillages")}</h2>
-            <p className="lead text-ink-2">{t("highlightsLead")}</p>
+      {/* History: text left, photo right. */}
+      <Section id="story-title">
+        <div className="grid items-center gap-(--space-xl) lg:grid-cols-[minmax(0,6fr)_minmax(0,5fr)] lg:gap-(--space-3xl)">
+          <div>
+            <h2 id="story-title">{t("stageIdea")}</h2>
+            <p className="mt-(--space-xs) font-medium text-muted">{t("historyTitle")}</p>
+            <p className="mt-(--space-lg) max-w-[60ch] text-lg"><PlaceholderText text={t("historyBody")} /></p>
+            <Link href="/about" className="link-ink mt-(--space-md)">{t("readMore")}</Link>
           </div>
-          <ul className="rule-bar mt-(--space-2xl)">
-            {tierRows.map((tier) => (
-              <li key={tier.id} className="grid gap-(--space-md) border-b border-rule py-(--space-lg) lg:grid-cols-[minmax(0,3fr)_minmax(0,9fr)] lg:gap-(--gap-columns)">
-                <div>
-                  <h3>{pick(locale, tier.nameHi, tier.nameEn)}</h3>
-                  <p className="figure mt-(--space-2xs) text-2xl text-muted">{formatINR(tier.minAmountPaise)}+</p>
+          <PhotoSlot slot="story" alt={t("heroPhoto")} label={tc("photoHere")} jaali className="aspect-[4/3] w-full" />
+        </div>
+      </Section>
+
+      {/* Committee: the three office-bearers. */}
+      <Section id="committee-title">
+        <h2 id="committee-title">{t("committeeTitle")}</h2>
+        <ul data-rise className="mt-(--space-lg) grid gap-(--space-md) md:grid-cols-3">
+          {leaders.map((c) => {
+            const name = inScript(pick(locale, c.nameHi ?? c.name, c.name), locale);
+            return (
+              <li key={c.id} data-lift className="card-raised flex items-center gap-(--space-md) p-(--space-md)">
+                <Avatar name={name} photo={c.photo} />
+                <span aria-hidden="true" className="h-14 w-px shrink-0 bg-line" />
+                <div className="min-w-0">
+                  <p className="text-sm font-semibold text-maroon">{pick(locale, c.postHi, c.postEn)}</p>
+                  <p className="text-lg font-semibold break-words">{name}</p>
+                  <p className="text-sm text-ink-soft break-words">{tc("sonOf", { name: inScript(c.fatherName, locale) })}</p>
                 </div>
-                <ul className="grid gap-(--space-md) sm:grid-cols-3 sm:gap-(--gap-columns)">
-                  {(top[tier.id] ?? []).map((d) => (
-                    <li key={d.id} className="min-w-0 border-t border-rule pt-(--space-sm) sm:border-t-0 sm:border-l sm:pt-0 sm:pl-(--space-md)">
-                      <p className="text-lg font-medium break-words">{d.anonymous ? tc("anonymous") : inScript(d.donorName, locale)}</p>
-                      {d.donorVillage && <p className="text-ink-2">{inScript(d.donorVillage, locale)}</p>}
-                      <p className="figure mt-(--space-2xs) text-(length:--text-figure)">{formatINR(d.amountPaise ?? 0)}</p>
-                    </li>
-                  ))}
-                  {!(top[tier.id] ?? []).length && <li className="text-ink-2">{t("noTop")}</li>}
-                </ul>
+              </li>
+            );
+          })}
+        </ul>
+        <Link href="/committee" className="link-ink mt-(--space-sm)">{t("viewCommittee")}</Link>
+      </Section>
+
+      {/* Hall teaser. */}
+      <Section id="hall-title">
+        <div className="card-raised flex flex-col items-start gap-(--space-md) p-(--space-lg) sm:flex-row sm:items-center sm:gap-(--space-lg)">
+          <Image src={ICONS.calendar} alt="" width={96} height={96} sizes="96px" className="size-20 shrink-0 sm:size-24" />
+          <span aria-hidden="true" className="hidden h-16 w-px shrink-0 bg-line sm:block" />
+          <div className="min-w-0 flex-1">
+            <h2 id="hall-title" className="text-[length:var(--text-title)] leading-snug">{t("stageHall")}</h2>
+            <p className="mt-(--space-2xs) text-ink-soft">{t("stageHallLead")}</p>
+          </div>
+          <Link href="/hall" className="btn btn-primary shrink-0">{t("bookHall")}</Link>
+        </div>
+      </Section>
+
+      {/* Map + contact. */}
+      <Section id="visit-title">
+        <h2 id="visit-title" className="sr-only">{t("visitTitle")}</h2>
+        <div className="grid gap-(--space-xl) md:grid-cols-[minmax(0,6fr)_minmax(0,5fr)] md:items-center">
+          <a href={MAPS_URL} target="_blank" rel="noopener noreferrer" className="photo-slot group relative block aspect-[16/10] no-underline">
+            <svg aria-hidden="true" viewBox="0 0 320 200" preserveAspectRatio="xMidYMid slice" className="absolute inset-0 size-full text-ivory" fill="none" stroke="currentColor" strokeWidth="5" strokeLinecap="round">
+              <path d="M-10 60 C60 50 110 90 180 70 S280 40 340 70M40 -10 C60 60 40 120 70 210M150 -10 C140 60 170 130 150 210M-10 150 C80 140 160 170 250 140 S310 130 340 150M230 -10 C240 50 220 120 260 210" />
+              <path d="M-10 110 C50 100 120 120 200 105 S300 95 340 110" strokeWidth="2.5" />
+            </svg>
+            <span className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-full text-maroon">
+              <svg aria-hidden="true" viewBox="0 0 24 32" className="h-12 w-9 drop-shadow-[0_4px_4px_rgb(94_64_30/0.3)]"><path d="M12 31S1 18.6 1 11.5a11 11 0 0 1 22 0C23 18.6 12 31 12 31Z" fill="currentColor" /><circle cx="12" cy="11.5" r="4" fill="var(--color-ivory)" /></svg>
+            </span>
+            <span className="absolute inset-x-(--space-sm) bottom-(--space-sm) rounded-(--radius-pill) bg-ivory px-(--space-sm) py-(--space-2xs) text-center text-sm font-semibold text-maroon group-hover:underline">
+              {tc("openMaps")}
+            </span>
+          </a>
+          <ul className="space-y-(--space-md) md:border-l md:border-line md:pl-(--space-xl)">
+            {contactRows.map((r) => (
+              <li key={r.icon} className="flex gap-(--space-sm)">
+                <span className="flex size-9 shrink-0 items-center justify-center rounded-full bg-maroon text-ivory">
+                  <LineIcon name={r.icon} className="size-[18px]" />
+                </span>
+                <div className="min-w-0">
+                  <p className="text-sm font-semibold text-muted">{r.label}</p>
+                  <p className="text-lg">{r.value}</p>
+                </div>
               </li>
             ))}
           </ul>
-          <Link href="/donors" className="link-ink mt-(--space-lg)">
-            {t("viewAllDonors")}
-          </Link>
         </div>
-      </section>
-
-      {/* The opening day, fitted on the one vermilion band. */}
-      <section className="band-accent">
-        <div className="container-site grid gap-(--space-lg) py-(--section-gap-s) lg:grid-cols-[minmax(0,8fr)_minmax(0,4fr)] lg:items-end lg:gap-(--gap-columns)">
-          <h2 className="display min-w-0 text-accent-ink [container-type:inline-size]">
-            <FitLine max={170} fallback="min(var(--text-display-s), 8cqi)">{t("stageOpening")}</FitLine>
-          </h2>
-          <div>
-            <p className="lead text-accent-ink">{t("stageOpeningLine")}</p>
-            <Link href="/donate" className="btn mt-(--space-lg) border-accent-ink text-accent-ink hover:bg-accent-ink hover:text-accent">
-              {t("donate")}
-            </Link>
-          </div>
-        </div>
-      </section>
-
-      {/* The hall: its particulars as rows. */}
-      <section>
-        <div className="container-site grid gap-(--space-xl) py-(--section-gap) lg:grid-cols-[minmax(0,5fr)_minmax(0,7fr)] lg:gap-(--gap-columns)">
-          <div>
-            <h2 className="max-w-[14ch]">{t("stageHall")}</h2>
-            <p className="lead mt-(--space-lg) text-ink-2">{t("stageHallLead")}</p>
-            <Link href="/hall" className="btn btn-outline mt-(--space-xl)">
-              {t("bookHall")}
-            </Link>
-          </div>
-          <dl className="rule-bar self-start">
-            {hallFacts.map(([k, v]) => (
-              <div key={k} className="grid gap-(--space-2xs) border-b border-rule py-(--space-lg) sm:grid-cols-[minmax(0,2fr)_minmax(0,3fr)] sm:gap-(--gap-columns)">
-                <dt className="slab text-lg">{t(k)}</dt>
-                <dd className="text-lg font-medium">{t(v)}</dd>
-              </div>
-            ))}
-          </dl>
-        </div>
-      </section>
-
-      {/* Committee: the three office-bearers, a column each under the five-point rule. */}
-      <section className="border-t border-ink">
-        <div className="container-site py-(--section-gap-s)">
-          <h2>{t("committeeTitle")}</h2>
-          <ul className="rule-bar mt-(--space-xl) grid sm:grid-cols-3">
-            {leaders.map((c, i) => (
-              <li key={c.id} className={`py-(--space-lg) sm:px-(--space-lg) ${i ? "border-t border-rule sm:border-t-0 sm:border-l-[5px] sm:border-ink" : "sm:pl-0"}`}>
-                <p className="text-ink-2">{pick(locale, c.postHi, c.postEn)}</p>
-                <p className="slab mt-(--space-2xs) text-[clamp(1.4rem,1.2vw+1rem,2rem)] leading-tight">
-                  {inScript(pick(locale, c.nameHi ?? c.name, c.name), locale)}
-                </p>
-              </li>
-            ))}
-          </ul>
-          <Link href="/committee" className="link-ink mt-(--space-md)">
-            {t("viewCommittee")}
-          </Link>
-        </div>
-      </section>
+      </Section>
     </>
   );
 }

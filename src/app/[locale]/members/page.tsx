@@ -15,7 +15,7 @@ export default async function MembersPage() {
   return (
     <>
       <PageHeader title={t("title")} lead={t("lead")} />
-      <div className="container-site py-(--section-gap-s)">
+      <div className="container-site pt-(--space-md)">
         <MembersGrid initial={members} />
       </div>
     </>

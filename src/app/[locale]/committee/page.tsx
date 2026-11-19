@@ -1,4 +1,5 @@
 import { getTranslations } from "next-intl/server";
+import { BrassRule } from "@/components/site/BrassRule";
 import { CommitteeList } from "@/components/people/CommitteeList";
 import { PageHeader } from "@/components/site/PageHeader";
 import { getRepos } from "@/lib/data";
@@ -15,12 +16,12 @@ export default async function CommitteePage() {
   return (
     <>
       <PageHeader title={t("title")} lead={t("lead")} />
-      <div className="container-site py-(--section-gap-s)">
+      <div className="container-site pt-(--space-md)">
         <CommitteeList initial={committee} />
-        <section className="mt-12" aria-labelledby="past">
-          <h2 id="past" className="section-title">{t("pastTitle")}</h2>
-          <hr className="rule-mark mt-2" />
-          <p className="mt-3 text-lg text-ink-2">{t("pastBody")}</p>
+        <section className="mt-(--section-gap-s)" aria-labelledby="past">
+          <h2 id="past">{t("pastTitle")}</h2>
+          <BrassRule align="start" className="mt-2" />
+          <p className="mt-3 text-lg text-ink-soft">{t("pastBody")}</p>
         </section>
       </div>
     </>

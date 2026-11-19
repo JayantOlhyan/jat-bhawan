@@ -1,5 +1,6 @@
 import { getTranslations } from "next-intl/server";
 import { DonorWall } from "@/components/donors/DonorWall";
+import { FilterSheet } from "@/components/donors/FilterSheet";
 import { PageHeader } from "@/components/site/PageHeader";
 import { getRepos } from "@/lib/data";
 import type { PublicDonationQuery } from "@/lib/data/repos";
@@ -38,8 +39,9 @@ export default async function DonorsPage({ params, searchParams }: PageProps<"/[
   return (
     <>
       <PageHeader title={t("title")} lead={t("lead")} />
-      <div className="container-site py-(--section-gap-s)">
-        <form method="get" className="card mb-8 grid gap-4 p-4 sm:grid-cols-2 lg:grid-cols-[2fr_1fr_1fr_1fr_auto] lg:items-end" role="search">
+      <div className="container-site pt-(--space-md)">
+        <FilterSheet active={[query.search, query.fundId, query.fy, query.tierId].filter(Boolean).length}>
+        <form method="get" className="card-raised grid gap-(--space-md) p-(--space-md) sm:grid-cols-2 lg:grid-cols-[2fr_1fr_1fr_1fr_auto] lg:items-end" role="search">
           <div>
             <label htmlFor="q" className="field-label">{t("searchLabel")}</label>
             <input id="q" name="q" type="search" defaultValue={query.search} placeholder={t("searchPlaceholder")} className="field" />
@@ -71,6 +73,7 @@ export default async function DonorsPage({ params, searchParams }: PageProps<"/[
             <a href={`/${locale}/donors`} className="btn btn-quiet">{tc("clear")}</a>
           </div>
         </form>
+        </FilterSheet>
         <DonorWall query={query} initial={{ page, counts }} tiers={tiers} funds={funds} />
       </div>
     </>

@@ -11,12 +11,12 @@ export default async function AdminLogin({ searchParams }: PageProps<"/admin/log
       <h1 className="text-[2rem]">Admin sign in</h1>
       <hr className="rule-mark mt-2" />
       {missing && (
-        <p role="alert" className="mt-6 rounded-md border border-bad bg-bad-tint p-3 text-bad">
+        <p role="alert" className="mt-6 rounded-md border border-error bg-error-tint p-3 text-error">
           DEMO_ADMIN_PASSWORD is not set (min. 6 characters). Add it to .env.local or the Netlify environment.
         </p>
       )}
       {error === "1" && (
-        <p role="alert" className="mt-6 rounded-md border border-bad bg-bad-tint p-3 text-bad">
+        <p role="alert" className="mt-6 rounded-md border border-error bg-error-tint p-3 text-error">
           Wrong password. Try again.
         </p>
       )}

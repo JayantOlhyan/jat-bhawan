@@ -20,11 +20,11 @@ import { offlineDonationSchema, type OfflineDonationInput, type OfflineDonationV
 const STATUSES: DonationStatus[] = ["created", "pending", "verified", "failed", "void"];
 const SOURCES: DonationSource[] = ["online", "cash", "cheque", "upi_manual", "legacy"];
 const STATUS_STYLE: Record<DonationStatus, string> = {
-  verified: "bg-ok-tint text-ok border-ok",
+  verified: "bg-success-tint text-success border-success",
   pending: "bg-warn-tint text-warn border-warn",
-  created: "bg-paper-3 text-ink-2 border-rule",
-  failed: "bg-bad-tint text-bad border-bad",
-  void: "bg-ink text-paper border-ink",
+  created: "bg-sand text-ink-soft border-line",
+  failed: "bg-error-tint text-error border-error",
+  void: "bg-ink text-ivory border-ink",
 };
 const SOURCE_LABEL: Record<DonationSource, string> = { online: "Online", cash: "Cash", cheque: "Cheque", upi_manual: "UPI (manual)", legacy: "Legacy" };
 const DISPLAY_LABEL = { full: "Name + amount", hide_amount: "Hide amount", anonymous: "Anonymous" } as const;
@@ -78,7 +78,7 @@ export function DonationsAdmin() {
       </div>
 
       {flash && (
-        <p role="status" className="flex items-center justify-between rounded-md border border-ok bg-ok-tint p-3 text-ok">
+        <p role="status" className="flex items-center justify-between rounded-md border border-success bg-success-tint p-3 text-success">
           {flash}
           <button type="button" className="btn btn-quiet min-h-9 px-2" onClick={() => setFlash(null)} aria-label="Dismiss">✕</button>
         </p>
@@ -96,14 +96,14 @@ export function DonationsAdmin() {
       </div>
 
       {!rows ? (
-        <p className="text-ink-2">Loading…</p>
+        <p className="text-ink-soft">Loading…</p>
       ) : (
         <div className="card overflow-x-auto">
-          <p className="border-b border-rule px-4 py-2 text-ink-2">
+          <p className="border-b border-line px-4 py-2 text-ink-soft">
             {rows.length} donations, verified total {formatINR(rows.filter((d) => d.status === "verified").reduce((s, d) => s + d.amountPaise, 0))}
           </p>
           <table className="w-full min-w-[64rem] text-left text-[0.95rem]" data-testid="donations-table">
-            <thead className="border-b border-rule bg-paper-3/60">
+            <thead className="border-b border-line bg-sand/60">
               <tr>
                 {["Date", "Receipt", "Donor", "Fund", "Amount", "Source / ref", "Status", "Display", "Actions"].map((h) => (
                   <th key={h} scope="col" className="px-3 py-2 font-semibold">{h}</th>
@@ -112,23 +112,23 @@ export function DonationsAdmin() {
             </thead>
             <tbody>
               {rows.slice(0, 300).map((d) => (
-                <tr key={d.id} className="border-b border-rule/60 align-top" data-id={d.id}>
+                <tr key={d.id} className="border-b border-line/60 align-top" data-id={d.id}>
                   <td className="whitespace-nowrap px-3 py-2">{formatDate("en", d.donatedAt, { month: "short" })}</td>
                   <td className="whitespace-nowrap px-3 py-2 tabular-nums">{d.receiptNo ?? "—"}</td>
                   <td className="px-3 py-2">
                     <span className="font-semibold">{d.donorName}</span>
-                    <span className="block text-ink-2">{d.donorVillage}</span>
-                    <span className="block text-ink-2">{d.donorMobile}</span>
+                    <span className="block text-ink-soft">{d.donorVillage}</span>
+                    <span className="block text-ink-soft">{d.donorMobile}</span>
                   </td>
                   <td className="px-3 py-2">{fundName(d.fundId)}</td>
                   <td className="whitespace-nowrap px-3 py-2 text-right font-semibold tabular-nums">{formatINR(d.amountPaise)}</td>
                   <td className="px-3 py-2">
                     {SOURCE_LABEL[d.source]}
-                    <span className="block break-all text-ink-2">{d.paymentRef}</span>
+                    <span className="block break-all text-ink-soft">{d.paymentRef}</span>
                   </td>
                   <td className="px-3 py-2">
                     <span className={`inline-block rounded border px-2 text-[0.85rem] font-semibold ${STATUS_STYLE[d.status]}`}>{d.status}</span>
-                    {d.voidReason && <span className="block text-[0.85rem] text-ink-2">{d.voidReason}</span>}
+                    {d.voidReason && <span className="block text-[0.85rem] text-ink-soft">{d.voidReason}</span>}
                   </td>
                   <td className="px-3 py-2">{DISPLAY_LABEL[d.display]}</td>
                   <td className="px-3 py-2">
@@ -140,7 +140,7 @@ export function DonationsAdmin() {
                         <Link href={`/en/receipt/${d.id}`} target="_blank" className="btn btn-quiet min-h-9 px-2 text-[0.9rem]">Receipt</Link>
                       )}
                       {d.status !== "void" && d.status !== "failed" && (
-                        <button type="button" className="btn btn-quiet min-h-9 px-2 text-[0.9rem] text-bad" onClick={() => setVoiding(d)}>Void</button>
+                        <button type="button" className="btn btn-quiet min-h-9 px-2 text-[0.9rem] text-error" onClick={() => setVoiding(d)}>Void</button>
                       )}
                     </div>
                   </td>
@@ -282,7 +282,7 @@ function VoidForm({ donation, onDone }: { donation: Donation; onDone: () => void
       <Field label="Reason (required)" required error={error ?? undefined}>
         {(p) => <textarea {...p} rows={3} className="field" value={reason} onChange={(e) => setReason(e.target.value)} />}
       </Field>
-      <button type="submit" className="btn btn-primary bg-bad">Void donation</button>
+      <button type="submit" className="btn btn-primary bg-error">Void donation</button>
     </form>
   );
 }

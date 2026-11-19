@@ -17,7 +17,7 @@ export function MembersAdmin() {
   const members = useLiveQuery<Member[] | null>((r) => r.members.list(), [], ["members"], null);
   const [editing, setEditing] = useState<Member | "new" | null>(null);
   const [search, setSearch] = useState("");
-  if (!members) return <p className="text-ink-2">Loading…</p>;
+  if (!members) return <p className="text-ink-soft">Loading…</p>;
   const shown = members.filter((m) => matchesSearch(search, [m.name, m.nameHi, m.village, m.gotra])).sort((a, b) => a.name.localeCompare(b.name));
 
   return (
@@ -32,18 +32,18 @@ export function MembersAdmin() {
       </div>
       <div className="card overflow-x-auto">
         <table className="w-full min-w-[48rem] text-left text-[0.95rem]">
-          <thead className="border-b border-rule bg-paper-3/60">
+          <thead className="border-b border-line bg-sand/60">
             <tr>{["Name", "Father", "Gotra", "Village", "Type", "Phone", "Listed", ""].map((h) => <th key={h} className="px-3 py-2 font-semibold">{h}</th>)}</tr>
           </thead>
           <tbody>
             {shown.map((m) => (
-              <tr key={m.id} className="border-b border-rule/60">
-                <td className="px-3 py-2"><span className="font-semibold">{m.name}</span>{m.nameHi && <span className="block text-ink-2" lang="hi">{m.nameHi}</span>}</td>
+              <tr key={m.id} className="border-b border-line/60">
+                <td className="px-3 py-2"><span className="font-semibold">{m.name}</span>{m.nameHi && <span className="block text-ink-soft" lang="hi">{m.nameHi}</span>}</td>
                 <td className="px-3 py-2">{m.fatherName}</td>
                 <td className="px-3 py-2">{m.gotra}</td>
                 <td className="px-3 py-2">{m.village}</td>
                 <td className="px-3 py-2">{TYPE_LABEL[m.memberType]}</td>
-                <td className="px-3 py-2">{m.phone ?? "—"} <span className="block text-[0.85rem] text-ink-2">{m.phonePublic ? "public" : "private"}</span></td>
+                <td className="px-3 py-2">{m.phone ?? "—"} <span className="block text-[0.85rem] text-ink-soft">{m.phonePublic ? "public" : "private"}</span></td>
                 <td className="px-3 py-2">{m.consentDisplay ? "Yes" : "No"}</td>
                 <td className="px-3 py-2"><button type="button" className="btn btn-quiet min-h-9 px-3" onClick={() => setEditing(m)}>Edit</button></td>
               </tr>
@@ -84,10 +84,10 @@ function MemberForm({ member, onDone }: { member: Member | null; onDone: () => v
       </Field>
       <Field label="Phone" error={errors.phone?.message}>{(p) => <input {...p} {...register("phone")} type="tel" className="field" />}</Field>
       <div className="space-y-2 pt-7">
-        <label className="flex items-center gap-2"><input type="checkbox" {...register("phonePublic")} className="size-5 accent-accent" /> Show phone publicly (member consented)</label>
-        <label className="flex items-center gap-2"><input type="checkbox" {...register("consentDisplay")} className="size-5 accent-accent" /> List on public members page</label>
+        <label className="flex items-center gap-2"><input type="checkbox" {...register("phonePublic")} className="size-5 accent-maroon" /> Show phone publicly (member consented)</label>
+        <label className="flex items-center gap-2"><input type="checkbox" {...register("consentDisplay")} className="size-5 accent-maroon" /> List on public members page</label>
       </div>
-      <p className="text-[0.9rem] text-ink-2 sm:col-span-2">Photo upload is not part of the demo; an initials avatar is shown.</p>
+      <p className="text-[0.9rem] text-ink-soft sm:col-span-2">Photo upload is not part of the demo; an initials avatar is shown.</p>
       <button type="submit" className="btn btn-primary sm:col-span-2" disabled={isSubmitting}>Save member</button>
     </form>
   );

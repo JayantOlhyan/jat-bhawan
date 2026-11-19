@@ -9,8 +9,8 @@ export async function generateMetadata({ params }: PageProps<"/[locale]/donate/s
 
 export default function SuccessPage() {
   return (
-    <div className="container-site max-w-2xl py-10">
-      <Suspense fallback={<p className="py-10 text-center text-ink-2">…</p>}>
+    <div className="container-site max-w-[36rem] pt-(--space-lg) pb-(--space-xl)">
+      <Suspense fallback={<p className="py-10 text-center text-ink-soft">…</p>}>
         <SuccessView />
       </Suspense>
     </div>

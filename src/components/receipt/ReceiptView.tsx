@@ -45,10 +45,10 @@ export function ReceiptView({
     return repos.subscribe("donations", load);
   }, [id]);
 
-  if (loading) return <p className="py-10 text-center text-ink-2">…</p>;
+  if (loading) return <p className="py-10 text-center text-ink-soft">…</p>;
   if (!donation || !donation.receiptNo) {
     return (
-      <div className="card mx-auto max-w-xl p-6 text-center" data-testid="receipt-missing">
+      <div className="card mx-auto max-w-xl p-(--space-lg) text-center" data-testid="receipt-missing">
         <p className="text-lg">{donation ? ui.notIssued : ui.notFound}</p>
       </div>
     );
@@ -74,27 +74,27 @@ export function ReceiptView({
       </div>
 
       <article
-        data-paper={paper}
+        data-ivory={paper}
         data-testid="receipt"
-        className={`receipt frame relative mx-auto overflow-hidden bg-paper-2 text-ink ${
+        className={`receipt frame relative mx-auto overflow-hidden bg-surface text-ink ${
           paper === "A4" ? "max-w-[190mm] p-(--space-lg) sm:p-(--space-xl)" : "max-w-[136mm] p-(--space-md) text-[0.92rem]"
         }`}
       >
         {/* Watermark */}
         <div aria-hidden="true" className="pointer-events-none absolute inset-0 flex items-center justify-center select-none">
-          <div className="display -rotate-[24deg] text-center text-accent/15">
+          <div className="display -rotate-[24deg] text-center text-maroon/15">
             {isVoid && <p className="text-[clamp(2.5rem,10vw,5rem)]">{ui.void}</p>}
             <p className="text-[clamp(2rem,8vw,4.5rem)]">{ui.watermark}</p>
           </div>
         </div>
 
-        <header className="relative border-b-[5px] border-ink pb-(--space-md) text-center">
-          <p className="slab text-2xl">{pick(locale, trust.nameHi, trust.nameEn)}</p>
-          <p className="mt-(--space-2xs) text-[0.9rem] text-ink-2">{pick(locale, trust.addressHi, trust.addressEn)}</p>
-          <p className="text-[0.9rem] text-ink-2">
+        <header className="relative border-b-2 border-maroon pb-(--space-md) text-center">
+          <p className="font-heading text-2xl text-maroon">{pick(locale, trust.nameHi, trust.nameEn)}</p>
+          <p className="mt-(--space-2xs) text-[0.9rem] text-ink-soft">{pick(locale, trust.addressHi, trust.addressEn)}</p>
+          <p className="text-[0.9rem] text-ink-soft">
             {ui.regNo}: {formatPlaceholderMark(locale, trust.regNo)}, {trust.phone}
           </p>
-          <p className="slab mt-(--space-sm) inline-block border-y border-ink px-(--space-sm) py-(--space-2xs) text-lg">{ui.title}</p>
+          <p className="mt-(--space-sm) inline-block border-y border-brass px-(--space-sm) py-(--space-2xs) text-lg font-semibold">{ui.title}</p>
         </header>
 
         <dl className="relative mt-(--space-md) grid grid-cols-1 gap-x-(--space-md) gap-y-(--space-2xs) sm:grid-cols-[minmax(0,13rem)_1fr] sm:gap-y-(--space-xs) print:grid-cols-[minmax(0,13rem)_1fr] [&>dd]:mb-(--space-xs) sm:[&>dd]:mb-0">
@@ -124,11 +124,11 @@ export function ReceiptView({
           <dd className="break-all tabular-nums">{formatPaymentRef(locale, donation.paymentRef)}</dd>
         </dl>
 
-        {trust.has80g && <p className="relative mt-(--space-md) border border-rule p-(--space-xs) text-[0.9rem]">{ui.eightyG}</p>}
+        {trust.has80g && <p className="relative mt-(--space-md) border border-line p-(--space-xs) text-[0.9rem]">{ui.eightyG}</p>}
 
         <footer className="relative mt-(--space-xl) flex justify-end">
           <div className="text-center">
-            <div className="flex h-14 w-48 items-end justify-center border-b border-ink text-[0.85rem] text-ink-2">[{ui.signatureHere}]</div>
+            <div className="flex h-14 w-48 items-end justify-center border-b border-ink text-[0.85rem] text-ink-soft">[{ui.signatureHere}]</div>
             <p className="mt-(--space-2xs) text-[0.9rem] font-medium">{ui.signature}</p>
           </div>
         </footer>

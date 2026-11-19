@@ -34,7 +34,8 @@
     "mainNav": "Main navigation",
     "language": "हिंदी",
     "languageLabel": "Change language",
-    "skip": "Skip to content"
+    "skip": "Skip to content",
+    "languageSelf": "English"
   },
   "Footer": {
     "address": "Address",
@@ -122,7 +123,8 @@
     "empty": "Donations will appear here",
     "paused": "Paused",
     "new": "New",
-    "live": "Live"
+    "live": "Live",
+    "announce": "New donation: {name}, {amount}"
   },
   "Donate": {
     "title": "Donate to Jat Bhawan",
@@ -156,7 +158,11 @@
     "submitUpi": "Submit donation details",
     "retryFailed": "The payment did not go through. No money was taken. Please try again.",
     "summary": "{amount} to {fund}",
-    "error": "Something went wrong. Please try again."
+    "error": "Something went wrong. Please try again.",
+    "stepAmount": "Choose an amount",
+    "stepDisplay": "How it is shown",
+    "summaryTitle": "Your donation",
+    "reassure": "Payment is secure. Your mobile number and email are never shown publicly."
   },
   "Payment": {
     "title": "Test payment: no money will be charged",
@@ -232,7 +238,9 @@
     "privateGroup": "Amount private",
     "count": "{count, plural, one {# donor} other {# donors}}",
     "empty": "No donations match your search",
-    "total": "Showing {count} donations"
+    "total": "Showing {count} donations",
+    "filters": "Filters",
+    "filtersClose": "Close filters"
   },
   "Members": {
     "title": "Members",

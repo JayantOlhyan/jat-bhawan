@@ -51,17 +51,17 @@ export function TestPaymentDialog({
       }}
       data-testid="payment-dialog"
     >
-      <div className="border-b border-rule bg-paper-3 px-5 py-4">
+      <div className="border-b border-line bg-sand px-5 py-4">
         <h2 id="pay-title" className="font-sans text-lg font-medium">{t("title")}</h2>
-        <p className="text-[0.95rem] text-ink-2">{t("lead")}</p>
+        <p className="text-[0.95rem] text-ink-soft">{t("lead")}</p>
       </div>
       <div className="px-5 py-4">
-        <p className="text-ink-2">{summary}</p>
-        <p className="mt-1 font-serif text-3xl tabular-nums text-ink">
+        <p className="text-ink-soft">{summary}</p>
+        <p className="mt-1 figure text-3xl text-ink">
           <span className="sr-only">{t("amount")}: </span>
           {amountLabel}
         </p>
-        <div role="tablist" aria-label={t("method")} className="mt-4 grid grid-cols-3 gap-1 rounded-md bg-paper-3 p-1">
+        <div role="tablist" aria-label={t("method")} className="mt-4 grid grid-cols-3 gap-1 rounded-(--radius-pill) bg-sand p-1">
           {methods.map((m) => (
             <button
               key={m}
@@ -79,20 +79,20 @@ export function TestPaymentDialog({
                 setMethod(next);
                 document.getElementById(`tab-${next}`)?.focus();
               }}
-              className={`min-h-11 rounded px-2 font-medium ${method === m ? "bg-paper-2 text-accent shadow-sm" : "text-ink-2"}`}
+              className={`min-h-11 rounded px-2 font-medium ${method === m ? "bg-surface text-maroon shadow-sm" : "text-ink-soft"}`}
             >
               {t(m)}
             </button>
           ))}
         </div>
-        <div id="pay-panel" role="tabpanel" aria-labelledby={`tab-${method}`} className="mt-3 rounded-md border border-dashed border-rule p-3 text-ink-2">
+        <div id="pay-panel" role="tabpanel" aria-labelledby={`tab-${method}`} className="mt-3 rounded-(--radius-card) border border-dashed border-brass p-3 text-ink-soft">
           {body[method]}
         </div>
         <div className="mt-5 grid gap-2 sm:grid-cols-2">
-          <button type="button" className="btn btn-primary bg-ok hover:bg-ok" disabled={busy} onClick={onSuccess} data-testid="pay-success">
+          <button type="button" className="btn btn-primary bg-success hover:bg-success" disabled={busy} onClick={onSuccess} data-testid="pay-success">
             {t("success")}
           </button>
-          <button type="button" className="btn btn-outline border-bad text-bad hover:bg-bad-tint" disabled={busy} onClick={onFailure} data-testid="pay-failure">
+          <button type="button" className="btn btn-outline border-error text-error hover:bg-error-tint" disabled={busy} onClick={onFailure} data-testid="pay-failure">
             {t("failure")}
           </button>
         </div>

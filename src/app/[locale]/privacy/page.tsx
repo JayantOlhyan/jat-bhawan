@@ -14,11 +14,11 @@ export default async function PrivacyPage() {
   return (
     <>
       <PageHeader title={t("title")} lead={t("intro")} />
-      <article className="container-site space-y-(--space-xl) py-(--section-gap-s)">
-        <p className="text-ink-2">{t("updated")}</p>
+      <article className="container-site space-y-(--space-xl) pt-(--space-md) max-w-[52rem]">
+        <p className="text-ink-soft">{t("updated")}</p>
         {SECTIONS.map((s) => (
           <section key={s} aria-labelledby={`p-${s}`}>
-            <h2 id={`p-${s}`} className="section-title text-[1.4rem]">{t(`sections.${s}.title`)}</h2>
+            <h2 id={`p-${s}`} className="text-[1.4rem]">{t(`sections.${s}.title`)}</h2>
             <p className="mt-2 text-lg">{t(`sections.${s}.body`)}</p>
           </section>
         ))}

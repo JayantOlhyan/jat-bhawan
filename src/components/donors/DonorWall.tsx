@@ -1,6 +1,7 @@
 "use client";
 
 import { useLocale, useTranslations } from "next-intl";
+import { TierBadge } from "@/components/ui/TierBadge";
 import { Link } from "@/i18n/navigation";
 import { useLiveQuery } from "@/lib/data/hooks";
 import type { PublicDonationQuery } from "@/lib/data/repos";
@@ -70,33 +71,37 @@ export function DonorWall({
       {/* Tier counts */}
       <ul className="mb-6 flex flex-wrap gap-2" aria-label={t("tier")}>
         {[...tiers.map((tier) => ({ id: tier.id, name: pick(locale, tier.nameHi, tier.nameEn) })), { id: "private", name: t("privateGroup") }].map((x) => (
-          <li key={x.id} className="border border-rule bg-paper-2 px-(--space-sm) py-(--space-xs) text-[0.95rem]">
+          <li key={x.id} className="rounded-(--radius-pill) border border-line bg-surface px-(--space-sm) py-(--space-2xs) text-[0.95rem]">
             <span className="font-medium">{x.name}</span>: <span className="tabular-nums">{t("count", { count: data.counts[x.id] ?? 0 })}</span>
           </li>
         ))}
       </ul>
 
-      <p className="mb-4 text-ink-2" aria-live="polite" data-testid="wall-total">
+      <p className="mb-4 text-ink-soft" aria-live="polite" data-testid="wall-total">
         {t("total", { count: data.page.total })}
       </p>
 
-      {groups.length === 0 && <p className="card p-6 text-center text-lg">{t("empty")}</p>}
+      {groups.length === 0 && <p className="card p-(--space-xl) text-center text-lg text-ink-soft">{t("empty")}</p>}
 
       <div className="space-y-(--space-2xl)" data-testid="donor-wall">
         {groups.map((g) => (
           <section key={g.id} aria-labelledby={`grp-${g.id}`} className="grid gap-(--space-md) lg:grid-cols-[minmax(0,3fr)_minmax(0,9fr)] lg:gap-(--gap-columns)">
-            <div>
-              <h2 id={`grp-${g.id}`} className="font-serif text-[clamp(1.8rem,1.6vw+1.2rem,2.7rem)]">                {g.tier ? pick(locale, g.tier.nameHi, g.tier.nameEn) : t("privateGroup")}
-              </h2>
-              <p className="small-print mt-(--space-2xs) tabular-nums">{t("count", { count: data.counts[g.id] ?? 0 })}</p>
+            <div className="flex items-center gap-(--space-md) lg:flex-col lg:items-start lg:gap-(--space-sm)">
+              {g.tier && <TierBadge tierId={g.tier.id} size={72} />}
+              <div>
+                <h2 id={`grp-${g.id}`} className="text-[clamp(1.5rem,1.2vw+1.1rem,2.1rem)]">
+                  {g.tier ? pick(locale, g.tier.nameHi, g.tier.nameEn) : t("privateGroup")}
+                </h2>
+                <p className="small-print tabular-nums">{t("count", { count: data.counts[g.id] ?? 0 })}</p>
+              </div>
             </div>
-            <ul className="ledger-rows border-t-2 border-ink">
+            <ul className="ledger-rows card-raised px-(--space-md)">
               {g.items.map((d) => (
                 <li key={d.id} data-id={d.id} className="grid grid-cols-[minmax(0,1fr)_auto] items-baseline gap-x-(--space-md) gap-y-(--space-2xs) py-(--space-md) sm:grid-cols-[minmax(0,5fr)_minmax(0,4fr)_auto]">
                   <div className="min-w-0">
                     <p className="text-lg font-medium break-words">{d.anonymous ? tc("anonymous") : inScript(d.donorName, locale)}</p>
                     {(d.donorFatherName || d.donorVillage) && (
-                      <p className="flex flex-wrap gap-x-(--space-md) text-sm text-ink-2">
+                      <p className="flex flex-wrap gap-x-(--space-md) text-sm text-ink-soft">
                         {d.donorFatherName && <span className="break-words">{inScript(d.donorFatherName, locale)}</span>}
                         {d.donorVillage && <span className="break-words">{inScript(d.donorVillage, locale)}</span>}
                       </p>
@@ -106,7 +111,7 @@ export function DonorWall({
                     <span>{fundName(d.fundId)}</span>
                     <time dateTime={d.donatedAt}>{formatDate(locale, d.donatedAt, { month: "short" })}</time>
                   </p>
-                  <p className="col-start-2 row-span-2 row-start-1 text-right font-serif text-xl tabular-nums text-ink sm:col-start-3 sm:row-span-1">
+                  <p className="figure col-start-2 row-span-2 row-start-1 text-right text-xl text-maroon sm:col-start-3 sm:row-span-1">
                     {d.amountPaise === null ? <span className="font-sans text-sm font-medium text-muted">{tc("amountHidden")}</span> : formatINR(d.amountPaise)}
                   </p>
                 </li>
@@ -121,7 +126,7 @@ export function DonorWall({
           {data.page.page > 1 ? (
             <Link href={href(data.page.page - 1)} className="btn btn-quiet" rel="prev">{tc("previous")}</Link>
           ) : <span />}
-          <span className="text-ink-2">{tc("pageOf", { page: data.page.page, count: data.page.pageCount })}</span>
+          <span className="text-ink-soft">{tc("pageOf", { page: data.page.page, count: data.page.pageCount })}</span>
           {data.page.page < data.page.pageCount ? (
             <Link href={href(data.page.page + 1)} className="btn btn-quiet" rel="next">{tc("next")}</Link>
           ) : <span />}

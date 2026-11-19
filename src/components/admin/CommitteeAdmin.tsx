@@ -13,7 +13,7 @@ import { committeeSchema, type CommitteeFormValues } from "@/lib/schemas";
 export function CommitteeAdmin() {
   const list = useLiveQuery<CommitteePost[] | null>((r) => r.committee.list(), [], ["committee"], null);
   const [editing, setEditing] = useState<CommitteePost | "new" | null>(null);
-  if (!list) return <p className="text-ink-2">Loading…</p>;
+  if (!list) return <p className="text-ink-soft">Loading…</p>;
   return (
     <div className="space-y-6">
       <div className="flex flex-wrap items-center justify-between gap-3">
@@ -22,18 +22,18 @@ export function CommitteeAdmin() {
       </div>
       <div className="card overflow-x-auto">
         <table className="w-full min-w-[48rem] text-left text-[0.95rem]">
-          <thead className="border-b border-rule bg-paper-3/60">
+          <thead className="border-b border-line bg-sand/60">
             <tr>{["Rank", "Post", "Name", "Father", "Term", "Phone", ""].map((h) => <th key={h} className="px-3 py-2 font-semibold">{h}</th>)}</tr>
           </thead>
           <tbody>
             {list.map((c) => (
-              <tr key={c.id} className="border-b border-rule/60">
+              <tr key={c.id} className="border-b border-line/60">
                 <td className="px-3 py-2 tabular-nums">{c.postRank}</td>
-                <td className="px-3 py-2">{c.postEn}<span className="block text-ink-2" lang="hi">{c.postHi}</span></td>
-                <td className="px-3 py-2"><span className="font-semibold">{c.name}</span>{c.nameHi && <span className="block text-ink-2" lang="hi">{c.nameHi}</span>}</td>
+                <td className="px-3 py-2">{c.postEn}<span className="block text-ink-soft" lang="hi">{c.postHi}</span></td>
+                <td className="px-3 py-2"><span className="font-semibold">{c.name}</span>{c.nameHi && <span className="block text-ink-soft" lang="hi">{c.nameHi}</span>}</td>
                 <td className="px-3 py-2">{c.fatherName}</td>
                 <td className="px-3 py-2">{c.termLabel}</td>
-                <td className="px-3 py-2">{c.phone ?? "—"}<span className="block text-[0.85rem] text-ink-2">{c.phonePublic ? "public" : "private"}</span></td>
+                <td className="px-3 py-2">{c.phone ?? "—"}<span className="block text-[0.85rem] text-ink-soft">{c.phonePublic ? "public" : "private"}</span></td>
                 <td className="px-3 py-2"><button type="button" className="btn btn-quiet min-h-9 px-3" onClick={() => setEditing(c)}>Edit</button></td>
               </tr>
             ))}
@@ -71,7 +71,7 @@ function CommitteeForm({ post, nextRank, onDone }: { post: CommitteePost | null;
       <Field label="Name (Hindi)" error={errors.nameHi?.message}>{(p) => <input {...p} {...register("nameHi")} lang="hi" className="field" />}</Field>
       <Field label="Father's name" required error={errors.fatherName?.message}>{(p) => <input {...p} {...register("fatherName")} className="field" />}</Field>
       <Field label="Phone" error={errors.phone?.message}>{(p) => <input {...p} {...register("phone")} type="tel" className="field" />}</Field>
-      <label className="flex items-center gap-2 sm:col-span-2"><input type="checkbox" {...register("phonePublic")} className="size-5 accent-accent" /> Show phone publicly (consent given)</label>
+      <label className="flex items-center gap-2 sm:col-span-2"><input type="checkbox" {...register("phonePublic")} className="size-5 accent-maroon" /> Show phone publicly (consent given)</label>
       <button type="submit" className="btn btn-primary sm:col-span-2" disabled={isSubmitting}>Save</button>
     </form>
   );

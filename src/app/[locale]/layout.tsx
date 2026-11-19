@@ -2,11 +2,13 @@ import type { Metadata, Viewport } from "next";
 import { hasLocale, NextIntlClientProvider } from "next-intl";
 import { getTranslations } from "next-intl/server";
 import { notFound } from "next/navigation";
+import Script from "next/script";
 import { routing } from "@/i18n/routing";
 import { DemoBanner } from "@/components/site/DemoBanner";
 import { Footer } from "@/components/site/Footer";
 import { Header } from "@/components/site/Header";
-import { body, display, slab } from "../fonts";
+import { SiteMotion } from "@/components/motion/SiteMotion";
+import { fontVariables } from "../fonts";
 import "../globals.css";
 
 export function generateStaticParams() {
@@ -24,7 +26,7 @@ export async function generateMetadata({ params }: LayoutProps<"/[locale]">): Pr
 }
 
 export const viewport: Viewport = {
-  themeColor: "#2b2724",
+  themeColor: "#F7F1E6",
   width: "device-width",
   initialScale: 1,
 };
@@ -35,11 +37,16 @@ export default async function LocaleLayout({ children, params }: LayoutProps<"/[
   const t = await getTranslations({ locale, namespace: "Nav" });
 
   return (
-    <html lang={locale} className={`${display.variable} ${slab.variable} ${body.variable} overflow-x-clip`}>
+    <html lang={locale} className={`${fontVariables} overflow-x-clip`}>
       <body className="flex min-h-dvh flex-col overflow-x-clip">
+        {/* Until hydration the language links are a Suspense fallback without the query string;
+            a tap in that window gets the current query added, so the switch keeps the page's filters. */}
+        <Script id="lang-switch-keep-query" strategy="beforeInteractive">
+          {`document.addEventListener("click",function(e){var a=e.target.closest&&e.target.closest('a[data-testid="lang-switch"]');if(a&&!a.search&&location.search)a.search=location.search},true)`}
+        </Script>
         <a
           href="#main"
-          className="sr-only focus:not-sr-only focus:fixed focus:left-2 focus:top-2 focus:z-50 focus:rounded focus:bg-paper-2 focus:p-3"
+          className="sr-only focus:not-sr-only focus:fixed focus:left-2 focus:top-2 focus:z-50 focus:rounded-(--radius-card) focus:bg-surface focus:p-3 focus:text-maroon"
         >
           {t("skip")}
         </a>
@@ -50,6 +57,7 @@ export default async function LocaleLayout({ children, params }: LayoutProps<"/[
             {children}
           </main>
           <Footer />
+          <SiteMotion />
         </NextIntlClientProvider>
       </body>
     </html>

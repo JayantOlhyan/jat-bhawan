@@ -1,7 +1,8 @@
 import { getTranslations } from "next-intl/server";
 import { HallBooking } from "@/components/hall/HallBooking";
+import { BrassRule } from "@/components/site/BrassRule";
 import { PageHeader } from "@/components/site/PageHeader";
-import { Slot } from "@/components/site/Slot";
+import { PhotoSlot } from "@/components/site/PhotoSlot";
 import { PlaceholderText } from "@/components/ui/PlaceholderText";
 import { getRepos } from "@/lib/data";
 import { pageMetadata } from "@/lib/meta";
@@ -11,6 +12,7 @@ export async function generateMetadata({ params }: PageProps<"/[locale]/hall">) 
   return pageMetadata(locale, "hall", "/hall");
 }
 
+/** Desktop: the hall's photo and particulars on the left, the calendar and enquiry on the right. Phones: stacked. */
 export default async function HallPage() {
   const t = await getTranslations("Hall");
   const trust = await getRepos().trust.get();
@@ -23,29 +25,29 @@ export default async function HallPage() {
   return (
     <>
       <PageHeader title={t("title")} lead={t("lead")} />
-      <section aria-labelledby="avail" className="container-site py-(--section-gap-s)">
-        <h2 id="avail" className="section-title">{t("calendarTitle")}</h2>
-        <hr className="rule-mark mt-(--space-md)" />
-        <p className="lead mt-(--space-lg) mb-(--space-2xl) text-ink-2">{t("enquiryLead")}</p>
-        <HallBooking officePhone={trust.phone} />
-      </section>
-      <section aria-labelledby="details" className="border-t-2 border-ink">
-        <div className="container-site grid gap-(--space-2xl) py-(--section-gap-s) lg:grid-cols-[minmax(0,5fr)_minmax(0,7fr)] lg:gap-(--space-3xl)">
-          <div>
-            <h2 id="details" className="section-title">{t("detailsTitle")}</h2>
-            <hr className="rule-mark mt-(--space-md)" />
-            <Slot slot="hall" alt={t("photo")} className="mt-(--space-xl) aspect-[4/3] w-full" />
-          </div>
-          <dl className="ledger-rows border-t-2 border-ink">
+      <div className="container-site grid gap-(--space-2xl) pt-(--space-md) lg:grid-cols-[minmax(0,6fr)_minmax(0,5fr)] lg:gap-(--space-xl)">
+        <section aria-labelledby="details" className="min-w-0 lg:order-1">
+          <PhotoSlot slot="hall" alt={t("photo")} label={t("photo")} jaali className="aspect-[4/3] w-full shadow-(--shadow-raised)" />
+          <h2 id="details" className="mt-(--space-xl)">{t("detailsTitle")}</h2>
+          <BrassRule align="start" className="mt-(--space-sm)" />
+          <dl className="ledger-rows mt-(--space-md)">
             {details.map(([k, v]) => (
-              <div key={k} className="grid gap-(--space-2xs) py-(--space-lg) sm:grid-cols-[minmax(0,3fr)_minmax(0,7fr)] sm:gap-(--space-lg)">
-                <dt className="font-serif text-xl">{t(k)}</dt>
-                <dd className="text-lg text-ink-2"><PlaceholderText text={t(v)} /></dd>
+              <div key={k} className="grid gap-(--space-2xs) py-(--space-md) sm:grid-cols-[minmax(0,3fr)_minmax(0,7fr)] sm:gap-(--space-lg)">
+                <dt className="font-semibold text-maroon">{t(k)}</dt>
+                <dd className="text-ink-soft"><PlaceholderText text={t(v)} /></dd>
               </div>
             ))}
           </dl>
-        </div>
-      </section>
+        </section>
+        <section aria-labelledby="avail" className="min-w-0 lg:order-2">
+          <div className="card-raised p-(--space-md) sm:p-(--space-lg)">
+            <h2 id="avail" className="text-center text-[clamp(1.4rem,1vw+1.1rem,1.8rem)]">{t("calendarTitle")}</h2>
+            <BrassRule className="mt-(--space-sm)" />
+            <p className="mt-(--space-sm) mb-(--space-md) text-center text-ink-soft">{t("enquiryLead")}</p>
+            <HallBooking officePhone={trust.phone} />
+          </div>
+        </section>
+      </div>
     </>
   );
 }

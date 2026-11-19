@@ -75,13 +75,11 @@ Header (sticky, Donate always visible, mobile menu as native `<dialog>`), Langua
 - Store each donor's and member's name, father's name and village in both scripts (two columns, or ask for both on the form) instead of transliterating at display time; rule-based transliteration of unknown names is approximate.
 - The hall enquiry's native date field shows the phone's own date format; a Hindi-labelled picker would make it fully Hindi on English-language phones.
 
-## Design (Hallmark redesign 2, Broadside theme)
-- A printer's bill: buff paper, near-black ink, one vermilion (the opening date line and the opening band); square corners, double-rule frames, rules at 1pt or 5pt, a light paper grain on frames and bands.
-- Faces, each with Devanagari and Latin: Teko (the big fitted lines and rupee figures), Sarpanch (heads, wordmark), Hind (reading text). Latin heads are set in capitals; Devanagari heads get extra leading for matras.
-- Home: the opening bill (जाट भवन / नजफगढ़ fitted to the column, the inauguration date in vermilion) beside a donation slip whose amounts open the donate form pre-filled (`/donate?amount=`); then the live register full width, the elders' story with the framed photo, donors by tier, the vermilion opening band, the hall's particulars, the committee; the footer is an ink colophon.
-- `FitLine` sizes a line as a share of its column (`cqi`), so it holds at every width; it carries `keep-motion` because the reduced-motion rule would otherwise delay the size it measures.
-- Tokens live in `src/app/globals.css` (`@theme`); the Hallmark stamp, waivers and records are its first lines. `src/app/hallmark/base.css` is the scaffold's base layer.
-- Client photos: drop `story.jpg` (replaces the harvest stand-in), `hall.jpg` into `public/demo/`.
+## Design (UI pass, Nov 2026)
+- Ivory / sand / ink / maroon / brass tokens, Mukta + Tiro Devanagari Hindi, pill buttons, 12px cards; all defined once in `src/app/globals.css`. Full notes, results and contrast table: `docs/design/UI-PASS.md`; mockups in `docs/design/reference/`.
+- Brand art lives in `public/brand/`, named only in `src/lib/brand.ts`. Drop `public/brand/hero-building.webp` in and rebuild to replace the hero's placeholder frame.
+- Motion: GSAP 3.15 (+ ScrollTrigger, SplitText, DrawSVG) through `src/lib/gsap.ts`, tokens in `src/lib/motion.ts`; page-level effects are wired by data attributes in `src/components/motion/SiteMotion.tsx`. Reduced motion gets none; admin and the receipt get none.
+- Client photos: drop `story.jpg`, `hall.jpg` into `public/demo/` (PhotoSlot picks them up).
 
 ## Language rule
 - Every public page is in one language: `/hi/...` wholly Devanagari, `/en/...` wholly Latin. The one exception is the language switch, which names the other language in its own script so a reader of that language can find it.

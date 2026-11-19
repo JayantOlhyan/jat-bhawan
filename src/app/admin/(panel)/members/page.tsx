@@ -6,7 +6,7 @@ export const metadata: Metadata = { title: "Members" };
 
 export default function Page() {
   return (
-    <Suspense fallback={<p className="text-ink-2">Loading…</p>}>
+    <Suspense fallback={<p className="text-ink-soft">Loading…</p>}>
       <MembersAdmin />
     </Suspense>
   );

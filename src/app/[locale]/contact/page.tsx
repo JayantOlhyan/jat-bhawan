@@ -24,12 +24,12 @@ export default async function ContactPage() {
   return (
     <>
       <PageHeader title={t("title")} lead={t("lead")} />
-      <div className="container-site py-(--section-gap-s)">
-        <dl className="ledger-rows border-t-2 border-ink">
+      <div className="container-site pt-(--space-md)">
+        <dl className="ledger-rows card-raised px-(--space-lg)">
           {rows.map(([k, v]) => (
             <div key={k} className="grid gap-(--space-2xs) py-(--space-lg) md:grid-cols-[minmax(0,4fr)_minmax(0,8fr)] md:gap-(--gap-columns)">
-              <dt className="font-medium text-ink-2">{k}</dt>
-              <dd className="font-serif text-[clamp(1.3rem,1vw+1rem,1.8rem)] leading-snug break-words">{v}</dd>
+              <dt className="font-medium text-ink-soft">{k}</dt>
+              <dd className="text-[clamp(1.15rem,0.6vw+1rem,1.45rem)] font-semibold leading-snug break-words">{v}</dd>
             </div>
           ))}
         </dl>

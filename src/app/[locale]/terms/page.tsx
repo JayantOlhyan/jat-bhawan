@@ -13,9 +13,9 @@ export default async function TermsPage() {
   return (
     <>
       <PageHeader title={t("title")} />
-      <article className="container-site py-(--section-gap-s)">
-        <p className="text-ink-2">{t("updated")}</p>
-        <ol className="mt-6 list-decimal space-y-4 pl-6 text-lg marker:font-medium marker:text-accent">
+      <article className="container-site pt-(--space-md) max-w-[52rem]">
+        <p className="text-ink-soft">{t("updated")}</p>
+        <ol className="mt-6 list-decimal space-y-4 pl-6 text-lg marker:font-medium marker:text-maroon">
           {body.map((p) => <li key={p}>{p}</li>)}
         </ol>
       </article>

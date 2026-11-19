@@ -17,11 +17,11 @@ const NEXT: Record<BookingStatus, BookingStatus[]> = {
   cancelled: [],
 };
 const STYLE: Record<BookingStatus, string> = {
-  enquiry: "bg-paper-3 text-ink border-rule",
+  enquiry: "bg-sand text-ink border-line",
   tentative: "bg-warn-tint text-warn border-warn",
-  confirmed: "bg-ok-tint text-ok border-ok",
-  rejected: "bg-bad-tint text-bad border-bad",
-  cancelled: "bg-ink text-paper border-ink",
+  confirmed: "bg-success-tint text-success border-success",
+  rejected: "bg-error-tint text-error border-error",
+  cancelled: "bg-ink text-ivory border-ink",
 };
 const SLOT = { full: "Full day", morning: "Morning", evening: "Evening" } as const;
 const ACTION: Record<BookingStatus, string> = { enquiry: "", tentative: "Mark tentative", confirmed: "Confirm", rejected: "Reject", cancelled: "Cancel" };
@@ -54,7 +54,7 @@ export function BookingsAdmin() {
     }
   };
 
-  if (!bookings) return <p className="text-ink-2">Loading…</p>;
+  if (!bookings) return <p className="text-ink-soft">Loading…</p>;
   const calendarEntries: PublicBookingDay[] = bookings
     .filter((b) => b.status === "confirmed" || b.status === "tentative")
     .map((b) => ({ date: b.date, slot: b.slot, status: b.status as "confirmed" | "tentative" }));
@@ -64,7 +64,7 @@ export function BookingsAdmin() {
     <div className="space-y-6">
       <h1 className="text-[2rem]">Hall bookings</h1>
       {message && (
-        <p role="alert" className={`rounded-md border p-3 font-semibold ${message.kind === "ok" ? "border-ok bg-ok-tint text-ok" : "border-bad bg-bad-tint text-bad"}`} data-testid="booking-msg">
+        <p role="alert" className={`rounded-md border p-3 font-semibold ${message.kind === "ok" ? "border-success bg-success-tint text-success" : "border-error bg-error-tint text-error"}`} data-testid="booking-msg">
           {message.text}
         </p>
       )}
@@ -98,7 +98,7 @@ export function BookingsAdmin() {
                 {(Object.keys(NEXT) as BookingStatus[]).map((s) => <option key={s} value={s}>{s}</option>)}
               </select>
             </div>
-            <p className="pb-2 text-ink-2">{shown.length} bookings</p>
+            <p className="pb-2 text-ink-soft">{shown.length} bookings</p>
           </div>
           <ul className="space-y-3" data-testid="bookings-list">
             {shown.map((b) => (
@@ -107,8 +107,8 @@ export function BookingsAdmin() {
                   <div>
                     <p className="font-semibold">{formatDay("en", b.date, { weekday: "short" })}, {SLOT[b.slot]}</p>
                     <p>{b.name}, {b.mobile}</p>
-                    <p className="text-ink-2">{b.eventType}, {b.guests} guests</p>
-                    {b.message && <p className="mt-1 text-[0.95rem] italic text-ink-2">“{b.message}”</p>}
+                    <p className="text-ink-soft">{b.eventType}, {b.guests} guests</p>
+                    {b.message && <p className="mt-1 text-[0.95rem] italic text-ink-soft">“{b.message}”</p>}
                   </div>
                   <span className={`rounded border px-2 text-[0.85rem] font-semibold ${STYLE[b.status]}`}>{b.status}</span>
                 </div>

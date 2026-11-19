@@ -1,250 +1,234 @@
-/* Hallmark · shape: Split Studio (home: splits that change ratio, parted by ink rules and two bands), kept elsewhere · genre: editorial · theme: Broadside (deal 3/3, seed premium-community-bhawan-hindu-549e·f9e1422c·2026-11-13·r0) · redesign: full · draw: c976ef · job: donate, then book the hall
- * hero: Counter (/; the donation slip is the visual), Banner (inner pages) · nav: slab (swapped from the draw's floating pill: Broadside has no pill) · footer: colophon block · imagery: photographs, library 1, duotone ink · signature: the opening bill: the Bhawan's name fitted in Teko over the one vermilion line, beside a printed donation slip · broadside: bill
- * axes: light/display-condensed/warm · posture: committed · contrast: pass · fold: pass · v2.0.0 */
-/* Hallmark · pre-emit critique: P4 H5 E4 S5 R4 V5 · weakest: P, a printed bill could read as a sale notice; the Bhawan's own name, opening date and the slip in rupees make it the community's notice, not a shop's */
-/* Hallmark · faces: Teko replaces Six Caps, Sarpanch replaces Bevan, Hind replaces Archivo Narrow (each carries Devanagari and Latin; Six Caps, Bevan and Archivo Narrow have no Devanagari); three families, the theme's three roles */
-/* Hallmark · language: Hindi and English pages are each set in one script; names and villages are shown in the page's script (src/lib/translit.ts); the language switch names the other language in its own script so its reader can find it */
-/* Hallmark · waive 39b · the hall calendar's day cells are square month-grid cells, 44px or larger · a booking calendar sized by its seven columns, not a marketing button */
-/* Hallmark · waive 77 · inner pages are working screens under a Banner head: the donate form, the donor wall, the hall calendar, the member list · each page's body is its tool at full width */
-/* Hallmark · waive 44c · Banner posture on inner pages, stamped in hero: · the donate form, donor wall and hall calendar are tools that start at once, not below a tall banner */
-/* Hallmark · waive 49b · a real phrase, two lines at most, only at 320px · the photo credit names the harvest picture's photographer, archive and licence in full and cannot be shortened */
-/* Hallmark · reworded "जाट भवन, नजफगढ़" to the same name set as two fitted lines (जाट भवन / नजफगढ़, Jat Bhawan / Najafgarh; the comma kept for screen readers) · the bill fits each line of the name as its own element */
-/* Hallmark · reworded "Jat Bhawan, Najafgarh" to the same name set as two fitted lines (Jat Bhawan / Najafgarh; the comma kept for screen readers) · the bill fits each line of the name as its own element */
-/* Hallmark · unslop polish (unslop by @heydamir, CC BY 4.0): the paper grain removed, controls in sentence case and untracked, labels at 500 with the display faces alone at 600, no closing stop on one-line subheads, notes and empty states */
-/* Hallmark · dismissed 70 · "Date received" is the label of the admin date field; nothing prints success and the demo repo really stores the record */
-/* Hallmark · dismissed 23 · the vermilion band is Broadside's one accent band, a section of the committed posture stamped above, holding the opening date for the Bhawan */
-/* Hallmark · answered F4 · the filled paper-size toggle is a pressed state of a quiet control on the receipt, not a second primary */
-/* Hallmark · answered F20 · donor-wall tier groups hold however many donations each tier has; the grid cannot choose its count */
+/* Jat Bhawan theme: ivory, sand, ink, maroon and brass (docs/design/UI-PASS.md).
+ * Every colour, radius, shadow and rhythm value is a token here; components use the utilities. */
 @import "tailwindcss";
-@import "./hallmark/base.css" layer(base);
 
-/* Tokens: Broadside, the bill colourway, declared once as the Tailwind theme so utilities and components share them. */
 @theme static {
-  --color-paper: oklch(92% 0.028 88);
-  --color-paper-2: oklch(88.5% 0.032 88);
-  --color-paper-3: oklch(85% 0.036 86);
-  --color-ink: oklch(18% 0.01 50);
-  --color-ink-2: oklch(30% 0.012 50);
-  --color-muted: oklch(43% 0.02 62);
-  --color-rule: oklch(75% 0.028 82);
-  --color-accent: oklch(53% 0.19 33);
-  --color-accent-deep: oklch(46% 0.18 33);
-  --color-accent-tint: oklch(90% 0.05 45);
-  --color-accent-ink: oklch(95.5% 0.018 88);
-  --color-focus: oklch(53% 0.19 33);
-  --color-slot: var(--color-paper-3);
-  --color-ok: oklch(42% 0.11 150);
-  --color-ok-tint: oklch(90% 0.05 140);
-  --color-warn: oklch(44% 0.1 70);
-  --color-warn-tint: oklch(88% 0.07 85);
-  --color-bad: oklch(48% 0.19 30);
-  --color-bad-tint: oklch(90% 0.05 35);
-  --color-error: oklch(48% 0.19 30);
-  --color-success: oklch(42% 0.11 150);
-  --color-scrim: oklch(18% 0.01 50 / 0.6);
+  /* Colour */
+  --color-ivory: #f7f1e6;
+  --color-surface: #fbf7ef;
+  --color-sand: #e9dcc4;
+  --color-sand-deep: #dccaa9;
+  --color-ink: #1e1a17;
+  --color-ink-soft: #4a3f37;
+  --color-muted: #655748;
+  --color-maroon: #7a1f1f;
+  --color-maroon-hover: #5f1717;
+  --color-brass: #b08d57;
+  --color-brass-light: #d9bf8c;
+  --color-brass-deep: #8a6a3a;
+  --color-line: rgb(176 141 87 / 0.6);
+  --color-grey-line: #8c8178;
+  --color-focus: #7a1f1f;
+  --color-success: #2f6b3a;
+  --color-success-tint: #e3ecdb;
+  --color-error: #a3261f;
+  --color-error-tint: #f6e0d9;
+  --color-warn: #7a5512;
+  --color-warn-tint: #f3e6c4;
+  --color-scrim: rgb(30 26 23 / 0.55);
+  --color-marigold: #e8891c;
 
-  --font-display: var(--font-teko), "Teko", "Impact", sans-serif;
-  --font-slab: var(--font-sarpanch), "Sarpanch", Georgia, serif;
-  --font-body: var(--font-hind), "Hind", ui-sans-serif, system-ui, sans-serif;
+  /* Type */
+  --font-body: var(--font-mukta), "Mukta", ui-sans-serif, system-ui, sans-serif;
+  --font-heading: var(--font-tiro), "Tiro Devanagari Hindi", Georgia, serif;
   --font-sans: var(--font-body);
-  --font-serif: var(--font-slab);
+  --font-serif: var(--font-heading);
 
+  --text-xs: 0.8125rem; --text-sm: 0.9rem; --text-md: 1rem; --text-lg: 1.15rem; --text-xl: 1.375rem;
+  --text-2xl: 1.75rem; --text-3xl: 2.25rem;
+  --text-h1: clamp(2.1rem, 2.6vw + 1.3rem, 3.6rem);
+  --text-h1-hero: clamp(2.4rem, 3.4vw + 1.2rem, 4.4rem);
+  --text-section: clamp(1.6rem, 1.4vw + 1.1rem, 2.4rem);
+  --text-title: clamp(1.2rem, 0.5vw + 1rem, 1.45rem);
+  --text-lead: clamp(1.08rem, 0.3vw + 1rem, 1.3rem);
+  --text-figure: clamp(1.35rem, 0.6vw + 1.1rem, 1.7rem);
+
+  /* Shape */
+  --radius-card: 12px;
+  --radius-pill: 999px;
+  --shadow-raised: 0 1px 2px rgb(94 64 30 / 0.08), 0 8px 24px -10px rgb(94 64 30 / 0.28);
+  --shadow-glow: 0 0 0 3px rgb(217 191 140 / 0.55), 0 6px 18px -6px rgb(176 141 87 / 0.7);
+
+  /* Rhythm */
   --space-3xs: 2px; --space-2xs: 4px; --space-xs: 8px; --space-sm: 12px; --space-md: 16px;
-  --space-lg: 24px; --space-xl: 40px; --space-2xl: 64px; --space-3xl: 96px; --space-4xl: 144px;
+  --space-lg: 24px; --space-xl: 40px; --space-2xl: 64px; --space-3xl: 96px;
+  --container: 1240px; --gutter: 40px; --gap-columns: 32px;
+  --section-gap: 96px; --section-gap-s: 72px;
+  --paybar-h: 0px;
 
-  --text-xs: 0.8125rem; --text-sm: 0.875rem; --text-md: 1rem; --text-lg: 1.25rem; --text-xl: 1.5625rem;
-  --text-2xl: 1.953rem; --text-3xl: 2.441rem;
-  --text-display-s: clamp(3rem, 5vw + 1rem, 5.5rem);
-  --text-display: clamp(4rem, 10vw, 9rem);
-  --text-section: clamp(1.75rem, 2vw + 1rem, 3rem);
-  --text-title: clamp(1.25rem, 0.75vw + 0.875rem, 1.625rem);
-  --text-lead: clamp(1.125rem, 0.35vw + 1rem, 1.375rem);
-  --text-figure: clamp(2rem, 1.5vw + 1.4rem, 2.75rem);
-
-  --radius-xs: 0; --radius-sm: 0; --radius: 0; --radius-md: 0; --radius-lg: 0; --radius-xl: 0;
-  --radius-card: 0; --radius-pill: 0;
-  --rule-hair: 1px; --rule-bar: 5px; --rule-frame: 3px;
-  --shadow-card: none;
-  --tracking-display: 0.02em; --display-weight: 400;
-
-  --ease-out: cubic-bezier(0.16, 1, 0.3, 1); --ease-in: cubic-bezier(0.7, 0, 0.84, 0); --ease-in-out: cubic-bezier(0.65, 0, 0.35, 1);
-  --dur-micro: 120ms; --dur-short: 220ms; --dur-long: 420ms;
-
-  --container: 1440px; --gutter: 64px; --gap-columns: 32px;
-  --section-gap-s: 120px; --section-gap: 144px; --section-gap-l: 176px;
-  --z-base: 1; --z-raised: 10; --z-dropdown: 100; --z-sticky: 200; --z-sticky-nav: 300; --z-modal: 400; --z-toast: 500; --z-tooltip: 600;
+  --dur-micro: 120ms; --dur-short: 220ms;
+  --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
+  --z-raised: 10; --z-sticky: 200; --z-sticky-nav: 300; --z-modal: 400;
 }
 
 @media (max-width: 60rem) {
-  :root { --gutter: 24px; --section-gap-s: 80px; --section-gap: 96px; --section-gap-l: 120px; }
+  :root { --gutter: 24px; --section-gap: 64px; --section-gap-s: 56px; }
 }
 @media (max-width: 40rem) {
-  :root { --gutter: 16px; --section-gap-s: 56px; --section-gap: 72px; --section-gap-l: 96px; --gap-columns: 16px; }
+  :root { --gutter: 16px; --section-gap: 48px; --section-gap-s: 48px; --gap-columns: 16px; }
 }
 
 @layer base {
+  *, *::before, *::after { box-sizing: border-box; }
   html {
     font-size: 106.25%; /* 17px body for an older, phone-first audience */
     -webkit-text-size-adjust: 100%;
-    scroll-padding-top: var(--space-3xl);
+    scroll-padding-top: 6rem;
+    scrollbar-color: var(--color-brass) var(--color-ivory);
   }
+  html, body { overflow-x: clip; }
   body {
+    margin: 0;
+    background: var(--color-ivory);
+    color: var(--color-ink);
+    font-family: var(--font-body);
+    font-size: var(--text-md);
     line-height: 1.6;
     font-variant-numeric: lining-nums;
+    -webkit-font-smoothing: antialiased;
   }
-  :lang(hi) body { line-height: 1.75; }
-  /* The gothic for the page title, the slab for every other head; capitals apply to Latin only. */
-  h1 {
-    font-family: var(--font-display);
-    font-weight: 600;
-    text-transform: uppercase;
-    letter-spacing: var(--tracking-display);
-    line-height: 1;
-  }
-  h2, h3 {
-    font-family: var(--font-slab);
-    font-weight: 600;
-    text-transform: uppercase;
-    letter-spacing: 0;
-    line-height: 1.08;
-  }
-  /* Devanagari carries marks above the headline and below the baseline: heads need room. */
-  :lang(hi) h1 { line-height: 1.12; letter-spacing: 0; }
-  :lang(hi) :is(h2, h3) { line-height: 1.3; }
-  h1, h2, h3 { color: var(--color-ink); }
-  a:hover { color: var(--color-accent); text-decoration-color: var(--color-accent); }
+  :lang(hi) body { line-height: 1.7; }
+  ::selection { background: rgb(176 141 87 / 0.35); }
+  :focus-visible { outline: 2px solid var(--color-focus); outline-offset: 2px; }
+  a { color: inherit; text-decoration-thickness: 1px; text-underline-offset: 0.2em; }
+  a:hover { color: var(--color-maroon); }
+  h1, h2, h3 { margin: 0; overflow-wrap: break-word; min-width: 0; text-wrap: balance; color: var(--color-ink); }
+  /* Tiro for H1/H2 only; everything else is Mukta. */
+  h1, h2 { font-family: var(--font-heading); font-weight: 400; line-height: 1.3; color: var(--color-maroon); letter-spacing: 0; }
+  h1 { font-size: var(--text-h1); max-width: 24ch; }
+  h2 { font-size: var(--text-section); max-width: 32ch; }
+  h3 { font-family: var(--font-body); font-weight: 600; font-size: var(--text-title); line-height: 1.35; }
+  p { margin: 0; text-wrap: pretty; }
+  p:not([class]) { max-width: 65ch; }
+  img, video { max-width: 100%; height: auto; display: block; }
+  svg { display: block; }
+  [hidden] { display: none !important; }
+  button, input, select, textarea { font: inherit; }
   dialog::backdrop { background: var(--color-scrim); }
 }
 
 @layer components {
-  .container-site {
-    width: 100%;
-    max-width: var(--container);
-    margin-inline: auto;
-    padding-inline: var(--gutter);
-  }
+  .container-site { width: 100%; max-width: calc(var(--container) + 2 * var(--gutter)); margin-inline: auto; padding-inline: var(--gutter); }
+  .lead { font-size: var(--text-lead); line-height: 1.55; max-width: 56ch; color: var(--color-ink-soft); }
+  .visually-hidden { position: absolute; width: 1px; height: 1px; overflow: hidden; clip-path: inset(50%); white-space: nowrap; }
+  .num, .figure { font-variant-numeric: tabular-nums; }
+  .figure { font-family: var(--font-body); font-weight: 600; line-height: 1.15; }
+  .display { font-family: var(--font-heading); font-weight: 400; line-height: 1.3; }
+  .small-print { font-size: var(--text-sm); color: var(--color-muted); }
 
-  /* The gothic, set as the bill's big lines and figures. */
-  .display {
-    font-family: var(--font-display);
-    font-weight: 600;
-    text-transform: uppercase;
-    letter-spacing: var(--tracking-display);
-    line-height: 1;
-  }
-  :lang(hi) .display { line-height: 1.12; letter-spacing: 0; }
-  .slab { font-family: var(--font-slab); font-weight: 600; text-transform: uppercase; }
-  .figure { font-family: var(--font-display); font-weight: 600; font-variant-numeric: tabular-nums; line-height: 1; letter-spacing: 0.01em; }
-  /* A fitted line never wraps: FitLine sizes it to its column once the fonts load. */
-  .fit { display: block; width: max-content; white-space: nowrap; }
-
-  /* Controls: an ink block and its double-rule frame, square, 48px. */
+  /* Buttons: pills, 48px tall. */
   .btn {
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    gap: var(--space-xs);
-    min-height: 48px;
-    padding: var(--space-xs) var(--space-xl);
-    border: var(--rule-frame) solid var(--color-ink);
-    border-radius: 0;
-    background: transparent;
-    color: var(--color-ink);
-    font-family: var(--font-body);
-    font-size: var(--text-md);
-    font-weight: 500;
-    line-height: 1.2;
-    text-align: center;
-    text-decoration: none;
-    white-space: nowrap;
-    cursor: pointer;
-    transition: background-color var(--dur-short) var(--ease-out), color var(--dur-short) var(--ease-out),
-      border-color var(--dur-short) var(--ease-out), transform var(--dur-micro) var(--ease-out);
+    display: inline-flex; align-items: center; justify-content: center; gap: var(--space-xs);
+    min-height: 48px; padding: var(--space-xs) var(--space-lg);
+    border: 1.5px solid var(--color-maroon); border-radius: var(--radius-pill);
+    background: transparent; color: var(--color-maroon);
+    font-family: var(--font-body); font-size: var(--text-md); font-weight: 600; line-height: 1.2;
+    text-align: center; text-decoration: none; white-space: nowrap; cursor: pointer;
+    transition: background-color var(--dur-short) var(--ease-out), color var(--dur-short) var(--ease-out), border-color var(--dur-short) var(--ease-out);
   }
-  .btn:active { transform: translateY(1px); }
-  .btn:disabled, .btn[aria-disabled="true"] { opacity: 0.55; cursor: not-allowed; transform: none; }
-  .btn-primary { background: var(--color-ink); color: var(--color-paper); }
-  .btn-primary:hover { background: var(--color-accent-deep); border-color: var(--color-accent-deep); color: var(--color-accent-ink); }
-  .btn-outline {
-    box-shadow: inset 0 0 0 3px var(--color-paper), inset 0 0 0 4px var(--color-ink);
-  }
-  .btn-outline:hover { color: var(--color-accent); border-color: var(--color-accent); box-shadow: inset 0 0 0 3px var(--color-paper), inset 0 0 0 4px var(--color-accent); }
-  .btn-quiet {
-    border-width: var(--rule-hair);
-    background: var(--color-paper-2);
-    padding-inline: var(--space-lg);
-  }
-  .btn-quiet:hover { color: var(--color-accent); border-color: var(--color-accent); }
-  .btn-quiet[aria-pressed="true"] { background: var(--color-ink); color: var(--color-paper); }
-  /* A plain underlined link, for the quiet way out of a section. */
+  .btn:hover { color: var(--color-maroon-hover); border-color: var(--color-maroon-hover); background: rgb(122 31 31 / 0.05); }
+  .btn:disabled, .btn[aria-disabled="true"] { opacity: 0.55; cursor: not-allowed; }
+  .btn-primary { background: var(--color-maroon); color: var(--color-ivory); }
+  .btn-primary:hover { background: var(--color-maroon-hover); color: var(--color-ivory); }
+  .btn-outline { background: transparent; }
+  .btn-quiet { border-color: var(--color-line); border-width: 1px; background: var(--color-surface); color: var(--color-ink); font-weight: 500; padding-inline: var(--space-md); }
+  .btn-quiet:hover { border-color: var(--color-maroon); color: var(--color-maroon); background: var(--color-surface); }
+  .btn-quiet[aria-pressed="true"] { background: var(--color-maroon); border-color: var(--color-maroon); color: var(--color-ivory); }
   .link-ink {
-    display: inline-flex;
-    align-items: center;
-    min-height: 44px;
-    font-weight: 500;
-    text-decoration: underline;
-    text-decoration-thickness: 2px;
-    text-underline-offset: 0.25em;
+    display: inline-flex; align-items: center; min-height: 44px; font-weight: 600; color: var(--color-maroon);
+    text-decoration: underline; text-decoration-thickness: 1.5px; text-underline-offset: 0.25em; text-decoration-color: var(--color-brass);
   }
-  .link-ink:hover { color: var(--color-accent); }
+  .link-ink:hover { text-decoration-color: var(--color-maroon); }
 
-  /* Surfaces: a hairline card for interactive items, a double-rule frame for the one object a screen is about. */
-  .card {
-    background: var(--color-paper-2);
-    border: var(--rule-hair) solid var(--color-rule);
-    border-radius: 0;
-  }
-  .well, .frame {
-    position: relative;
-    background: var(--color-paper-2);
-    border: var(--rule-frame) solid var(--color-ink);
-    box-shadow: inset 0 0 0 3px var(--color-paper-2), inset 0 0 0 4px var(--color-ink);
-  }
-  .frame-photo { border: var(--rule-frame) solid var(--color-ink); padding: var(--space-2xs); background: var(--color-paper); }
+  /* Surfaces */
+  .card { background: var(--color-surface); border: 1px solid var(--color-line); border-radius: var(--radius-card); }
+  .card-raised { background: var(--color-surface); border: 1px solid var(--color-line); border-radius: var(--radius-card); box-shadow: var(--shadow-raised); }
+  .well, .frame { position: relative; background: var(--color-surface); border: 1px solid var(--color-brass); border-radius: var(--radius-card); }
 
-  .field-label { display: block; font-weight: 500; margin-bottom: var(--space-2xs); }
+  /* Fields */
+  .field-label { display: block; font-weight: 600; margin-bottom: var(--space-2xs); color: var(--color-ink); }
   .field {
-    width: 100%;
-    min-height: 48px;
-    padding: var(--space-xs) var(--space-sm);
-    background: var(--color-paper-2);
-    color: var(--color-ink);
-    border: var(--rule-hair) solid var(--color-ink);
-    border-radius: 0;
-    font: inherit;
-    font-size: max(1rem, 16px);
+    width: 100%; min-height: 48px; padding: var(--space-xs) var(--space-md);
+    background: var(--color-surface); color: var(--color-ink);
+    border: 1px solid var(--color-brass); border-radius: var(--radius-card);
+    font: inherit; font-size: max(1rem, 16px);
   }
-  .field:focus-visible, .field:focus { outline: 2px solid var(--color-focus); outline-offset: -2px; }
-  .field[aria-invalid="true"] { border-color: var(--color-error); }
+  .field::placeholder { color: var(--color-muted); opacity: 1; }
+  .field:focus-visible, .field:focus { outline: 2px solid var(--color-focus); outline-offset: 2px; border-color: var(--color-maroon); }
+  .field[aria-invalid="true"] { border-color: var(--color-error); border-width: 1.5px; }
   .field:disabled { opacity: 0.55; cursor: not-allowed; }
-  .field-error { color: var(--color-error); font-size: var(--text-sm); margin-top: var(--space-2xs); }
+  select.field {
+    appearance: none; padding-right: 2.75rem;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='20' height='20' viewBox='0 0 24 24' fill='none' stroke='%237a1f1f' stroke-width='2.2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M6 9l6 6 6-6'/%3E%3C/svg%3E");
+    background-repeat: no-repeat; background-position: right 0.9rem center;
+  }
+  .field-error { color: var(--color-error); font-size: var(--text-sm); font-weight: 500; margin-top: var(--space-2xs); }
   .field-hint { color: var(--color-muted); font-size: var(--text-sm); margin-top: var(--space-2xs); }
 
-  /* Rules: five points over a section or table, one point between rows. */
-  .rule-bar { border-top: var(--rule-bar) solid var(--color-ink); }
-  .rule-mark { width: 4.5rem; height: 0; border: 0; border-top: var(--rule-bar) solid var(--color-ink); }
-  .section-title { font-family: var(--font-slab); font-size: var(--text-section); font-weight: 600; }
-  .small-print { font-size: var(--text-sm); font-weight: 500; color: var(--color-muted); }
-  .band-ink { background: var(--color-ink); color: var(--color-paper); }
-  .band-ink :is(h1, h2, h3) { color: var(--color-paper); }
-  .band-accent { background: var(--color-accent); color: var(--color-accent-ink); }
-  .band-accent :is(h1, h2, h3) { color: var(--color-accent-ink); }
+  /* Rules */
+  .rule-bar { border-top: 1px solid var(--color-line); }
+  .rule-mark { width: 4rem; height: 0; border: 0; border-top: 3px solid var(--color-maroon); border-radius: 3px; }
+  .ledger-rows > * + * { border-top: 1px solid var(--color-line); }
 
-  /* Ledger rows part on hairlines. */
-  .ledger-rows > * + * { border-top: var(--rule-hair) solid var(--color-rule); }
+  /* Chips: the donate presets and the custom-amount cell. */
+  .chip {
+    display: flex; align-items: center; justify-content: center; min-height: 52px; padding: var(--space-xs);
+    border: 1px solid var(--color-brass); border-radius: var(--radius-card); background: var(--color-surface);
+    color: var(--color-ink); font-weight: 600; font-size: var(--text-lg); font-variant-numeric: tabular-nums;
+    transition: background-color var(--dur-short) var(--ease-out), box-shadow var(--dur-short) var(--ease-out);
+  }
+  .chip:hover { border-color: var(--color-maroon); }
+  .chip[aria-checked="true"] { background: var(--color-maroon); border-color: var(--color-maroon); color: var(--color-ivory); box-shadow: var(--shadow-glow); }
+
+  /* The brass rail on the home ticker: a CSS bar, no image. */
+  .brass-rail {
+    position: relative; display: flex; align-items: center; gap: var(--space-sm); min-height: 56px;
+    padding: var(--space-xs) var(--space-md); border-radius: var(--radius-pill);
+    background: linear-gradient(180deg, #d9bf8c 0%, #b08d57 46%, #94733f 100%);
+    box-shadow: inset 0 1px 0 rgb(255 245 220 / 0.6), inset 0 -1px 0 rgb(80 55 20 / 0.35), var(--shadow-raised);
+    color: #241a0e;
+  }
+  .brass-rail::after {
+    content: ""; position: absolute; inset: 5px; border-radius: var(--radius-pill);
+    border: 1px solid rgb(255 240 205 / 0.55); pointer-events: none;
+  }
+
+  /* Placeholder slot for a photo still to come. */
+  .photo-slot { position: relative; overflow: hidden; border-radius: var(--radius-card); background: var(--color-sand); border: 1px solid var(--color-line); }
+  .photo-slot > img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
 }
 
-@keyframes ticker-in {
-  from { opacity: 0; transform: translateY(-0.5rem); }
-  to { opacity: 1; transform: none; }
+/* Motion helpers. Glows are plain elements GSAP animates; with no script they rest at their CSS state. */
+.diya-glow {
+  position: absolute; width: 4.5%; aspect-ratio: 1; translate: -50% -50%; border-radius: 50%; pointer-events: none;
+  background: radial-gradient(circle, rgb(255 214 120 / 0.85) 0%, rgb(255 170 60 / 0.35) 40%, transparent 70%);
+  mix-blend-mode: screen; opacity: 0.75;
 }
-.ticker-new { animation: ticker-in var(--dur-long) var(--ease-out); }
+.sheen { position: absolute; inset: 0; pointer-events: none; overflow: hidden; border-radius: inherit; }
+.sheen-bar {
+  content: ""; position: absolute; inset: -20% auto -20% 0; width: 40%; translate: -150% 0; transform: skewX(-18deg);
+  background: linear-gradient(90deg, transparent, rgb(255 236 190 / 0.65), transparent);
+}
+
 @media (prefers-reduced-motion: reduce) {
-  .ticker-new { animation: none; }
-  .btn { transition: none; }
+  *, *::before, *::after { animation-duration: 0.01ms !important; animation-iteration-count: 1 !important; transition-duration: 0.01ms !important; scroll-behavior: auto !important; }
 }
 
 @media print {
   .no-print { display: none !important; }
-  body { background: var(--color-paper-2); }
+  body { background: #fff; }
+}
+
+/* Hero planes: every layer is a box in the fg image's own aspect (2880 × 1621), sized and
+ * cropped like object-cover, anchored right and 80% down, so the art and its glows line up. */
+.hero-art { container-type: size; }
+.hero-plane {
+  position: absolute; right: 0; width: max(100cqw, 177.67cqh); aspect-ratio: 2880 / 1621;
+  top: calc((100cqh - max(56.28cqw, 100cqh)) * 0.8);
+}
+
+/* The donate page's pay bar is fixed on phones: keep the footer clear of it. */
+@media (max-width: 767px) {
+  body:has([data-paybar]) footer { padding-bottom: 5.5rem; }
+  html:has([data-paybar]) { scroll-padding-bottom: 6rem; }
 }

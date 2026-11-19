@@ -1,28 +1,22 @@
-import { Hind, Sarpanch, Teko } from "next/font/google";
+import { Mukta, Tiro_Devanagari_Hindi } from "next/font/google";
 
 /**
- * Broadside's three roles, in faces that carry Devanagari as well as Latin:
- * Teko is the condensed gothic for the big lines and figures (Six Caps' role),
- * Sarpanch the slab for heads and the wordmark (Bevan's), Hind the reading
- * face (Archivo Narrow's). Three weights: Hind at 400 and 500, the display faces at 600.
+ * Mukta carries body and UI text in both scripts, in two weights only (400 and
+ * 600: medium falls back to regular, bold to semibold) to keep the font bytes down. Tiro Devanagari Hindi is
+ * for H1 and H2 only (it has a Latin set too, so English pages match).
  */
-export const display = Teko({
+export const body = Mukta({
   subsets: ["devanagari", "latin"],
-  weight: "600",
-  variable: "--font-teko",
+  weight: ["400", "600"],
+  variable: "--font-mukta",
   display: "swap",
 });
 
-export const slab = Sarpanch({
+export const heading = Tiro_Devanagari_Hindi({
   subsets: ["devanagari", "latin"],
-  weight: "600",
-  variable: "--font-sarpanch",
+  weight: "400",
+  variable: "--font-tiro",
   display: "swap",
 });
 
-export const body = Hind({
-  subsets: ["devanagari", "latin"],
-  weight: ["400", "500", "600"],
-  variable: "--font-hind",
-  display: "swap",
-});
+export const fontVariables = `${body.variable} ${heading.variable}`;

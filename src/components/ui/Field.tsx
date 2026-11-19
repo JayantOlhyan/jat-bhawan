@@ -20,11 +20,15 @@ export function Field({
   const hintId = hint ? `${id}-hint` : undefined;
   const errId = error ? `${id}-err` : undefined;
   const describedBy = [hintId, errId].filter(Boolean).join(" ") || undefined;
+  // "(वैकल्पिक)" / "(optional)" is set lighter than the label itself.
+  const m = /^(.*?)\s*(\((?:वैकल्पिक|optional)\))$/i.exec(label);
+  const [main, optional] = m ? [m[1], m[2]] : [label, ""];
   return (
     <div>
       <label htmlFor={id} className="field-label">
-        {label}
-        {required && <span aria-hidden="true" className="text-accent"> *</span>}
+        {main}
+        {optional && <span className="font-normal text-muted"> {optional}</span>}
+        {required && <span aria-hidden="true" className="text-maroon"> *</span>}
       </label>
       {children({ id, "aria-invalid": !!error, "aria-describedby": describedBy, required })}
       {hint && <p id={hintId} className="field-hint">{hint}</p>}
