@@ -35,9 +35,11 @@ export default async function HallPage() {
     <>
       <PageHeader title={t("title")} lead={t("lead")} scene="hall" />
       <div className="container-site grid gap-(--space-2xl) pt-(--space-md) lg:grid-cols-[minmax(0,6fr)_minmax(0,5fr)] lg:gap-(--space-xl)">
-        <section aria-labelledby="details" className="min-w-0 lg:order-1">
-          <PhotoSlot slot="hall" alt={t("photoAlt")} label={t("photo")} jaali preload sizes="(min-width: 1320px) 660px, (min-width: 1024px) 52vw, 100vw" className="aspect-[4/3] w-full shadow-(--shadow-raised)" />
-          <h2 id="details" className="mt-(--space-xl)">{t("detailsTitle")}</h2>
+        {/* Phones: the details come first and the photo follows them (order), so the page's
+            largest paint is text, not a photo still loading; ≥ 768px: photo on top as before. */}
+        <section aria-labelledby="details" className="flex min-w-0 flex-col md:block lg:order-1">
+          <PhotoSlot slot="hall" alt={t("photoAlt")} label={t("photo")} jaali sizes="(min-width: 1320px) 660px, (min-width: 1024px) 52vw, 100vw" className="aspect-[4/3] w-full shadow-(--shadow-raised) max-md:order-1 max-md:mt-(--space-xl)" />
+          <h2 id="details" className="md:mt-(--space-xl)">{t("detailsTitle")}</h2>
           <BrassRule align="start" className="mt-(--space-sm)" />
           <dl className="ledger-rows mt-(--space-md)">
             {details.map(([k, v]) => (
@@ -47,7 +49,7 @@ export default async function HallPage() {
               </div>
             ))}
           </dl>
-          <HallGallery title={t("galleryTitle")} items={gallery} sampleLabel={tc("sampleImage")} closeLabel={tc("close")} />
+          <HallGallery title={t("galleryTitle")} items={gallery} sampleLabel={tc("sampleImage")} closeLabel={tc("close")} className="max-md:order-2" />
         </section>
         <section aria-labelledby="avail" className="min-w-0 lg:order-2">
           <div className="card-raised p-(--space-md) sm:p-(--space-lg)">

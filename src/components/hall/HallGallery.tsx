@@ -23,16 +23,18 @@ export function HallGallery({
   items,
   sampleLabel,
   closeLabel,
+  className = "",
 }: {
   title: string;
   items: GalleryItem[];
   sampleLabel: string;
   closeLabel: string;
+  className?: string;
 }) {
   const [open, setOpen] = useState<GalleryItem | null>(null);
   if (!items.length) return null;
   return (
-    <section aria-labelledby="hall-gallery" className="mt-(--space-xl)">
+    <section aria-labelledby="hall-gallery" className={`mt-(--space-xl) ${className}`}>
       <h2 id="hall-gallery">{title}</h2>
       <BrassRule align="start" className="mt-(--space-sm)" />
       <ul
